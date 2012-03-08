@@ -11,6 +11,9 @@ class WP_Fork {
 
 	function __construct() {
 		add_action( 'init', array( &$this, 'register_cpt' ) );
+		add_action( 'add_meta_boxes', array( &$this, 'add_metaboxes' ) );
+		add_action( 'admin_init', array( &$this, 'handle_fork_callback' ) );
+		add_action( 'admin_init', array( &$this, 'handle_merge_callback' ) );
 	}
 	
 	function register_cpt() {
@@ -38,23 +41,30 @@ class WP_Fork {
 		
 	}
 	
+	function add_metaboxes() {
+		add_meta_box( 'fork', 'Fork', array( &$this, 'fork_metabox' ), 'post', 'side', 'high' );
+		add_meta_box( 'merge', 'Merge', array( &$this, 'merge_metabox' ), 'fork', 'side', 'high' );
+
+	}
+	
 	function fork( $post ) {
-		
-		if ( is_int( $post ) )
-			$post = get_post( $post, ARRAY_A );
 		
 		if ( is_object( $post ) )
 			$post = get_object_vars( $post );
-		
+
 		if ( !is_array( $post ) )
+			$post = get_post( $post, ARRAY_A );
+				
+		if ( !$post )
 			return false;
-		
+					
 		$fork = $this->get_fork_fields( $post );
 		$fork_id = wp_insert_post( $fork );
 		
+		$this->fork_metadata( $post['ID'], $fork_id );
+		$this->fork_taxonomies( $post['ID'], $fork_id );
 		
-		
-		return $fork;
+		return $fork_id;
 		
 	}
 	
@@ -72,7 +82,7 @@ class WP_Fork {
 		return $fork;
 	}
 	
-	function fork_meta( $from_id, $to_id ) {
+	function fork_metadata( $from_id, $to_id ) {
 	
 		if ( !get_post( $from_id ) || !get_post( $to_id ) )
 			return;
@@ -117,6 +127,50 @@ class WP_Fork {
 		}
 		
 		return true;
+	
+	}
+	
+	function fork_metabox( $post ) { ?>
+		<p>
+			<a href="<?php echo esc_url( add_query_arg( 'fork', true ) ); ?>" class="button">Fork</a>
+		</p>
+	<?php
+	}
+	
+	function merge_metabox( $post ) { ?>
+		<p>
+			<a href="<?php echo esc_url( add_query_arg( 'merge', true ) ); ?>" class="button">Merge</a> 
+			<a href="<?php echo esc_url( add_query_arg( 'post', $post->post_parent ) ); ?>">Original</a>
+		</p>
+	<?php
+	}
+	
+	
+	function handle_fork_callback( ) {
+		
+		if ( !isset( $_GET['fork'] ) )
+			return;
+			
+		$fork_id = $this->fork( $_GET['post'] );
+
+		if ( !$fork_id )
+			return;
+			
+		wp_redirect( admin_url( 'post.php?post=' . $fork_id . '&action=edit' ) );
+	
+	}
+
+	function handle_merge_callback( ) {
+		
+		if ( !isset( $_GET['merge'] ) )
+			return;
+			
+		$merge_id = $this->merge( $_GET['post'] );
+
+		if ( !$merge_id )
+			return;
+			
+		wp_redirect( admin_url( 'post.php?post=' . $merge_id . '&action=edit' ) );
 	
 	}
 
