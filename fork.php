@@ -130,6 +130,10 @@ class WP_Fork {
 	
 	}
 	
+	function merge( $fork_id ) {
+	
+	}
+	
 	function fork_metabox( $post ) { ?>
 		<p>
 			<a href="<?php echo esc_url( add_query_arg( 'fork', true ) ); ?>" class="button">Fork</a>
