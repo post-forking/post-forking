@@ -2,10 +2,36 @@
 /*
 Plugin Name: WordPress Post Forking
 Description: Post forking
-Author: Benjamin Balter
+Author: Wired.com
 Version: 0.1
-Author URI: http://ben.balter.com/
+Author URI: http://wired.com/
 */
+
+/* WordPress Post Forking
+ *
+ * ( DESCRIPTION HERE )
+ *
+ * Copyright (C) 2012 Condé Nast
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @copyright 2012
+ * @license GPL v3
+ * @version 0.1
+ * @package post_forking
+ * @author Benjamin J. Balter <ben@balter.com>
+ */
 
 require_once  dirname( __FILE__ ) . '/includes/capabilities.php';
 require_once  dirname( __FILE__ ) . '/includes/options.php';
