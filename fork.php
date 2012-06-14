@@ -22,7 +22,16 @@ class Fork {
 		add_action( 'init', array( &$this, 'register_cpt' ) );
 		add_action( 'init', array( &$this, 'admin_init' ) );
 		add_action( 'init', array( &$this, 'add_post_type_support'), 999  );
+		add_action( 'init', array( &$this, 'l10n'), 5  );
 				
+	}
+	
+	/**
+	 * Init i18n files
+	 * Must be done early on init because they need to be in place when register_cpt is called
+	 */
+	function l10n() {
+		load_plugin_textdomain( 'fork', false, plugin_basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
 	
 	function admin_init() { 
