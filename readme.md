@@ -1,38 +1,48 @@
-Post Forking Prototype
-======================
+Post Forking for WordPress
+==========================
 
-Merging Issues
+Provides users that would not normally be able to edit a post with the ability to submit revisions. This can be users on a site without the `edit_post` or `edit_published_post` capabilities, or can be members of the general public.
+
+Example Use
+-----------
+
+
+
+Terms
+-----
+
+* **Post** - Any WordPress post that uses the `post_content` field, including posts, pages, and custom post types
+* **Fork** - Clone of a post intended for editing without disturbing the parent post
+* **Branch** - Parallel versions of the same parent post, owned by the post author
+* **Merge** - To push a fork's changes back into its parent post
+* **Conflict** - When a post is forked if a given line is changed on the fork, and that same line is subsequently edited on the parent post prior to the merge, the post cannot be automatically merged, and the conflict is presented to the merger to resolve
+
+Under the hood
 --------------
-**How do we merge taxonomy changes?** 
 
-*Example:* 
+Forking a post creates a copy of the most recent version of the post as a "fork" custom post type. Certain fields (e.g., `post_content`, `post_title`) are copied over to the new fork. We also store the revision ID for the revision prior to when the fork was created (see `includes/revisions.php` for more information as to why we store the previous revision). 
 
-1. Post 1 has two tags, "red", and "blue". 
-2. Post 1 is forked into post 2.
-3. Aaron adds the tag "green" to post 2
-4. Brian removes the tag "red" from post 1
+The fork post type has its own capabilities, allowing a user without the ability to edit or publish on the parent post to edit a fork. Once changes have been made, assuming the user does not have the `publish_fork` capability, the user would submit the fork for review (similar to submitting a Pull Request in GitHub parlance) using the normal WordPress moderation system.
 
-How is 2 merged into 1? Do we need to do a three-way merge?
+Publishing a fork (either by the fork author, if they have the capability, or my an editor) triggers the merge itself. The post content of the fork undergoes a three way merge with the base revision and current version of the parent post.
 
-**How do we merge post_meta changes?**
+A fork can have three post statuses:
 
-Same as above, except metadata. 
+1. Draft - The fork is being edited
+1. Pending - The fork has been submitted for publication
+1. Published - The fork has been merged
 
-*Also,* how to tell if single or multiple?
+Note: No user should have the `edit_published_fork` capability. Once published, the fork post_type simply exists to provide a record of the change and allow the author page, to theoretically list contributions by author.
 
-Stuff to figure out
--------------------
+Future Features (Maybe)
+-----------------------
 
-* Spoofing post_types so metaboxes, etc. appear
+* Ability to fork more than just the post_content (e.g., taxonomies, post meta)
 * Appending parent revision history to fork
-* How to handle post_type_supports… opt in? opt out?
-* Interacting with wp_text_diff
-* Forking non-revisioned fields( post_status, post_date, etc. )
-
-Possible Merging Solution
+* Spoofing post_type so metaboxes, etc. appear
+* Merge into WordPress core
+ 
+Forking additional fields
 -------------------------
 
-* Create a new post_type called post_snapshot
-* Copy all post info to the snapshot **and** the fork
-* Do a three way merge to try to resolve conflicts
-* 
+As of this version, the only editable portion of the fork is the `post_content` field. The underlying logic has been built to be easily abstracted to accomidate forking of title, post meta, and taxonomies, but the logic for merging additional fields is not as clean. We'd need to create a snapshot of the post meta or taxonomy terms prior to the fork and then write the logic to do a three way merge of the changes. Complicating things further, for post meta, meta can be a single value or an array, furthing complicating a theoretical merge. Last, post_title would affect post_name which would break in the event of a conflict.

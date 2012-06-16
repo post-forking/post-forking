@@ -42,7 +42,7 @@ require_once dirname( __FILE__ ) . '/includes/revisions.php';
 class Fork {
 
 	public $post_type_support = 'fork'; //key to register when registerign post type support
-	public $fields = array( 'post_title', 'post_content' ); //post fields to map to fork
+	public $fields = array( 'post_title', 'post_content' ); //post fields to map from post to fork
 
 	/**
 	 * Register initial hooks with WordPress core
