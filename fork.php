@@ -9,7 +9,10 @@ Author URI: http://wired.com/
 
 /* WordPress Post Forking
  *
- * ( DESCRIPTION HERE )
+ * Provides users that would not normally be able to edit a post with the ability to submit revisions. 
+ * This can be users on a site without the `edit_post` or `edit_published_post` capabilities, 
+ * or can be members of the general public. Also  allows post authors to edit published posts 
+ * without their changes going appearing publicly until published.
  *
  * Copyright (C) 2012 Condé Nast
  *
