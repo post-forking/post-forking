@@ -31,9 +31,9 @@ class Fork_Merge {
 		
 		$update = array( 
 			'ID' => get_post( $fork_id )->post_parent,
-			'post_content' => $this->get_merged(),
+			'post_content' => $this->get_merged( $fork_id ),
 		);
-		
+
 		return wp_update_post( $update );
 		
 	}
@@ -47,7 +47,8 @@ class Fork_Merge {
 	function get_merged( $fork_id ) {
 		
 		$diff = $this->get_diff( $fork_id );
-		return $diff->mergedOutput( __( 'Fork', 'fork' ), __( 'Current Version', 'fork' ) );
+		$merged = $diff->mergedOutput( __( 'Fork', 'fork' ), __( 'Current Version', 'fork' ) );
+		return implode( "\n", $merged );
 		
 	}
 		
@@ -74,16 +75,17 @@ class Fork_Merge {
 	 */
 	function get_diff( $fork_id ) {
 		
-		if ( $diff = wp_cache_get( $fork_id, 'Fork_Diff' ) )
+		if ( 0 && $diff = wp_cache_get( $fork_id, 'Fork_Diff' ) )
 			return $diff;
 		
 		//grab the three elments
 		$fork = get_post( $fork_id );
 		$parent = $this->parent->revisions->get_parent_revision( $fork_id );
 		$current = $fork->post_parent;
-		
+				
 		//normalize whitespace and convert string -> array
 		foreach ( array( 'fork', 'parent', 'current' ) as $string ) {
+			$$string = get_post( $$string )->post_content;
 			$$string = normalize_whitespace( $$string );
 			$$string = explode( "\n", $$string );
 		}

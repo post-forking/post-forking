@@ -1,5 +1,8 @@
 <?php
-
+/**
+ * Register default roles and capabilities
+ */
+ 
 class Fork_Capabilities {
 
 	public $defaults = array( 
@@ -7,7 +10,7 @@ class Fork_Capabilities {
 			'edit_forks'             => true,
 			'edit_others_forks'      => true,
 			'edit_private_forks'     => true,
-			'edit_published_forks'   => true,
+			'edit_published_forks'   => false,
 			'read_forks'             => true,
 			'read_private_forks'     => true,
 			'delete_forks'           => true,
@@ -17,13 +20,13 @@ class Fork_Capabilities {
 			'publish_forks'          => true,
 		),
 		'subscriber' => array( 
-			'edit_forks'             => false,
+			'edit_forks'             => true,
 			'edit_others_forks'      => false,
 			'edit_private_forks'     => false,
 			'edit_published_forks'   => false,
-			'read_forks'             => false,
+			'read_forks'             => true,
 			'read_private_forks'     => false,
-			'delete_forks'           => false,
+			'delete_forks'           => true,
 			'delete_others_forks'    => false,
 			'delete_private_forks'   => false,
 			'delete_published_forks' => false,

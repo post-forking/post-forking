@@ -41,12 +41,13 @@ require_once dirname( __FILE__ ) . '/includes/options.php';
 require_once dirname( __FILE__ ) . '/includes/admin.php';
 require_once dirname( __FILE__ ) . '/includes/merge.php';
 require_once dirname( __FILE__ ) . '/includes/revisions.php';
+require_once dirname( __FILE__ ) . '/includes/branches.php';
 
 class Fork {
 
 	public $post_type_support = 'fork'; //key to register when registerign post type support
 	public $fields = array( 'post_title', 'post_content' ); //post fields to map from post to fork
-
+	public $version = '1.0';
 	/**
 	 * Register initial hooks with WordPress core
 	 */
@@ -54,11 +55,15 @@ class Fork {
 	
 		$this->capabilities = new Fork_Capabilities( &$this );
 		$this->options = new Fork_Options( &$this );
+		$this->branches = new Fork_Branches( &$this );
 
 		add_action( 'init', array( &$this, 'register_cpt' ) );
 		add_action( 'init', array( &$this, 'admin_init' ) );
 		add_action( 'init', array( &$this, 'add_post_type_support'), 999  );
 		add_action( 'init', array( &$this, 'l10n'), 5  );
+		
+		add_filter( 'the_title', array( &$this, 'title_filter'), 10, 3 );
+		add_action( 'delete_post', array( &$this, 'delete_post' ) );
 				
 	}
 	
@@ -145,13 +150,16 @@ class Fork {
 	 * All post types will be included
 	 * @return array an array of post types and their forkability
 	 */
-	function get_post_types() {
+	function get_post_types( $filter = false ) {
 		
 		$active_post_types = $this->options->post_types;
 		$post_types = array();
 
 		foreach ( $this->get_potential_post_types() as $pt )
 			$post_types[ $pt->name ] = ( array_key_exists( $pt->name, (array) $active_post_types ) && $active_post_types[ $pt->name ] );
+			
+		if ( $filter )
+			$post_types = array_keys( array_filter( $post_types ) );
 
 		return  $post_types;
 		
@@ -188,15 +196,13 @@ class Fork {
 	 */
 	function user_has_fork( $parent_id = null, $author = null ) {
 		
-		if ( is_int( $author ) )
-			$author = get_user_by( 'ID', $author )->user_nicename;
-		
 		if ( $author == null )
 			$author = wp_get_current_user()->nicename;
 		
 		$args = array( 
 			'post_type' => 'fork',
 			'post_author' => $author,
+			'post_status' => array( 'draft', 'pending' ),
 		);
 		
 		if ( $parent_id != null )
@@ -239,10 +245,7 @@ class Fork {
 			return false;
 		
 		if ( $author == null )
-			$author = wp_get_current_user()->user_nicename;
-			
-		if ( is_int( $author ) )
-			$author = get_user_by( 'ID', $author )->user_nicename;
+			$author = wp_get_current_user()->ID;
 		
 		//user already has a fork, just return the existing ID
 		if ( $fork = $this->user_has_fork( $p->ID, $author ) )
@@ -267,12 +270,89 @@ class Fork {
 			return false;
 		
 		//store previous revision as post_meta
-		update_post_meta( $fork_id, $this->previous_revision_key, $this->get_previous_post_revision( $p ) );
+		update_post_meta( $fork_id, $this->revisions->previous_revision_key, $this->revisions->get_previous_post_revision( $p ) );
 		
 		return $fork_id;
 		
 	}
 	
+	function get_forks( $args = array() ) {
+		
+		$args['post_type'] = 'fork';
+		
+		return get_posts( $args );
+		
+	}
+	
+	
+	function get_parent_name( $fork = null ) {
+		global $post;
+		
+		if ( $fork == null )
+			$fork = $post;
+		
+		if ( !is_object( $fork ) )
+			$fork = get_post( $fork );
+			
+		if ( !$fork )
+			return;
+			
+		$parent = get_post( $fork->post_parent );
+		
+		$author = get_user_by( 'id', $parent->post_author );
+		
+		$name =  $author->user_nicename . ' &#187; ';
+		$name .= get_the_title( $parent );
+		
+		return $name;
+		
+	}
+	
+	function get_fork_name( $fork = null ) {
+		global $post;
+		
+		if ( $fork == null )
+			$fork = $post;
+		
+		if ( !is_object( $fork ) )
+			$fork = get_post( $fork );
+			
+		if ( !$fork )
+			return;
+		
+		$author = new WP_User( $fork->post_author );
+		$parent = get_post( $fork->post_parent );
+		
+		$name = $author->user_nicename . ' &#187; ';
+		remove_filter( 'the_title', array( &$this, 'title_filter'), 10, 3 );
+		$name .= get_the_title( $parent->ID );
+		add_filter( 'the_title', array( &$this, 'title_filter'), 10, 3 );
+
+		return $name;	
+		
+	}
+ 	
+ 	function title_filter( $title, $id ) {
+ 		
+ 		if ( get_post_type( $id ) != 'fork' )
+ 			return $title;
+ 			
+ 		return $this->get_fork_name( $id );			
+	 	
+	 	
+ 	}
+ 	
+ 	function delete_post( $post_id ) {
+	 	
+	 	//post delete
+	 	if ( !get_post( $post_id ) )
+	 		return;
+	 	
+	 	foreach( $this->get_forks( array( 'post_parent' => $post_id ) ) as $fork )
+	 		wp_delete_post( $fork->ID );
+	 	
+ 	}
+ 	
 }
 
 $fork = new Fork();
