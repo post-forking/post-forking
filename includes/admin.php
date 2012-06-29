@@ -15,7 +15,6 @@ class Fork_Admin {
 		add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
 		add_action( 'admin_init', array( &$this, 'fork_callback' ) );
 		add_action( 'admin_init', array( &$this, 'merge_callback' ) );
-		add_action( 'transition_post_status', array( &$this, 'intercept_publish' ), 10, 3 );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue' ) );
 		add_filter( 'post_row_actions', array( &$this, 'row_actions' ), 10, 2 );
 		
@@ -94,24 +93,6 @@ class Fork_Admin {
 	}
 	
 	/**
-	 * Intercept the publish action and merge forks into their parent posts
-	 */
-	function intercept_publish( $old, $new, $post ) {
-	
-		if ( wp_is_post_revision( $post ) )
-			return;
-						
-		if ( $post->post_type != 'fork' )
-			return;
-			
-		if ( $new != 'new' )
-			return;
-			
-		$this->parent->merge->merge( $post->ID );
-				
-	}
-	
-	/**
 	 * Registers update messages
 	 * @param array $messages messages array
 	 * @returns array messages array with fork messages
@@ -163,5 +144,7 @@ class Fork_Admin {
 		return $actions;
 		
 	}
+	
+
 	
 }

@@ -140,27 +140,27 @@ Class Fork_Revisions {
 	
 		//grab the previous revision ID
 		$previous = $this->get_previous_revision( $p );
-		
+
 		//no previous revisions exist, just use the actual post
 		if ( $previous == $p->post_parent )
 			return $p->post_parent;
 		
 		//get an array of revision objects, in order ASC so we can find the next sequential revision
 		$revisions = wp_get_post_revisions( $p->post_parent, array( 'order' => 'ASC' ) );
-		
+	
 		//build an array of Index => revision_id to make it easier to increment
 		$indicies = array_keys( $revisions );
-		
+
 		//index of our actual parent revision
 		$actual = array_search( $previous, $indicies ) + 1;
 		
 		//our revision is the latest revision, so we actually want to look at the post itself
 		if ( !isset( $indicies[ $actual ] ) )
 			return $p->post_parent;
-		
+	
 		//return parent revision ID
 		$parent = $indicies[ $actual ];
-		return $parent->ID;
+		return $parent;
 			
 	}
 

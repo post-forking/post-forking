@@ -11,19 +11,19 @@ class Fork_Diff {
 	function __construct( &$parent ) {
 		
 		$this->parent = &$parent;
-		add_action( 'load-revision.php', array( &$this, 'revision_spoof' ) );
+		add_action( 'load-revision.php', array( &$this, 'spoof_revision' ) );
 		
 	}
 
 	/**
 	 * /wp-admin/revision.php checks that the thing we're comparing is a "revision"
-	 * When comparing a fork to a post, prime the post cache with a modified version of the fork
+	 * When comparing a fork to a post, prime the object cache with a modified version of the fork
 	 * so that revision.php grabs the post from cache, it thinks it's a revision
 	 *
 	 * Note: this only fires on revision.php, per the hook
 	 *
 	 */
-	function revision_spoof() {
+	function spoof_revision() {
 
 		$post = (int) $_GET['right'];
 		$post = get_post( $post );
@@ -33,7 +33,7 @@ class Fork_Diff {
 	
 		$post->post_type = 'revision';
 		wp_cache_set( $post->ID, $post, 'posts' );
-		wp_cache_set( 'spoofed_revision', $post->ID, 'fork' );
+		wp_cache_set( 'spoofed_revision', $post, 'fork' );
 		
 		add_action( 'shutdown', array( &$this, 'unspoof_revision' ) );
 		
@@ -44,7 +44,7 @@ class Fork_Diff {
 	 * the site has persistent cache, unspoof the post prior to shutdown, so that the cache is 
 	 * acurate on subsequent page loads.
 	 *
-	 * Note: this only fires when revision_spoof() was fired on a page
+	 * Note: this only fires when spoof_revision() was fired on a page
 	 *
 	 */
 	function unspoof_revision() {
@@ -53,11 +53,11 @@ class Fork_Diff {
 		
 		if ( !$post || !is_object( $post ) )
 			return;
-			
-		$post = get_post( $post->ID );
+
 		$post->post_type = 'fork';
 
 		wp_cache_set( $post->ID, $post, 'posts' );
+		wp_cache_delete( 'spoofed_revision', 'fork' ); //in case we have a persistent cache
 		
 	}
 	
