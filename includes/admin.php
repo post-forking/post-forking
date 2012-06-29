@@ -18,7 +18,7 @@ class Fork_Admin {
 		add_action( 'transition_post_status', array( &$this, 'intercept_publish' ), 10, 3 );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue' ) );
 		add_filter( 'post_row_actions', array( &$this, 'row_actions' ), 10, 2 );
-
+		
 	}
 	
 	/**
@@ -163,6 +163,5 @@ class Fork_Admin {
 		return $actions;
 		
 	}
-	
 	
 }

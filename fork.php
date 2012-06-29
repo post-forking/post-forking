@@ -42,6 +42,7 @@ require_once dirname( __FILE__ ) . '/includes/admin.php';
 require_once dirname( __FILE__ ) . '/includes/merge.php';
 require_once dirname( __FILE__ ) . '/includes/revisions.php';
 require_once dirname( __FILE__ ) . '/includes/branches.php';
+require_once dirname( __FILE__ ) . '/includes/diff.php';
 
 class Fork {
 
@@ -86,6 +87,7 @@ class Fork {
 		$this->admin = new Fork_Admin( &$this );
 		$this->revisions = new Fork_Revisions( &$this );
 		$this->merge = new Fork_Merge( &$this );
+		$this->diff = new Fork_Diff( &$this );
 	     
 	}
 	
