@@ -17,6 +17,7 @@ class Fork_Admin {
 		add_action( 'admin_init', array( &$this, 'merge_callback' ) );
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue' ) );
 		add_filter( 'post_row_actions', array( &$this, 'row_actions' ), 10, 2 );
+		add_filter( 'page_row_actions', array( &$this, 'row_actions' ), 10, 2 );
 		
 	}
 	
@@ -136,10 +137,14 @@ class Fork_Admin {
 	 * Add additional actions to the post row view
 	 */
 	function row_actions( $actions, $post ) {
-		
+
 		$label = ( $this->parent->branches->can_branch ( $post ) ) ? __( 'Create new branch', 'fork' ) : __( 'Fork', 'fork' );
 		
-		$actions[] = '<a href="' . admin_url( "?fork={$post->ID}" ) . '">' . $label . '</a>';
+		if ( get_post_type( $post ) != 'fork' )
+			$actions[] = '<a href="' . admin_url( "?fork={$post->ID}" ) . '">' . $label . '</a>';
+		
+		if ( get_post_type( $post ) == 'fork' )
+			$actions[] = '<a href="' . admin_url( "revision.php?action=diff&left={$post->post_parent}&right={$post->ID}" ) . '">' . __( 'Compare', 'fork' ) . '</a>';
 		
 		return $actions;
 		

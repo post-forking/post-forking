@@ -124,6 +124,7 @@ class Fork {
 	        'query_var'           => true,
 	        'can_export'          => true,
 	        'rewrite'             => true,
+	        'map_meta_cap'        => true,
 	        'capability_type'     => 'fork',
 	    );
 	
