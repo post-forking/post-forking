@@ -7,6 +7,7 @@
 class Fork_Merge {
 	
 	public $ttl = 1; //super-short TTL means we cache within page load, but don't ever hit persistant cache
+	public $conflict_meta = '_conflict_marked';
 	
 	function __construct( &$parent ) {
 		
@@ -31,11 +32,23 @@ class Fork_Merge {
 	 * Merges a fork's content back into its parent post
 	 * @param int $fork_id the ID of the fork to merge
 	 */
-	function merge( $fork_id ) {
+	function merge( $fork ) {
+	
+		if ( !is_object( $fork ) )
+			$fork = get_post( $fork );
+	
+		if ( $this->has_conflict_markup( $fork ) )
+			return false;
+			
+		if ( !current_user_can( 'publish_fork' ) )
+			wp_die( __( 'You are not authorized to merge forks', 'fork' ) );
+			
+		if ( !current_user_can( 'edit_post', $fork->post_parent ) )
+			wp_die( __( 'You are not authorized to edit the parent post', 'fork' ) );
 			
 		$update = array( 
-			'ID' => get_post( $fork_id )->post_parent,
-			'post_content' => $this->get_merged( $fork_id ),
+			'ID' => $fork->post_parent,
+			'post_content' => $this->get_merged( $fork ),
 		);
 
 		return wp_update_post( $update );
@@ -64,9 +77,9 @@ class Fork_Merge {
 	function is_conflicted( $fork ) {
 		
 		$diff = $this->get_diff( $fork );
-		
-		foreach ( $diff->_lines as $line )
-			if ( $line->isConflict() )
+	
+		foreach ( $diff->_edits as $edit ) 
+			if ( $edit->isConflict() )
 				return true;
 		
 		return false;
@@ -121,14 +134,31 @@ class Fork_Merge {
 		//not publishing
 		if ( $post['post_status'] != 'publish' )
 			return $post;
+
+		//never let a user publish conflict markup	
+		if ( $this->has_conflict_markup( $post ) ) {
+			$post['post_status'] = 'draft';
+			add_filter( 'redirect_post_location', array( &$this, 'redirect_message_filter' ) );
+			return $post;
+		}
 		
 		//not conflicted, no need to do anything here, let the merge go through
 		if ( !$this->is_conflicted( (object) $postarr ) )
 			return $post;
-			
+
+		//we've previously flagged the conflict, they've resolved it, let it go through
+		if ( (bool) get_post_meta( $postarr['ID'], $this->conflict_meta, true ) ) {
+			delete_post_meta( $postarr['ID'], $this->conflict_meta );
+			return $post;
+		}
+
 		$post['post_content'] = $this->get_merged( (object) $postarr );
 		$post['post_status'] = 'draft';
 		
+		//mark that it's conflicted, so on subsequent publish (resolved) we can force
+		add_post_meta( $postarr['ID'], $this->conflict_meta, true );
+
+		add_filter( 'redirect_post_location', array( &$this, 'redirect_message_filter' ) );
 		return $post;
 		
 	}
@@ -141,13 +171,24 @@ class Fork_Merge {
 			
 		if ( get_post_type( $post ) != 'fork' )
 			return;
-			
-		if ( !$this->is_conflicted( $post->ID ) )
+
+		if ( !$this->has_conflict_markup( $post ) )
 			return;
-		
+	
 		$this->parent->template( 'conflict-warning' );
-		
+				
 	}	
+	
+	function redirect_message_filter( $url ) {
+
+		$args = wp_parse_args( $url );
+		
+		if ( !isset( $args['message'] ) )
+			return $url;
+			
+		return remove_query_arg( 'message', $url );
+		
+	}
 	
 	/**
 	 * Intercept the publish action and merge forks into their parent posts
@@ -166,6 +207,20 @@ class Fork_Merge {
 		$post = $this->merge( $post->ID );
 		wp_safe_redirect( admin_url( "post.php?action=edit&post={$post}&message=6" ) );
 		exit();
+		
+	}
+	
+	/**
+	 * Check if the fork has conflict markup
+	 */
+	function has_conflict_markup( $fork ) {
+
+		if ( !is_object( $fork ) )
+			$fork = get_post( $fork );
+		
+		$pattern = sprintf( '#\<\<\<\<\<\<\<|\>\>\>\>\>\>\>|&lt;&lt;&lt;&lt;&lt;&lt;&lt;|&gt;&gt;&gt;&gt;&gt;&gt;&gt;#s', __( 'Fork', 'fork' ), __( 'Current Version', 'fork' ) );
+
+		return (bool) preg_match( $pattern, $fork->post_content );
 		
 	}
 	

@@ -18,6 +18,9 @@ class Fork_Capabilities {
 			'delete_private_forks'   => true,
 			'delete_published_forks' => true,
 			'publish_forks'          => true,
+			'fork_post'              => true,
+			'branch_post'            => true,
+
 		),
 		'subscriber' => array( 
 			'edit_fork'              => true,
@@ -31,6 +34,7 @@ class Fork_Capabilities {
 			'delete_private_forks'   => false,
 			'delete_published_forks' => false,
 			'publish_forks'          => false,
+			'fork_post'              => true,
 		),
 	);
 

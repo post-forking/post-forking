@@ -142,7 +142,8 @@ class Fork {
 		if ( !$template )
 			return false;
 			
-		$path = "templates/{$template}.php";
+		$path = dirname( __FILE__ ) . "templates/{$template}.php";
+		$path = apply_filters( 'fork_template', $path, $template );
  
 		include $path;
 		
@@ -151,6 +152,7 @@ class Fork {
 	/**
 	 * Returns an array of post type => bool to indicate whether the post type(s) supports forking
 	 * All post types will be included
+	 * @param bool $filter whether to return all post types (false) or just the ones toggled (true)
 	 * @return array an array of post types and their forkability
 	 */
 	function get_post_types( $filter = false ) {
@@ -163,6 +165,8 @@ class Fork {
 			
 		if ( $filter )
 			$post_types = array_keys( array_filter( $post_types ) );
+			
+		$post_type = apply_filters( 'fork_post_types', $post_types, $filter );
 
 		return  $post_types;
 		
@@ -250,6 +254,15 @@ class Fork {
 		if ( $author == null )
 			$author = wp_get_current_user()->ID;
 		
+		//bad post type, enable via forks->options
+		if ( !post_type_supports( $p->post_type, $this->post_type_support ) )
+			wp_die( __( 'That post type does not support forking', 'fork' ) );
+			
+		//hook into this cap check via map_meta cap
+		// for custom capabilities
+		if ( !user_can( $author, 'fork_post', $p ) )
+			wp_die( __( 'You are not authorized to fork that post', 'fork' ) );
+		
 		//user already has a fork, just return the existing ID
 		if ( $fork = $this->user_has_fork( $p->ID, $author ) )
 			return $fork;
@@ -271,23 +284,36 @@ class Fork {
 		//something went wrong
 		if ( !$fork_id )
 			return false;
-		
-		//store previous revision as post_meta
-		update_post_meta( $fork_id, $this->revisions->previous_revision_key, $this->revisions->get_previous_post_revision( $p ) );
+			
+		//note: $p = parent post object
+		do_action( 'fork', $fork_id, $p, $author );
 		
 		return $fork_id;
 		
 	}
 	
+	/**
+	 * Wrapper for get_post that auto-adds the argument post_type => 'fork'
+	 * Also applies a filter, which is used consistently internally, to batch filter plugin behavior
+	 * @param array $args the arguments you'd normally pass to get_posts
+	 * @param array array of post objects
+	 */
 	function get_forks( $args = array() ) {
 		
 		$args['post_type'] = 'fork';
 		
-		return get_posts( $args );
+		$forks = get_posts( $args );
+		$forks = apply_filters( 'forks_query', $forks );
+		
+		return $forks;
 		
 	}
 	
-	
+	/**
+	 * Given a fork, gets the name of the parent post
+	 * @param int|object $fork the fork ID or or object (optional, falls back to global $post)
+	 * @return string the name of the parent post
+	 */
 	function get_parent_name( $fork = null ) {
 		global $post;
 		
@@ -311,6 +337,11 @@ class Fork {
 		
 	}
 	
+	/**
+	 * Given a fork, returns the true name of the fork, filterless
+	 * @param int|object $fork the fork ID or or object (optional, falls back to global $post)
+	 * @return string the name of the fork
+	 */
 	function get_fork_name( $fork = null ) {
 		global $post;
 		
@@ -335,6 +366,12 @@ class Fork {
 		
 	}
  	
+ 	/**
+ 	 * Filter fork titles
+ 	 * @param string $title the post title
+ 	 * @param int $id the post ID
+ 	 * @return string the modified post title
+ 	 */
  	function title_filter( $title, $id ) {
  		
  		if ( get_post_type( $id ) != 'fork' )
@@ -345,6 +382,10 @@ class Fork {
 	 	
  	}
  	
+ 	/**
+ 	 * WHen post is deleted, delete posts
+ 	 * @param int $post_id the parent post
+ 	 */
  	function delete_post( $post_id ) {
 	 	
 	 	//post delete

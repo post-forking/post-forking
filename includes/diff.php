@@ -32,9 +32,11 @@ class Fork_Diff {
 			return;
 	
 		$post->post_type = 'revision';
+		$post->post_modified_gmt = get_post( $post->post_parent )->post_modified_gmt;
+
 		wp_cache_set( $post->ID, $post, 'posts' );
 		wp_cache_set( 'spoofed_revision', $post, 'fork' );
-		
+
 		add_action( 'shutdown', array( &$this, 'unspoof_revision' ) );
 		
 	}
@@ -118,11 +120,16 @@ if ( !function_exists( 'wp_text_diff' ) ) :
 
 		if ( !class_exists( 'WP_Text_Diff_Renderer_Table' ) )
 			require( ABSPATH . WPINC . '/wp-diff.php' );
-		
+
 		//begin fork edit
 		global $fork;
-		if ( $args['fork'] )
-			$right_lines = $fork->merge->get_merged( $args['fork'] );
+		if ( $args['fork'] ) {
+			global $fork;
+			$parent = $fork->revisions->get_previous_revision( $args['fork'] );
+			var_dump( $parent ); die();
+			$left_lines = get_post( $parent )->post_content;
+		}
+		
 		//end edit
 	
 		$left_string  = normalize_whitespace($left_string);

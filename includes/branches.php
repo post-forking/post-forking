@@ -9,6 +9,9 @@
  
 class Fork_Branches {
 
+	/**
+	 * Hook into WP API
+	 */
 	function __construct( &$parent ) {
 		$this->parent = &$parent;
 	}
@@ -51,9 +54,30 @@ class Fork_Branches {
 
 		if ( !$p || !$user )
 			return false;
-			
-		return ( $p->post_author == $user->ID );
 		
+		if ( !current_user_can( $user, 'branch_post', $p ) )
+			return false;
+			
+		return true;
+									
+	}
+	
+	/**
+	 * Filterable way to check if a user can branch a given post
+	 * By default, just checks to see if a post is the user's post
+	 * but capability plugins can hook in here, e.g., make multiple authors for a post
+	 * post editors, etc.
+	 */ 
+	function fork_post_filter( $caps, $cap, $user_id, $p ) {
+		
+		if ( $cap != 'branch_post' )
+			return;
+		
+		if ( $p->post_author == $user_id )
+			$cap[] = 'branch_others_post';
+			
+		return $caps;
+					
 	}
 	
 	/**
@@ -78,7 +102,8 @@ class Fork_Branches {
 	}
 	
 	/**
-	 * Render branch dropdown
+	 * Callback to Render branch dropdown
+	 * @param object the post object
 	 */
 	function branches_dropwdown( $post ) {
 		

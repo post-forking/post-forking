@@ -18,6 +18,8 @@ class Fork_Admin {
 		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue' ) );
 		add_filter( 'post_row_actions', array( &$this, 'row_actions' ), 10, 2 );
 		add_filter( 'page_row_actions', array( &$this, 'row_actions' ), 10, 2 );
+		add_action( 'admin_ajax_fork', array( &$this, 'ajax' ) );
+		add_action( 'admin_ajax_fork_merge', array( &$this, 'ajax' ) );
 		
 	}
 	
@@ -41,9 +43,7 @@ class Fork_Admin {
 	 * Callback to listen for the primary fork action
 	 */
 	function fork_callback() {
-	
-		//@TODO CAP CHECK
-		
+
 		if ( !isset( $_GET['fork'] ) )
 			return;
 			
@@ -90,7 +90,10 @@ class Fork_Admin {
 	 * Callback to render fork meta box
 	 */
 	function fork_meta_box( $post ) {
-		$this->parent->template( 'fork-meta-box', compact( 'post' ) );		
+	
+		$parent = $this->parent->revisions->get_previous_revision( $post );
+
+		$this->parent->template( 'fork-meta-box', compact( 'post', 'parent' ) );		
 	}
 	
 	/**
@@ -142,11 +145,34 @@ class Fork_Admin {
 		
 		if ( get_post_type( $post ) != 'fork' )
 			$actions[] = '<a href="' . admin_url( "?fork={$post->ID}" ) . '">' . $label . '</a>';
-		
+
+		$parent = $this->parent->revisions->get_previous_revision( $post );
+
 		if ( get_post_type( $post ) == 'fork' )
-			$actions[] = '<a href="' . admin_url( "revision.php?action=diff&left={$post->post_parent}&right={$post->ID}" ) . '">' . __( 'Compare', 'fork' ) . '</a>';
+			$actions[] = '<a href="' . admin_url( "revision.php?action=diff&left={$parent}&right={$post->ID}" ) . '">' . __( 'Compare', 'fork' ) . '</a>';
 		
 		return $actions;
+		
+	}
+	
+	/**
+	 * Callback to handle ajax forks
+	 * Note: Will output 0 on failure, 
+	 */
+	function ajax() {
+	
+		foreach ( array( 'post', 'author', 'action' ) as $var )
+			$$var = ( isset( $_GET[$var] ) ) ? $_GET[$var] : null;
+		
+		if ( $action == 'merge' )
+			$result = $this->parent->merge->merge( $post, $author );
+		else 
+			$result = $this->parent->fork( $post, $author );
+		
+		if ( $result == false )
+			$result = -1;
+		
+		die( $result );		
 		
 	}
 	

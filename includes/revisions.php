@@ -16,6 +16,24 @@ Class Fork_Revisions {
 
 	public $previous_revision_key = '_previous_revision'; //post_meta field to hold previous revision of fork's parent
 	
+	function __construct() {
+		
+		add_action( 'fork', array( &$this, 'store_previous_revision' ), 10, 2 );
+		
+	}
+	
+	/**
+	 * When post is forked, store previous revision as post meta
+	 * @param int $fork_id the ID of the new fork
+	 * @param object $parent the parent post object
+	 * @return bool|int the result of the post meta update
+	 */
+	function store_previous_revision( $fork_id, $parent ) {
+		
+		return update_post_meta( $fork_id, $this->revisions->previous_revision_key, $this->revisions->get_previous_post_revision( $parent ) );
+		
+	}
+	
 	/**
 	 * Returns the most recent revision of a given post
 	 *
@@ -71,8 +89,8 @@ Class Fork_Revisions {
 			
 		if ( !$p )
 			return false;
-			
-		if ( $p->post_type != 'fork' )
+
+ 		if ( $p->post_type != 'fork' )
 			return _doing_it_wrong( 'get_parent_revision', 'Function only applies to forks, not posts', null );
 
 		//we have a post meta, just return 
