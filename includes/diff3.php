@@ -171,11 +171,11 @@ class Text_Diff3_Op {
     {
         if (!isset($this->_merged)) {
             if ($this->final1 === $this->final2) {
-                $this->_merged = &$this->final1;
+                $this->_merged = $this->final1;
             } elseif ($this->final1 === $this->orig) {
-                $this->_merged = &$this->final2;
+                $this->_merged = $this->final2;
             } elseif ($this->final2 === $this->orig) {
-                $this->_merged = &$this->final1;
+                $this->_merged = $this->final1;
             } else {
                 $this->_merged = false;
             }
@@ -202,8 +202,8 @@ class Text_Diff3_Op_copy extends Text_Diff3_Op {
     function Text_Diff3_Op_Copy($lines = false)
     {
         $this->orig = $lines ? $lines : array();
-        $this->final1 = &$this->orig;
-        $this->final2 = &$this->orig;
+        $this->final1 = $this->orig;
+        $this->final2 = $this->orig;
     }
 
     function merged()
