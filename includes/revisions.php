@@ -84,9 +84,9 @@ Class Fork_Revisions {
 		$this->modified_date = $p->post_modified;
 		
 		//immediately add and remove our filter so it doesn't affect other queries
-		add_filter( 'posts_where', array( &$this, 'revision_date_filter' ) );
+		add_filter( 'posts_where', array( $this, 'revision_date_filter' ) );
 		$revisions = wp_get_post_revisions( $p->post_parent );
-		remove_filter( 'posts_where', array( &$this, 'revision_date_filter' ) );
+		remove_filter( 'posts_where', array( $this, 'revision_date_filter' ) );
 		
 		unset( $this->modified_date );		
 		

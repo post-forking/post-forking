@@ -54,17 +54,17 @@ class Fork {
 	 */
 	function __construct() {
 	
-		$this->capabilities = new Fork_Capabilities( &$this );
-		$this->options = new Fork_Options( &$this );
-		$this->branches = new Fork_Branches( &$this );
+		$this->capabilities = new Fork_Capabilities( $this );
+		$this->options = new Fork_Options( $this );
+		$this->branches = new Fork_Branches( $this );
 
-		add_action( 'init', array( &$this, 'register_cpt' ) );
-		add_action( 'init', array( &$this, 'admin_init' ) );
-		add_action( 'init', array( &$this, 'add_post_type_support'), 999  );
-		add_action( 'init', array( &$this, 'l10n'), 5  );
+		add_action( 'init', array( $this, 'register_cpt' ) );
+		add_action( 'init', array( $this, 'admin_init' ) );
+		add_action( 'init', array( $this, 'add_post_type_support'), 999  );
+		add_action( 'init', array( $this, 'l10n'), 5  );
 		
-		add_filter( 'the_title', array( &$this, 'title_filter'), 10, 3 );
-		add_action( 'delete_post', array( &$this, 'delete_post' ) );
+		add_filter( 'the_title', array( $this, 'title_filter'), 10, 3 );
+		add_action( 'delete_post', array( $this, 'delete_post' ) );
 				
 	}
 	
@@ -84,10 +84,10 @@ class Fork {
 		if ( !is_admin() )
 			return;
 
-		$this->admin = new Fork_Admin( &$this );
-		$this->revisions = new Fork_Revisions( &$this );
-		$this->merge = new Fork_Merge( &$this );
-		$this->diff = new Fork_Diff( &$this );
+		$this->admin = new Fork_Admin( $this );
+		$this->revisions = new Fork_Revisions( $this );
+		$this->merge = new Fork_Merge( $this );
+		$this->diff = new Fork_Diff( $this );
 	     
 	}
 	
@@ -327,9 +327,9 @@ class Fork {
 		$parent = get_post( $fork->post_parent );
 		
 		$name = $author->user_nicename . ' &#187; ';
-		remove_filter( 'the_title', array( &$this, 'title_filter'), 10, 3 );
+		remove_filter( 'the_title', array( $this, 'title_filter'), 10, 3 );
 		$name .= get_the_title( $parent->ID );
-		add_filter( 'the_title', array( &$this, 'title_filter'), 10, 3 );
+		add_filter( 'the_title', array( $this, 'title_filter'), 10, 3 );
 
 		return $name;	
 		

@@ -39,7 +39,7 @@ class Fork_Capabilities {
 	 */
 	function __construct() {
 
-		add_action( 'init', array( &$this, 'add_caps' ) );
+		add_action( 'init', array( $this, 'add_caps' ) );
 
 	}
 
