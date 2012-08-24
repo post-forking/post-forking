@@ -99,12 +99,14 @@ class Fork_Options {
 	/**
 	 * Sanitize options on save
 	 */
-	function sanitize( $options ) {
+	function sanitize( $input ) {
 
-		foreach ( $options['post_types'] as &$post_type )
-			$post_type = ( $post_type == 'on' );
+		$output = array();
+		foreach ( $input['post_types'] as $post_type => $state ) {
+			$output['post_types'][$post_type] = ( $state == 'on' );
+		}
 		
-		return $options;		
+		return $output;		
 	
 	}
 	
