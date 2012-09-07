@@ -59,7 +59,7 @@ class Fork {
 		$this->branches = new Fork_Branches( $this );
 
 		add_action( 'init', array( $this, 'register_cpt' ) );
-		add_action( 'init', array( $this, 'admin_init' ) );
+		add_action( 'init', array( $this, 'action_init' ) );
 		add_action( 'init', array( $this, 'add_post_type_support'), 999  );
 		add_action( 'init', array( $this, 'l10n'), 5  );
 		
@@ -79,7 +79,7 @@ class Fork {
 	/**
 	 * Pseudo-lazy loading of back-end functionality
 	 */
-	function admin_init() { 
+	function action_init() { 
 	
 		if ( !is_admin() )
 			return;
