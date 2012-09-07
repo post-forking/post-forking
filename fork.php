@@ -124,8 +124,8 @@ class Fork {
 			'query_var'		   => true,
 			'can_export'		  => true,
 			'rewrite'			 => true,
-			'map_meta_cap'		=> true,
-			'capability_type'	 => 'fork',
+			// 'map_meta_cap'		=> true, // Neds to be properly implemented, see https://github.com/benbalter/post-forking/issues/10
+			// 'capability_type'	 => 'fork',
 		);
 	
 		register_post_type( 'fork', $args );
