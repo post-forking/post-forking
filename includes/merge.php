@@ -15,7 +15,7 @@ class Fork_Merge {
 		//fire up the native WordPress diff engine
 		$engine = extension_loaded( 'xdiff' ) ? 'xdiff' : 'native';
 		require_once ABSPATH . WPINC . '/wp-diff.php';
-        require_once ABSPATH . WPINC . '/Text/Diff/Engine/' . $engine . '.php';
+		require_once ABSPATH . WPINC . '/Text/Diff/Engine/' . $engine . '.php';
 
 		//init our three-way diff library which extends WordPress's native diff library
 		if ( !class_exists( 'Text_Diff3' ) )

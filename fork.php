@@ -88,7 +88,7 @@ class Fork {
 		$this->revisions = new Fork_Revisions( $this );
 		$this->merge = new Fork_Merge( $this );
 		$this->diff = new Fork_Diff( $this );
-	     
+		 
 	}
 	
 	/**
@@ -96,39 +96,39 @@ class Fork {
 	 */
 	function register_cpt() {
 	
-	    $labels = array( 
-	        'name'               => _x( 'Forks', 'fork' ),
-	        'singular_name'      => _x( 'Fork', 'fork' ),
-	        'add_new'            => _x( 'Add New', 'fork' ),
-	        'add_new_item'       => _x( 'Add New Fork', 'fork' ),
-	        'edit_item'          => _x( 'Edit Fork', 'fork' ),
-	        'new_item'           => _x( 'New Fork', 'fork' ),
-	        'view_item'          => _x( 'View Fork', 'fork' ),
-	        'search_items'       => _x( 'Search Forks', 'fork' ),
-	        'not_found'          => _x( 'No forks found', 'fork' ),
-	        'not_found_in_trash' => _x( 'No forks found in Trash', 'fork' ),
-	        'parent_item_colon'  => _x( 'Parent Fork:', 'fork' ),
-	        'menu_name'          => _x( 'Forks', 'fork' ),
-	    );
+		$labels = array( 
+			'name'			   => _x( 'Forks', 'fork' ),
+			'singular_name'	  => _x( 'Fork', 'fork' ),
+			'add_new'			=> _x( 'Add New', 'fork' ),
+			'add_new_item'	   => _x( 'Add New Fork', 'fork' ),
+			'edit_item'		  => _x( 'Edit Fork', 'fork' ),
+			'new_item'		   => _x( 'New Fork', 'fork' ),
+			'view_item'		  => _x( 'View Fork', 'fork' ),
+			'search_items'	   => _x( 'Search Forks', 'fork' ),
+			'not_found'		  => _x( 'No forks found', 'fork' ),
+			'not_found_in_trash' => _x( 'No forks found in Trash', 'fork' ),
+			'parent_item_colon'  => _x( 'Parent Fork:', 'fork' ),
+			'menu_name'		  => _x( 'Forks', 'fork' ),
+		);
 	
-	    $args = array( 
-	        'labels'              => $labels,
-	        'hierarchical'        => true,
-	        'supports'            => array( 'title', 'editor', 'author', 'revisions' ),
-	        'public'              => true,
-	        'show_ui'             => true,
-	        'show_in_nav_menus'   => false,
-	        'publicly_queryable'  => true,
-	        'exclude_from_search' => true,
-	        'has_archive'         => false,
-	        'query_var'           => true,
-	        'can_export'          => true,
-	        'rewrite'             => true,
-	        'map_meta_cap'        => true,
-	        'capability_type'     => 'fork',
-	    );
+		$args = array( 
+			'labels'			  => $labels,
+			'hierarchical'		=> true,
+			'supports'			=> array( 'title', 'editor', 'author', 'revisions' ),
+			'public'			  => true,
+			'show_ui'			 => true,
+			'show_in_nav_menus'   => false,
+			'publicly_queryable'  => true,
+			'exclude_from_search' => true,
+			'has_archive'		 => false,
+			'query_var'		   => true,
+			'can_export'		  => true,
+			'rewrite'			 => true,
+			'map_meta_cap'		=> true,
+			'capability_type'	 => 'fork',
+		);
 	
-	    register_post_type( 'fork', $args );
+		register_post_type( 'fork', $args );
 	}
 	
 	/** 
