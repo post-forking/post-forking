@@ -5,12 +5,12 @@
  */
 
 class Fork_Admin {
-	
+
 	/**
 	 * Hook into WordPress API on init
 	 */
 	function __construct( &$parent ) {
-		
+
 		$this->parent = &$parent;
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		add_action( 'admin_init', array( $this, 'fork_callback' ) );
@@ -22,23 +22,25 @@ class Fork_Admin {
 		add_action( 'admin_ajax_fork_merge', array( $this, 'ajax' ) );
 
 	}
-	
+
+
 	/**
 	 * Add metaboxes to post edit pages
 	 */
 	function add_meta_boxes() {
-		global $post; 
-		
+		global $post;
+
 		if ( $post->post_status == 'auto-draft' )
 			return;
-	
-		foreach ( $this->parent->get_post_types() as $post_type => $status ) 
+
+		foreach ( $this->parent->get_post_types() as $post_type => $status )
 			add_meta_box( 'fork', 'Fork', array( $this, 'post_meta_box' ), $post_type, 'side', 'high' );
-			
+
 		add_meta_box( 'fork', 'Fork', array( $this, 'fork_meta_box' ), 'fork', 'side', 'high' );
-	
+
 	}
-	
+
+
 	/**
 	 * Callback to listen for the primary fork action
 	 */
@@ -46,56 +48,60 @@ class Fork_Admin {
 
 		if ( !isset( $_GET['fork'] ) )
 			return;
-			
+
 		$fork = $this->parent->fork( (int) $_GET['fork'] );
-		
+
 		if ( !$fork )
 			return;
-			
+
 		wp_redirect( admin_url( "post.php?post=$fork&action=edit" ) );
 		exit();
-		
+
 	}
-	
+
+
 	/**
 	 * Callback to listen for the primary merge action
 	 */
 	function merge_callback() {
-		
+
 		if ( !isset( $_GET['merge'] ) )
 			return;
-			
+
 		$this->parent->merge->merge( (int) $_GET['merge'] );
-	
+
 		exit();
-		
+
 	}
-	
+
+
 	/**
 	 * Callback to render post meta box
 	 */
 	function post_meta_box( $post ) {
-	
+
 		$this->parent->branches->branches_dropwdown( $post );
-	
+
 		if ( $this->parent->branches->can_branch( $post ) )
 			$this->parent->template( 'author-post-meta-box', compact( 'post' ) );
-			
+
 		else
 			$this->parent->template( 'post-meta-box', compact( 'post' ) );
 
 	}
-	
+
+
 	/**
 	 * Callback to render fork meta box
 	 */
 	function fork_meta_box( $post ) {
-	
+
 		$parent = $this->parent->revisions->get_previous_revision( $post );
 
-		$this->parent->template( 'fork-meta-box', compact( 'post', 'parent' ) );		
+		$this->parent->template( 'fork-meta-box', compact( 'post', 'parent' ) );
 	}
-	
+
+
 	/**
 	 * Registers update messages
 	 * @param array $messages messages array
@@ -119,30 +125,32 @@ class Fork_Admin {
 
 		return $messages;
 	}
-	
+
+
 	/**
 	 * Enqueue javascript files on backend
 	 */
 	function enqueue() {
-		
+
 		$post_types = $this->parent->get_post_types( true );
 		$post_types[] = 'fork';
-		
+
 		if ( !in_array( get_current_screen()->post_type, $post_types ) )
 			return;
-		
+
 		$suffix = ( WP_DEBUG ) ? '.dev' : '';
-		wp_enqueue_script( 'fork', plugins_url( "/js/admin{$suffix}.js", dirname( __FILE__ ) ), 'jquery', $this->parent->version, true );			
-	
+		wp_enqueue_script( 'fork', plugins_url( "/js/admin{$suffix}.js", dirname( __FILE__ ) ), 'jquery', $this->parent->version, true );
+
 	}
-	
+
+
 	/**
 	 * Add additional actions to the post row view
 	 */
 	function row_actions( $actions, $post ) {
 
 		$label = ( $this->parent->branches->can_branch ( $post ) ) ? __( 'Create new branch', 'fork' ) : __( 'Fork', 'fork' );
-		
+
 		if ( get_post_type( $post ) != 'fork' )
 			$actions[] = '<a href="' . admin_url( "?fork={$post->ID}" ) . '">' . $label . '</a>';
 
@@ -150,32 +158,33 @@ class Fork_Admin {
 
 		if ( get_post_type( $post ) == 'fork' )
 			$actions[] = '<a href="' . admin_url( "revision.php?action=diff&left={$parent}&right={$post->ID}" ) . '">' . __( 'Compare', 'fork' ) . '</a>';
-		
+
 		return $actions;
-		
+
 	}
-	
+
+
 	/**
 	 * Callback to handle ajax forks
-	 * Note: Will output 0 on failure, 
+	 * Note: Will output 0 on failure,
 	 */
 	function ajax() {
-	
+
 		foreach ( array( 'post', 'author', 'action' ) as $var )
 			$$var = ( isset( $_GET[$var] ) ) ? $_GET[$var] : null;
-		
+
 		if ( $action == 'merge' )
 			$result = $this->parent->merge->merge( $post, $author );
-		else 
+		else
 			$result = $this->parent->fork( $post, $author );
-		
+
 		if ( $result == false )
 			$result = -1;
-		
-		die( $result );		
-		
-	}
-	
 
-	
+		die( $result );
+
+	}
+
+
+
 }

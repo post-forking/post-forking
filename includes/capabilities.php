@@ -20,7 +20,7 @@ class Fork_Capabilities {
 			'publish_forks'          => true,
 			'fork_posts'             => true,
 			'branch_posts'           => true,
-		),							 
+		),
 		'subscriber' => array(
 			'edit_forks'             => true,
 			'edit_others_forks'      => false,
