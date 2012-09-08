@@ -12,15 +12,15 @@ class Fork_Admin {
 	function __construct( &$parent ) {
 		
 		$this->parent = &$parent;
-		add_action( 'add_meta_boxes', array( &$this, 'add_meta_boxes' ) );
-		add_action( 'admin_init', array( &$this, 'fork_callback' ) );
-		add_action( 'admin_init', array( &$this, 'merge_callback' ) );
-		add_action( 'admin_enqueue_scripts', array( &$this, 'enqueue' ) );
-		add_filter( 'post_row_actions', array( &$this, 'row_actions' ), 10, 2 );
-		add_filter( 'page_row_actions', array( &$this, 'row_actions' ), 10, 2 );
-		add_action( 'admin_ajax_fork', array( &$this, 'ajax' ) );
-		add_action( 'admin_ajax_fork_merge', array( &$this, 'ajax' ) );
-		
+		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
+		add_action( 'admin_init', array( $this, 'fork_callback' ) );
+		add_action( 'admin_init', array( $this, 'merge_callback' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue' ) );
+		add_filter( 'post_row_actions', array( $this, 'row_actions' ), 10, 2 );
+		add_filter( 'page_row_actions', array( $this, 'row_actions' ), 10, 2 );
+		add_action( 'admin_ajax_fork', array( $this, 'ajax' ) );
+		add_action( 'admin_ajax_fork_merge', array( $this, 'ajax' ) );
+
 	}
 	
 	/**
@@ -33,9 +33,9 @@ class Fork_Admin {
 			return;
 	
 		foreach ( $this->parent->get_post_types() as $post_type => $status ) 
-			add_meta_box( 'fork', 'Fork', array( &$this, 'post_meta_box' ), $post_type, 'side', 'high' );
+			add_meta_box( 'fork', 'Fork', array( $this, 'post_meta_box' ), $post_type, 'side', 'high' );
 			
-		add_meta_box( 'fork', 'Fork', array( &$this, 'fork_meta_box' ), 'fork', 'side', 'high' );
+		add_meta_box( 'fork', 'Fork', array( $this, 'fork_meta_box' ), 'fork', 'side', 'high' );
 	
 	}
 	

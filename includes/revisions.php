@@ -102,9 +102,9 @@ Class Fork_Revisions {
 		$this->modified_date = $p->post_modified;
 		
 		//immediately add and remove our filter so it doesn't affect other queries
-		add_filter( 'posts_where', array( &$this, 'revision_date_filter' ) );
+		add_filter( 'posts_where', array( $this, 'revision_date_filter' ) );
 		$revisions = wp_get_post_revisions( $p->post_parent );
-		remove_filter( 'posts_where', array( &$this, 'revision_date_filter' ) );
+		remove_filter( 'posts_where', array( $this, 'revision_date_filter' ) );
 		
 		unset( $this->modified_date );		
 		
@@ -127,13 +127,14 @@ Class Fork_Revisions {
 	 * @return string the modified where clause
 	 */
 	function revision_date_filter( $where ) {
+		global $wpdb;
 		
 		//if for some reason we didn't get a fork_modified date, sabotage the query
 		// so that we always get false, and are forced to use the post itself
 		if ( empty( $this->modified_date ) )
 			return ' AND WHERE 0 = 1';
 		
-		return $where . " AND post_date < '{$this->fork_modified}'";
+		return $where . $wpdb->prepare( " AND post_date < %s", $this->fork_modified );
 		
 	}
 	

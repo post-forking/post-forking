@@ -11,7 +11,7 @@ class Fork_Diff {
 	function __construct( &$parent ) {
 		
 		$this->parent = &$parent;
-		add_action( 'load-revision.php', array( &$this, 'spoof_revision' ) );
+		add_action( 'load-revision.php', array( $this, 'spoof_revision' ) );
 		
 	}
 
@@ -36,9 +36,8 @@ class Fork_Diff {
 
 		wp_cache_set( $post->ID, $post, 'posts' );
 		wp_cache_set( 'spoofed_revision', $post, 'fork' );
-
-		add_action( 'shutdown', array( &$this, 'unspoof_revision' ) );
-		
+		add_action( 'shutdown', array( $this, 'unspoof_revision' ) );
+				
 	}
 	
 	/**

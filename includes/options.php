@@ -15,8 +15,8 @@ class Fork_Options {
 	function __construct( &$parent ) {
 
 		$this->parent = &$parent;
-		add_action( 'admin_menu', array( &$this, 'register_menu' ) );
-		add_action( 'admin_init', array( &$this, 'register_settings' ) );
+		add_action( 'admin_menu', array( $this, 'register_menu' ) );
+		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		
 	}
 	
@@ -74,7 +74,7 @@ class Fork_Options {
 	 * Register Settings menu
 	 */
 	function register_menu() {
-		add_submenu_page( 'edit.php?post_type=fork', 'Fork Settings', 'Settings', 'manage_options', 'fork_settings', array( &$this, 'options' ) );
+		add_submenu_page( 'edit.php?post_type=fork', 'Fork Settings', 'Settings', 'manage_options', 'fork_settings', array( $this, 'options' ) );
 		
 	}
 	
@@ -83,7 +83,7 @@ class Fork_Options {
 	 */
 	function register_settings() {
 
-		register_setting( 'fork', 'fork', array( &$this, 'sanitize' ) );
+		register_setting( 'fork', 'fork', array( $this, 'sanitize' ) );
 		
 	}
 	
@@ -99,12 +99,14 @@ class Fork_Options {
 	/**
 	 * Sanitize options on save
 	 */
-	function sanitize( $options ) {
+	function sanitize( $input ) {
 
-		foreach ( $options['post_types'] as &$post_type )
-			$post_type = ( $post_type == 'on' );
+		$output = array();
+		foreach ( $input['post_types'] as $post_type => $state ) {
+			$output['post_types'][$post_type] = ( $state == 'on' );
+		}
 		
-		return $options;		
+		return $output;		
 	
 	}
 	

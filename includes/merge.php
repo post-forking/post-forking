@@ -16,15 +16,15 @@ class Fork_Merge {
 		//fire up the native WordPress diff engine
 		$engine = extension_loaded( 'xdiff' ) ? 'xdiff' : 'native';
 		require_once ABSPATH . WPINC . '/wp-diff.php';
-        require_once ABSPATH . WPINC . '/Text/Diff/Engine/' . $engine . '.php';
+		require_once ABSPATH . WPINC . '/Text/Diff/Engine/' . $engine . '.php';
 
 		//init our three-way diff library which extends WordPress's native diff library
 		if ( !class_exists( 'Text_Diff3' ) )
 			require_once dirname( __FILE__ ) . '/diff3.php';	
 	
-		add_filter( 'wp_insert_post_data', array( &$this, 'check_merge_conflict' ), 10, 2 );
-		add_action( 'admin_notices', array( &$this, 'conflict_warning' ) );
-		add_action( 'transition_post_status', array( &$this, 'intercept_publish' ), 10, 3 );
+		add_filter( 'wp_insert_post_data', array( $this, 'check_merge_conflict' ), 10, 2 );
+		add_action( 'admin_notices', array( $this, 'conflict_warning' ) );
+		add_action( 'transition_post_status', array( $this, 'intercept_publish' ), 10, 3 );
 
 	}
 	

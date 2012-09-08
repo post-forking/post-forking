@@ -54,17 +54,17 @@ class Fork {
 	 */
 	function __construct() {
 	
-		$this->capabilities = new Fork_Capabilities( &$this );
-		$this->options = new Fork_Options( &$this );
-		$this->branches = new Fork_Branches( &$this );
+		$this->capabilities = new Fork_Capabilities( $this );
+		$this->options = new Fork_Options( $this );
+		$this->branches = new Fork_Branches( $this );
 
-		add_action( 'init', array( &$this, 'register_cpt' ) );
-		add_action( 'init', array( &$this, 'admin_init' ) );
-		add_action( 'init', array( &$this, 'add_post_type_support'), 999  );
-		add_action( 'init', array( &$this, 'l10n'), 5  );
+		add_action( 'init', array( $this, 'register_cpt' ) );
+		add_action( 'init', array( $this, 'action_init' ) );
+		add_action( 'init', array( $this, 'add_post_type_support'), 999  );
+		add_action( 'init', array( $this, 'l10n'), 5  );
 		
-		add_filter( 'the_title', array( &$this, 'title_filter'), 10, 3 );
-		add_action( 'delete_post', array( &$this, 'delete_post' ) );
+		add_filter( 'the_title', array( $this, 'title_filter'), 10, 3 );
+		add_action( 'delete_post', array( $this, 'delete_post' ) );
 				
 	}
 	
@@ -79,16 +79,16 @@ class Fork {
 	/**
 	 * Pseudo-lazy loading of back-end functionality
 	 */
-	function admin_init() { 
+	function action_init() { 
 	
 		if ( !is_admin() )
 			return;
 
-		$this->admin = new Fork_Admin( &$this );
-		$this->revisions = new Fork_Revisions( &$this );
-		$this->merge = new Fork_Merge( &$this );
-		$this->diff = new Fork_Diff( &$this );
-	     
+		$this->admin = new Fork_Admin( $this );
+		$this->revisions = new Fork_Revisions( $this );
+		$this->merge = new Fork_Merge( $this );
+		$this->diff = new Fork_Diff( $this );
+		 
 	}
 	
 	/**
@@ -96,39 +96,39 @@ class Fork {
 	 */
 	function register_cpt() {
 	
-	    $labels = array( 
-	        'name'               => _x( 'Forks', 'fork' ),
-	        'singular_name'      => _x( 'Fork', 'fork' ),
-	        'add_new'            => _x( 'Add New', 'fork' ),
-	        'add_new_item'       => _x( 'Add New Fork', 'fork' ),
-	        'edit_item'          => _x( 'Edit Fork', 'fork' ),
-	        'new_item'           => _x( 'New Fork', 'fork' ),
-	        'view_item'          => _x( 'View Fork', 'fork' ),
-	        'search_items'       => _x( 'Search Forks', 'fork' ),
-	        'not_found'          => _x( 'No forks found', 'fork' ),
-	        'not_found_in_trash' => _x( 'No forks found in Trash', 'fork' ),
-	        'parent_item_colon'  => _x( 'Parent Fork:', 'fork' ),
-	        'menu_name'          => _x( 'Forks', 'fork' ),
-	    );
+		$labels = array( 
+			'name'			   => _x( 'Forks', 'fork' ),
+			'singular_name'	  => _x( 'Fork', 'fork' ),
+			'add_new'			=> _x( 'Add New', 'fork' ),
+			'add_new_item'	   => _x( 'Add New Fork', 'fork' ),
+			'edit_item'		  => _x( 'Edit Fork', 'fork' ),
+			'new_item'		   => _x( 'New Fork', 'fork' ),
+			'view_item'		  => _x( 'View Fork', 'fork' ),
+			'search_items'	   => _x( 'Search Forks', 'fork' ),
+			'not_found'		  => _x( 'No forks found', 'fork' ),
+			'not_found_in_trash' => _x( 'No forks found in Trash', 'fork' ),
+			'parent_item_colon'  => _x( 'Parent Fork:', 'fork' ),
+			'menu_name'		  => _x( 'Forks', 'fork' ),
+		);
 	
-	    $args = array( 
-	        'labels'              => $labels,
-	        'hierarchical'        => true,
-	        'supports'            => array( 'title', 'editor', 'author', 'revisions' ),
-	        'public'              => true,
-	        'show_ui'             => true,
-	        'show_in_nav_menus'   => false,
-	        'publicly_queryable'  => true,
-	        'exclude_from_search' => true,
-	        'has_archive'         => false,
-	        'query_var'           => true,
-	        'can_export'          => true,
-	        'rewrite'             => true,
-	        'map_meta_cap'        => true,
-	        'capability_type'     => 'fork',
-	    );
+		$args = array( 
+			'labels'			  => $labels,
+			'hierarchical'		=> true,
+			'supports'			=> array( 'title', 'editor', 'author', 'revisions' ),
+			'public'			  => true,
+			'show_ui'			 => true,
+			'show_in_nav_menus'   => false,
+			'publicly_queryable'  => true,
+			'exclude_from_search' => true,
+			'has_archive'		 => false,
+			'query_var'		   => true,
+			'can_export'		  => true,
+			'rewrite'			 => true,
+			// 'map_meta_cap'		=> true, // Neds to be properly implemented, see https://github.com/benbalter/post-forking/issues/10
+			// 'capability_type'	 => 'fork',
+		);
 	
-	    register_post_type( 'fork', $args );
+		register_post_type( 'fork', $args );
 	}
 	
 	/** 
@@ -358,9 +358,9 @@ class Fork {
 		$parent = get_post( $fork->post_parent );
 		
 		$name = $author->user_nicename . ' &#187; ';
-		remove_filter( 'the_title', array( &$this, 'title_filter'), 10, 3 );
+		remove_filter( 'the_title', array( $this, 'title_filter'), 10, 3 );
 		$name .= get_the_title( $parent->ID );
-		add_filter( 'the_title', array( &$this, 'title_filter'), 10, 3 );
+		add_filter( 'the_title', array( $this, 'title_filter'), 10, 3 );
 
 		return $name;	
 		
