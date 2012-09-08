@@ -2,9 +2,10 @@
 /*
 Plugin Name: WordPress Post Forking
 Description: Post forking
-Author: Wired.com
+Author: 
 Version: 0.1
-Author URI: http://wired.com/
+Author URI: 
+Plugin URI: http://postforking.wordpress.com
 */
 
 /* WordPress Post Forking
@@ -14,7 +15,7 @@ Author URI: http://wired.com/
  * or can be members of the general public. Also  allows post authors to edit published posts 
  * without their changes going appearing publicly until published.
  *
- * Copyright (C) 2012 Condé Nast
+ * Copyright (C) 2012
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
