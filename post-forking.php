@@ -204,7 +204,7 @@ class Fork {
 	 * @return int|bool the fork id or false if no fork exists
 	 */
 	function user_has_fork( $parent_id = null, $author = null ) {
-		
+
 		if ( $author == null )
 			$author = wp_get_current_user()->nicename;
 		
@@ -218,7 +218,7 @@ class Fork {
 			$args[ 'post_parent' ] = (int) $parent_id;
 			
 		$posts = get_posts( $args );
-		
+
 		if ( empty( $posts ) )
 			return false;
 			
@@ -246,13 +246,13 @@ class Fork {
 		
 		if ( $p == null )
 			$p = $post;
-			
+		
 		if ( !is_object( $p ) )
 			$p = get_post( $p );
-			
+
 		if ( !$p )
 			return false;
-		
+
 		if ( $author == null )
 			$author = wp_get_current_user()->ID;
 		
@@ -264,11 +264,11 @@ class Fork {
 		// for custom capabilities
 		if ( !user_can( $author, 'fork_posts', $p ) )
 			wp_die( __( 'You are not authorized to fork that post', 'fork' ) );
-		
+
 		//user already has a fork, just return the existing ID
 		if ( $fork = $this->user_has_fork( $p->ID, $author ) )
 			return $fork;
-		
+
 		//set up base fork data array
 		$fork = array( 
 			'post_type' => 'fork',
