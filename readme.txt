@@ -1,4 +1,4 @@
-# Post Forking #
+=== Post Forking ===
 **Contributors:**   
 **Tags:** 
 **Requires at least:** 
@@ -7,7 +7,7 @@
 
 WordPress Post Forking allows users to "fork" or create an alternate version of a WordPress content to foster a more collaborative approach to content curation.
 
-## Description ##
+== Description ==
 
 WordPress Post Forking allows users to "fork" or create an alternate version of a WordPress content to foster a more collaborative approach to content curation. This can be used, for example, to allow external (such as visitors to your site) or internal (such as other authors) users with the ability to submit proposed revisions. It can even be used on smaller or single-author sites to enable post authors to edit published posts without their changes appearing immediately. If you're familiar with Git, or other decentralized version control systems, you're already familiar with WordPress post forking.
 
@@ -79,51 +79,51 @@ The project is licensed under the GNU General Public License v3 or Later
 
  
 
-## Installation ##
+== Installation ==
 
-### Automatic Install ###
+= Automatic Install =
 1. Login to your WordPress site as an Administrator, or if you haven't already, complete the famous [WordPress Five Minute Install](http://codex.wordpress.org/Installing_WordPress)
 2. Navigate to Plugins->Add New from the menu on the left
 3. Search for Post Forking
 4. Click "Install"
 5. Click "Activate Now"
 
-### Manual Install ###
+= Manual Install =
 1. Download the plugin from the link in the top left corner
 2. Unzip the file, and upload the resulting "wp-document-revisions" folder to your "/wp-content/plugins directory" as "/wp-content/plugins/post-forking"
 3. Log into your WordPress install as an administrator, and navigate to the plugins screen from the left-hand menu
 4. Activate Post Forking
 
-## Frequently Asked Questions ##
+== Frequently Asked Questions ==
 
 Please see (and feel free to contribute to) the [Frequently Asked Questions Wiki](https://github.com/benbalter/WP-Resume/wiki/Frequently-Asked-Questions).
 
-## Screenshots ##
+== Screenshots ==
 
 ( SCREENSHOTS HERE )
 
-## Changelog ##
+== Changelog ==
 
-### 0.1 ###
+= 0.1 =
 
-## Upgrade Notice ##
+== Upgrade Notice ==
 
 Coming soon...
 
-## Frequently Asked Questions ##
+== Frequently Asked Questions ==
 
 Please see (and feel free to contribute to) the [Frequently Asked Questions Wiki](https://github.com/benbalter/WP-Resume/wiki/Frequently-Asked-Questions).
 
-## How To Contribute ##
+== How To Contribute ==
 
 Post Forking is an open source project and is supported by the efforts of an entire community. We'd love for you to get involved. Whatever your level of skill or however much time you can give, your contribution is greatly appreciated.
 
 ( calls to action here )
 
-## Upgrade Notice ##
+== Upgrade Notice ==
 
 Coming soon...
 
-## Where To Get Support Or Report An Issue ##
+== Where To Get Support Or Report An Issue ==
 
 info here
