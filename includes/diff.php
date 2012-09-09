@@ -130,7 +130,6 @@ function _wp_text_diff( $left_string, $right_string, $args = null ) {
 	if ( $args['fork'] ) {
 		global $fork;
 		$parent = $fork->revisions->get_previous_revision( $args['fork'] );
-		var_dump( $parent ); die();
 		$left_lines = get_post( $parent )->post_content;
 	}
 
