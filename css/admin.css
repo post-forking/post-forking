@@ -1,0 +1,8 @@
+/* post.php retina/standard icon */
+.icon32-posts-fork{background-position: 0 0 !important; background-image:url('../img/icon32.png') !important;}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+only screen and (-o-min-device-pixel-ratio: 3/2),
+only screen and (min-moz-device-pixel-ratio: 1.5),
+only screen and (min-device-pixel-ratio: 1.5) {
+	.icon32-posts-fork{ background-image:url( '../img/icon64.png' ) !important; background-size:32px 32px !important; }
+}

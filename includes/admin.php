@@ -128,7 +128,7 @@ class Fork_Admin {
 
 
 	/**
-	 * Enqueue javascript files on backend
+	 * Enqueue javascript and css assets on backend
 	 */
 	function enqueue() {
 
@@ -138,8 +138,12 @@ class Fork_Admin {
 		if ( !in_array( get_current_screen()->post_type, $post_types ) )
 			return;
 
+		//js
 		$suffix = ( WP_DEBUG ) ? '.dev' : '';
-		wp_enqueue_script( 'fork', plugins_url( "/js/admin{$suffix}.js", dirname( __FILE__ ) ), 'jquery', $this->parent->version, true );
+		wp_enqueue_script( 'post-forking', plugins_url( "/js/admin{$suffix}.js", dirname( __FILE__ ) ), 'jquery', $this->parent->version, true );
+
+		//css
+		wp_enqueue_style( 'post-forking', plugins_url( '/css/admin.css', dirname( __FILE__ ) ), null, $this->parent->version );
 
 	}
 
