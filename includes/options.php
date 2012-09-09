@@ -8,7 +8,8 @@ class Fork_Options {
 
 	public $parent;
 	public $key = 'fork';
-
+	public $defaults = array( 'post_types' => array( 'post' => true ) );
+	
 	/**
 	 * Hooks
 	 */
@@ -26,10 +27,7 @@ class Fork_Options {
 	 */
 	function __get( $key ) {
 
-		$options = get_option( $this->key );
-
-		if ( !$options )
-			return false;
+		$options = $this->get();
 
 		if ( !isset( $options[ $key ] ) )
 			return false;
@@ -57,8 +55,10 @@ class Fork_Options {
 	 */
 	function get() {
 
-		return get_option( $this->key );
-
+		$options = get_option( $this->key );
+		$options = shortcode_atts( $this->defaults, $options );	
+		return $options;
+			
 	}
 
 
