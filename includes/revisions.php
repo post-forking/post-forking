@@ -31,7 +31,7 @@ class Fork_Revisions {
 	 */
 	function store_previous_revision( $fork_id, $parent ) {
 
-		return update_post_meta( $fork_id, $this->revisions->previous_revision_key, $this->revisions->get_previous_post_revision( $parent ) );
+		return update_post_meta( $fork_id, $this->previous_revision_key, $this->get_previous_post_revision( $parent ) );
 
 	}
 
