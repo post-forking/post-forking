@@ -139,13 +139,13 @@ class Fork {
 	 */
 	function template( $template, $args = array() ) {
 		extract( $args );
-		
+
 		if ( !$template )
 			return false;
 			
-		$path = dirname( __FILE__ ) . "templates/{$template}.php";
+		$path = dirname( __FILE__ ) . "/templates/{$template}.php";
 		$path = apply_filters( 'fork_template', $path, $template );
- 
+
 		include $path;
 		
 	}
