@@ -99,8 +99,7 @@ class Fork_Branches {
 		if ( $p->post_type == 'fork' )
 			$p = get_post( $p->post_parent );
 
-		$args = array( 'post_author' => $p->post_author, 'post_parent' => $p->ID );
-
+		$args = array( 'post_author' => $p->post_author, 'post_parent' => $p->ID, 'post_status' => array( 'draft', 'pending' ) );
 		return $this->parent->get_forks( $args );
 
 	}
