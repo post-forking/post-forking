@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: WordPress Post Forking
+Plugin Name: Post Forking
 Description: Post forking
 Author: 
 Version: 0.1
@@ -8,7 +8,7 @@ Author URI:
 Plugin URI: http://postforking.wordpress.com
 */
 
-/* WordPress Post Forking
+/* Post Forking
  *
  * Provides users that would not normally be able to edit a post with the ability to submit revisions. 
  * This can be users on a site without the `edit_post` or `edit_published_post` capabilities, 
