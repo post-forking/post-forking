@@ -85,7 +85,7 @@ class Fork_Merge {
 			if ( $edit->isConflict() )
 				return true;
 
-			return false;
+		return false;
 
 	}
 

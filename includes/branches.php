@@ -29,8 +29,11 @@ class Fork_Branches {
 			return false;
 
 		$parent = get_post( $fork->post_parent );
+		
+		if ( !$parent )
+			return false;
 
-		return $fork->post_author == $parent->post->author;
+		return $fork->post_author == $parent->post_author;
 
 	}
 
@@ -51,9 +54,6 @@ class Fork_Branches {
 		if ( is_integer( $user ) )
 			$user = get_user_by( 'id', $user );
 
-		if ( is_string( $user ) )
-			$user = get_user_by( 'string', $user );
-
 		if ( !$p || !$user )
 			return false;
 
@@ -73,11 +73,11 @@ class Fork_Branches {
 	 */
 	function fork_post_filter( $caps, $cap, $user_id, $p ) {
 
-		if ( $cap != 'branch_post' )
+		if ( $cap != 'branch_posts' )
 			return;
 
 		if ( $p->post_author == $user_id )
-			$cap[] = 'branch_others_post';
+			$cap[] = 'branch_others_posts';
 
 		return $caps;
 

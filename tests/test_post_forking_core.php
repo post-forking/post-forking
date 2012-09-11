@@ -1,6 +1,11 @@
 <?php
 
 class WP_Test_Post_Forking_Core extends WP_UnitTestCase {
+	static $instance;
+
+	function __construct() {
+		self::$instance = &$this;		
+	}
 
 	 function get_instance() {
 		 global $fork;
@@ -38,11 +43,23 @@ class WP_Test_Post_Forking_Core extends WP_UnitTestCase {
 		 
 	 }
 	 
-	 function create_fork() {
+	 function create_fork( $branch = false ) {
+	 
 	 	$fork = $this->get_instance();
-	 	$post = $this->create_post();
-	 	$post = get_post( $post );
-		return $fork->fork( $post, $post->post_author );		 
+	 	$post = $this->create_post(); 
+	 	$post = get_post( $post ); 
+	
+	 	if ( $branch )
+	 		$author = $post->post_author;
+		else
+			$author = $this->create_user();
+					
+		return $fork->fork( $post, $author );		 
+
+	 }
+	 
+	 function create_branch() {
+		 return $this->create_fork( true );
 	 }
 
 	 function test_plugin_activated() {
@@ -71,7 +88,7 @@ class WP_Test_Post_Forking_Core extends WP_UnitTestCase {
 	 
 	 function test_fork() {
 
-		$fork = $this->get_instance();
+		$fork = $this->get_instance(); 
 		$f = $this->create_fork();
 		$this->assertEquals( 'fork', get_post_type( $f ) );
 		 
