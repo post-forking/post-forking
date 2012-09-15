@@ -210,7 +210,7 @@ class Fork {
 		
 		$args = array( 
 			'post_type' => 'fork',
-			'post_author' => $author,
+			'author' => $author,
 			'post_status' => array( 'draft', 'pending' ),
 		);
 		
