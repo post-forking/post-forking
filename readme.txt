@@ -1,9 +1,11 @@
 === Post Forking ===
+
 **Contributors:** benbalter, danielbachhuber, jorbin 
 **Tags:** posts, forking, version control, collaboration, forks, revisions, git, journalism, collaborative editing
 **Requires at least:** 3.4
 **Tested up to:**  3.5
 **Stable tag:** 0.1
+**License:** GPLv3 or Later
 
 WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
 
@@ -21,7 +23,7 @@ How might you use it?
 How does it work?
 -----------------
 
-When a user without the `edit_post` capability attempts to edit a given post, WordPress will automatically create a "fork" or alternate version of the post which they can freely edit. The edit screen will look just like the standard post editing interface that they are used to. When they're done, they simply click "submit for review." At this point, the fork goes into the standard WordPress moderation queue (just like any time an author without the `publish_post` capability submits a post), where an editor can review, and potentially approve the changes for publishing. If the changes can be automatically merged, the original post will be updated, otherwise, the editor will be presented with the ability to resolve the conflicting changes.
+When a user without the `edit_post` capability attempts to edit a given post, WordPress will automatically create a "fork" or alternate version of the post which they can freely edit. The edit screen will look just like the standard post editing interface that they are used to. When they're done, they simply click "submit for review." At this point, the fork goes into the standard WordPress moderation queue (just like any time an author without the `publish_post` capability submits a post), where an editor can review, and potentially approve the changes for publishing. If the changes can be automatically merged, the original post will be updated, otherwise, the editor will be presented with the ability to resolve the conflicting changes. All this is done using WordPress's built-in custom post type, revision, and diff functionality, so it should look familiar to most WordPress users.
 
 Concepts
 --------
@@ -40,10 +42,13 @@ Why this plugin?
 * [GitHub for Journalism — What WordPress Post Forking could do to Editorial Workflows
 ](http://ben.balter.com/2012/02/28/github-for-journalism-what-wordpress-post-forking-could-do-to-editorial-workflows/)
 
-License
--------
+Project Status
+--------------
+This version constitutes an initial release designed to showcase the plugins core functionality and is intended to be improved upon with additional features and refinements as the project evolves. Please consider [contributing your time](https://github.com/benbalter/post-forking/wiki/How-to-Contribute) to help improve the project.
 
-The project is licensed under the GNU General Public License v3 or Later
+More Information
+---------------
+For more information, or to contribute to this documentation, please visit the [Post Forking project wiki](https://github.com/benbalter/post-forking/wiki).
 
 == Installation ==
 
@@ -89,16 +94,17 @@ Post Forking is an open source project and is supported by the efforts of an ent
 * **Everyone** - Help expand [the project's documentation wiki](https://github.com/benbalter/post-forking/wiki/) and answer questions in the support forums to make it easier for other users to get started, or join the discussion on the [P2 (Blog)](http://postforking.wordpress.org) to help shape the project's future.
 * **Users** - Download the [latest development version](https://github.com/benbalter/post-forking/tree/develop) of the plugin, and [submit bug/feature requests](https://github.com/benbalter/post-forking/issues).
 * **Non-English Speakers** - [Contribute a translation](http://translations.benbalter.com/) using the GlotPress web interface - no technical knowledge required ([how to](http://translations.benbalter.com/projects/how-to-translate)).
-* **Technical Folks** - [Fork the development version](https://github.com/benbalter/post-forking/tree/develop) and submit a pull request, especially for any [known issues](https://github.com/benbalter/post-forking/issues)
+* **Technical Folks** - [Fork the development version](https://github.com/benbalter/post-forking/tree/develop) and submit a pull request, especially for any [known issues](https://github.com/benbalter/post-forking/issues). [This tutorial](https://help.github.com/articles/set-up-git) may be helpful if you're new to git.
 
 == Roadmap ==
 
-### Future Features (Maybe)
+### Future Features (Maybe):
 
 * Ability to fork more than just the `post_content` (e.g., taxonomies, post meta)
 * Appending parent revision history to fork
 * Spoofing `post_type` so metaboxes, etc. appear
 * Merge into WordPress core?
+* [Known issues](https://github.com/benbalter/post-forking/issues?state=open)
 
 == Under The Hood ==
 
