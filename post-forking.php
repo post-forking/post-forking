@@ -2,10 +2,10 @@
 /*
 Plugin Name: Post Forking
 Description: Post forking
-Author: 
+Author: Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin
 Version: 0.1
-Author URI: 
 Plugin URI: http://postforking.wordpress.com
+License: GPLv3 or Later
 */
 
 /* Post Forking
@@ -15,7 +15,7 @@ Plugin URI: http://postforking.wordpress.com
  * or can be members of the general public. Also  allows post authors to edit published posts 
  * without their changes going appearing publicly until published.
  *
- * Copyright (C) 2012
+ * Copyright (C) 2012 Benjamin J. Balter ( Ben@Balter.com | http://ben.balter.com )
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
