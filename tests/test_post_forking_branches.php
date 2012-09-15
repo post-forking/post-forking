@@ -4,6 +4,15 @@ class WP_Test_Post_Forking_Branches extends WP_UnitTestCase {
 	
 	public $core = null;
 	
+	
+	function __construct() {
+		
+		//force into admin to allow merge class to load
+		if ( !defined( 'WP_ADMIN' ) )
+			define( 'WP_ADMIN', true );
+	
+	}
+	
 	function &get_core() {
 	
 		if ( $this->core == null )
@@ -43,8 +52,8 @@ class WP_Test_Post_Forking_Branches extends WP_UnitTestCase {
 		
 		$post = get_post( $this->create_post() );
 		$instance = $this->get_instance();
-		$other_user = $this->get_core()->create_user();
-		$this->markTestIncomplete();
+		$instance->action_init();
+		$other_user = $this->get_core()->create_user( 'author' );
 		$this->assertTrue( $instance->branches->can_branch( $post->ID, $post->post_author ) );
 		$this->assertFalse( $instance->branches->can_branch( $post->ID, $other_user ) );
 		

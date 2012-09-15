@@ -9,7 +9,7 @@ class WP_Test_Post_Forking_Core extends WP_UnitTestCase {
 	}
 
 	 function get_instance() {
-		 global $fork;
+		 global $fork;		 
 		 return $fork;	 
 	 }
 	 
@@ -53,7 +53,7 @@ class WP_Test_Post_Forking_Core extends WP_UnitTestCase {
 	 	//make a revision to make finding parent revisions easier
 	 	if ( $revision )
 		 	wp_update_post( array( 'ID' => $post, 'post_name' => 'bar' ) );
-	
+			
 	 	$post = get_post( $post ); 
 	
 	 	if ( $branch )

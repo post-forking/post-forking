@@ -94,7 +94,7 @@ class Fork_Revisions {
 			return false;
 
 		if ( $p->post_type != 'fork' )
-			return _doing_it_wrong( 'get_parent_revision', 'Function only applies to forks, not posts', null );
+			return _doing_it_wrong( 'get_previous_revision', 'Function only applies to forks, not posts', null );
 
 		//we have a post meta, just return
 		if ( $meta = get_post_meta( $p->ID, $this->previous_revision_key, true ) )
