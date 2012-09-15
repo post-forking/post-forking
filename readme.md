@@ -1,15 +1,9 @@
 # Post Forking #
-**Contributors:**   
-**Tags:** 
-**Requires at least:** 
-**Tested up to:**  
-**Stable tag:**
-
-WordPress Post Forking allows users to "fork" or create an alternate version of a WordPress content to foster a more collaborative approach to content curation.
+WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
 
 ## Description ##
 
-WordPress Post Forking allows users to "fork" or create an alternate version of a WordPress content to foster a more collaborative approach to content curation. This can be used, for example, to allow external (such as visitors to your site) or internal (such as other authors) users with the ability to submit proposed revisions. It can even be used on smaller or single-author sites to enable post authors to edit published posts without their changes appearing immediately. If you're familiar with Git, or other decentralized version control systems, you're already familiar with WordPress post forking.
+WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation. This can be used, for example, to allow external users (such as visitors to your site) or internal users (such as other authors) with the ability to submit proposed revisions. It can even be used on smaller or single-author sites to enable post authors to edit published posts without their changes appearing immediately. If you're familiar with Git, or other decentralized version control systems, you're already familiar with WordPress post forking.
 
 How might you use it?
 ---------------------
@@ -34,38 +28,6 @@ WordPress Post Forking introduces many of Git's well-established conventions to 
 * **Merge** - To push a fork's changes back into its parent post
 * **Conflict** - When a post is forked if a given line is changed on the fork, and that same line is subsequently edited on the parent post prior to the merge, the post cannot be automatically merged, and the conflict is presented to the merger to resolve
 
-Under the hood
---------------
-
-** Warning: geek content! **
-
-Forking a post creates a copy of the most recent version of the post as a "fork" custom post type. Certain fields (e.g., `post_content`, `post_title`) are copied over to the new fork. The plugin also stores the revision ID for the revision prior to when the fork was created (see [`includes/revisions.php`](https://github.com/benbalter/post-forking/blob/master/includes/revisions.php#L2) for more information as to why we store the previous revision). 
-
-The fork post type has its own capabilities, allowing a user without the ability to edit or publish on the parent post to edit a fork. Once changes have been made, assuming the user does not have the `publish_fork` capability, the user would submit the fork for review (similar to submitting a Pull Request in GitHub parlance) using the normal WordPress moderation system.
-
-Publishing a fork (either by the fork author, if they have the capability, or my an editor) triggers the merge itself. The post content of the fork undergoes a three way merge with the base revision and current version of the parent post.
-
-A fork can have three post statuses:
-
-1. Draft - The fork is being edited
-1. Pending - The fork has been submitted for publication
-1. Published - The fork has been merged
-
-Note: No user should have the `edit_published_fork` capability. Once published, the fork post_type simply exists to provide a record of the change and allow the author page, to theoretically list contributions by author.
-
-Future Features (Maybe)
------------------------
-
-* Ability to fork more than just the post_content (e.g., taxonomies, post meta)
-* Appending parent revision history to fork
-* Spoofing post_type so metaboxes, etc. appear
-* Merge into WordPress core
- 
-Forking additional fields
--------------------------
-
-As of this version, the only editable portion of the fork is the `post_content` field. The underlying logic has been built to be easily abstracted to accomidate forking of title, post meta, and taxonomies, but the logic for merging additional fields is not as clean. We'd need to create a snapshot of the post meta or taxonomy terms prior to the fork and then write the logic to do a three way merge of the changes. Complicating things further, for post meta, meta can be a single value or an array, furthing complicating a theoretical merge. Last, post_title would affect post_name which would break in the event of a conflict.
-
 Why this plugin?
 ----------------
 
@@ -76,8 +38,6 @@ License
 -------
 
 The project is licensed under the GNU General Public License v3 or Later
-
- 
 
 ## Installation ##
 
@@ -96,34 +56,73 @@ The project is licensed under the GNU General Public License v3 or Later
 
 ## Frequently Asked Questions ##
 
-Please see (and feel free to contribute to) the [Frequently Asked Questions Wiki](https://github.com/benbalter/WP-Resume/wiki/Frequently-Asked-Questions).
+Please see (and feel free to contribute to) the [Frequently Asked Questions Wiki](https://github.com/benbalter/post-forking/wiki/Frequently-Asked-Questions).
 
 ## Screenshots ##
 
-( SCREENSHOTS HERE )
+Coming soon...
 
 ## Changelog ##
 
 ### 0.1 ###
+* Initial release
 
 ## Upgrade Notice ##
 
-Coming soon...
+### 0.1
+* Initial Release
 
 ## Frequently Asked Questions ##
 
-Please see (and feel free to contribute to) the [Frequently Asked Questions Wiki](https://github.com/benbalter/WP-Resume/wiki/Frequently-Asked-Questions).
+Please see (and feel free to contribute to) the [Frequently Asked Questions Wiki](https://github.com/benbalter/post-forking/wiki/Frequently-Asked-Questions).
 
 ## How To Contribute ##
 
 Post Forking is an open source project and is supported by the efforts of an entire community. We'd love for you to get involved. Whatever your level of skill or however much time you can give, your contribution is greatly appreciated.
 
-( calls to action here )
+* **Everyone** - Help expand [the project's documentation wiki](https://github.com/benbalter/post-forking/wiki/) and answer questions in the support forums to make it easier for other users to get started, or join the discussion on the [P2 (Blog)](http://postforking.wordpress.org) to help shape the project's future.
+* **Users** - Download the [latest development version](https://github.com/benbalter/post-forking/tree/develop) of the plugin, and [submit bug/feature requests](https://github.com/benbalter/post-forking/issues).
+* **Non-English Speakers** - [Contribute a translation](http://translations.benbalter.com/) using the GlotPress web interface - no technical knowledge required ([how to](http://translations.benbalter.com/projects/how-to-translate)).
+* **Technical Folks** - [Fork the development version](https://github.com/benbalter/post-forking/tree/develop) and submit a pull request, especially for any [known issues](https://github.com/benbalter/post-forking/issues)
+
+## Roadmap ##
+
+### Future Features (Maybe)
+
+* Ability to fork more than just the `post_content` (e.g., taxonomies, post meta)
+* Appending parent revision history to fork
+* Spoofing `post_type` so metaboxes, etc. appear
+* Merge into WordPress core?
+
+## Under The Hood ##
+
+** **Warning: geek content!** **
+
+Forking a post creates a copy of the most recent version of the post as a "fork" custom post type. Certain fields (e.g., `post_content`, `post_title`) are copied over to the new fork. The plugin also stores the revision ID for the revision prior to when the fork was created (see [`includes/revisions.php`](https://github.com/benbalter/post-forking/blob/master/includes/revisions.php#L2) for more information as to why we store the previous revision). 
+
+The fork post type has its own capabilities, allowing a user without the ability to edit or publish on the parent post to edit a fork. Once changes have been made, assuming the user does not have the `publish_fork` capability, the user would submit the fork for review (similar to submitting a Pull Request in GitHub parlance) using the normal WordPress moderation system.
+
+Publishing a fork (either by the fork author, if they have the capability, or my an editor) triggers the merge itself. The post content of the fork undergoes a three way merge with the base revision and current version of the parent post.
+
+A fork can have three post statuses:
+
+1. Draft - The fork is being edited
+1. Pending - The fork has been submitted for publication
+1. Published - The fork has been merged
+
+Note: No user should have the `edit_published_fork` capability. Once published, the fork post_type simply exists to provide a record of the change and allow the author page, to theoretically list contributions by author.
 
 ## Upgrade Notice ##
 
-Coming soon...
+### 0.1
+* Initial Release
 
 ## Where To Get Support Or Report An Issue ##
 
-info here
+*There are various resources available, depending on the type of help you're looking for:*
+
+* For getting started and general documentation, please browse, and feel free to contribute to [the project wiki](https://github.com/benbalter/post-forking/wiki).
+* For support questions ("How do I", "I can't seem to", etc.) please search and if not already answered, open a thread in the [Support Forums](http://wordpress.org/support/plugin/post-forking).
+* For technical issues (e.g., to submit a bug or feature request) please search and if not already filed, [open an issue on GitHub](https://github.com/benbalter/post-forking/issues).
+* For implementation, and all general questions ("Is it possible to..", "Has anyone..."), please search, and if not already answered, post a topic to the [general discussion list serve](https://groups.google.com/forum/#!forum/post-forking)
+* For general discussion about the project and planning, please see the [P2](http://postforking.wordpress.com)
