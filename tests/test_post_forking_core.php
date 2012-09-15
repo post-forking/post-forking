@@ -1,10 +1,11 @@
-<?php
+ <?php
 
 class WP_Test_Post_Forking_Core extends WP_UnitTestCase {
 	static $instance;
 
 	function __construct() {
 		self::$instance = &$this;		
+		$this->get_instance()->action_init();
 	}
 
 	 function get_instance() {
@@ -22,6 +23,7 @@ class WP_Test_Post_Forking_Core extends WP_UnitTestCase {
 		 	'post_content' => "1\n2\n3\n4",
 		 	'post_author' => $author,
 		 	'post_type' => 'post',
+		 	'post_date' => date( 'Y-m-d H:i:s', strtotime( '-1 day' ) ),
 		 );
 		 
 		 return wp_insert_post( $post );
@@ -43,10 +45,15 @@ class WP_Test_Post_Forking_Core extends WP_UnitTestCase {
 		 
 	 }
 	 
-	 function create_fork( $branch = false ) {
+	 function create_fork( $branch = false, $revision = true  ) {
 	 
 	 	$fork = $this->get_instance();
 	 	$post = $this->create_post(); 
+	 	
+	 	//make a revision to make finding parent revisions easier
+	 	if ( $revision )
+		 	wp_update_post( array( 'ID' => $post, 'post_name' => 'bar' ) );
+	
 	 	$post = get_post( $post ); 
 	
 	 	if ( $branch )

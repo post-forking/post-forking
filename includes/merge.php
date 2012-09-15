@@ -102,11 +102,13 @@ class Fork_Merge {
 
 		if ( !is_object( $fork ) )
 			$fork = get_post( $fork );
+			
+		$fork_id = $fork->ID;
 
 		//grab the three elments
 		$parent = $this->parent->revisions->get_parent_revision( $fork );
 		$current = $fork->post_parent;
-
+		
 		//normalize whitespace and convert string -> array
 		foreach ( array( 'fork', 'parent', 'current' ) as $string ) {
 			$$string = get_post( $$string )->post_content;
@@ -116,7 +118,7 @@ class Fork_Merge {
 
 		//diff, cache, return
 		$diff = new Text_Diff3( $parent, $fork, $current );
-		wp_cache_set( $fork->ID, $diff, 'Fork_Diff', $this->ttl );
+		wp_cache_set( $fork_id, $diff, 'Fork_Diff', $this->ttl );
 		return $diff;
 
 	}
