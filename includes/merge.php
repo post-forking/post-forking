@@ -231,6 +231,11 @@ class Fork_Merge {
 	 * Check if the fork has conflict markup
 	 */
 	function has_conflict_markup( $fork ) {
+	
+		//postarr is being passed on publish
+		//convert to object for consistency
+		if ( is_array( $fork ) )
+			$fork = (object) $fork;
 
 		if ( !is_object( $fork ) )
 			$fork = get_post( $fork );
