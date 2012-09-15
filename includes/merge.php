@@ -173,7 +173,13 @@ class Fork_Merge {
 
 	function conflict_warning() {
 		global $post;
-
+		
+		if ( get_current_screen()->post_type != 'fork' )
+			return;
+			
+		if ( get_current_screen()->base != 'post' )
+			return;
+						
 		if ( !$post )
 			return;
 
