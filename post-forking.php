@@ -100,8 +100,8 @@ class Fork {
 		$labels = array( 
 			'name'               => _x( 'Forks', 'fork' ),
 			'singular_name'      => _x( 'Fork', 'fork' ),
-			'add_new'            => _x( 'Add New', 'fork' ),
-			'add_new_item'       => _x( 'Add New Fork', 'fork' ),
+			'add_new'            => false,
+			'add_new_item'       => false,
 			'edit_item'          => _x( 'Edit Fork', 'fork' ),
 			'new_item'           => _x( 'New Fork', 'fork' ),
 			'view_item'          => _x( 'View Fork', 'fork' ),
@@ -125,7 +125,7 @@ class Fork {
 			'query_var'           => true,
 			'can_export'          => true,
 			'rewrite'             => true,
-			'map_meta_cap'        => true, // Neds to be properly implemented, see https://github.com/benbalter/post-forking/issues/10
+			'map_meta_cap'        => true, 
 			'capability_type'     => array( 'fork', 'forks' ),
 			'menu_icon'           => plugins_url( '/img/menu-icon.png', __FILE__ ),
 		);

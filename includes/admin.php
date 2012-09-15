@@ -20,6 +20,9 @@ class Fork_Admin {
 		add_filter( 'page_row_actions', array( $this, 'row_actions' ), 10, 2 );
 		add_action( 'admin_ajax_fork', array( $this, 'ajax' ) );
 		add_action( 'admin_ajax_fork_merge', array( $this, 'ajax' ) );
+		add_action( 'do_meta_boxes', array( $this, 'remove_add_new_button' ), 10, 1 );
+		add_action( 'admin_menu', array( $this, 'remove_add_new_menu_item' ) );
+		add_filter( 'map_meta_cap', array( $this, 'post_new_lockdown' ), 10, 2 );
 
 	}
 
@@ -186,6 +189,60 @@ class Fork_Admin {
 			$result = -1;
 
 		die( $result );
+
+	}
+
+
+	/**
+	 * Remvoe the "Add New" button from the edit fork screen by nulling out the callback URL
+	 * @uses add_meta_boxes
+	 * @param string $post_type the post type of the current page
+	 */
+	function remove_add_new_button( $post_type ) {
+
+		if ( $post_type != 'fork' )
+			return;
+
+		global $post_new_file;
+		$post_new_file = null;
+
+	}
+
+
+	/**
+	 * Remove "Add New" button from the admin menu
+	 */
+	function remove_add_new_menu_item() {
+
+		global $submenu;
+		foreach ( $submenu['edit.php?post_type=fork'] as $ID => $item )
+			if ( $item[0] === false )
+				unset( $submenu['edit.php?post_type=fork'][$ID] );
+
+	}
+
+
+	/**
+	 * Lock down the post-new page for forks to prevent strange situations
+	 * with parentless forks. Uses Map Meta Cap to add a new cap no one will ever have.
+	 */
+	function post_new_lockdown( $caps, $cap ) {
+
+		if ( $cap != 'edit_forks' )
+			return $caps;
+
+		if ( !get_current_screen() )
+			return $caps;
+
+		if ( get_current_screen()->action != 'add' )
+			return $caps;
+
+		if ( get_current_screen()->post_type != 'fork' )
+			return $caps;
+
+		$caps[] = 'create_new_fork_without_parent';
+
+		return $caps;
 
 	}
 
