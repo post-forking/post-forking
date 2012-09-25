@@ -85,9 +85,9 @@ class WP_Test_Post_Forking_Core extends WP_UnitTestCase {
 	 
 		 $fork = $this->get_instance();
 		 $pts = $fork->get_post_types();
-		 
-		 //out of box, should return post, page, both false
-		 $this->assertCount( 2, $pts );
+ 
+		 //out of box, should return post => true, page => false, attachment => false
+		 $this->assertCount( 3, $pts );
 		 $this->assertTrue( $pts['post'] );
 		 $this->assertFalse( $pts['page'] );
 	     	
