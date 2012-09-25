@@ -13,7 +13,7 @@
  
  
 $GLOBALS['wp_tests_options'] = array(
-	'active_plugins' => array( 'post-forking.php' ),
+	'active_plugins' => array( 'post-forking/post-forking.php' ),
 );
 
-require_once dirname( __FILE__ ) . '/wordpress-tests/bootstrap.php';
+require getenv( 'WP_TESTS_DIR' ) . '/bootstrap.php';
