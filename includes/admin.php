@@ -38,8 +38,10 @@ class Fork_Admin {
 
 		if ( post_type_supports( $post->post_type, $this->parent->post_type_support ) )
 			add_meta_box( 'fork', 'Fork', array( $this, 'post_meta_box' ), $post->post_type, 'side', 'high' );
-		elseif ( Fork::post_type == $post->post_type )
+		elseif ( Fork::post_type == $post->post_type ) {
+			remove_meta_box( 'submitdiv', Fork::post_type, 'side' );
 			add_meta_box( 'fork', 'Fork', array( $this, 'fork_meta_box' ), Fork::post_type, 'side', 'high' );
+		}
 
 	}
 
