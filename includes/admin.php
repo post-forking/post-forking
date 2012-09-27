@@ -36,10 +36,10 @@ class Fork_Admin {
 		if ( $post->post_status == 'auto-draft' )
 			return;
 
-		foreach ( $this->parent->get_post_types() as $post_type => $status )
-			add_meta_box( 'fork', 'Fork', array( $this, 'post_meta_box' ), $post_type, 'side', 'high' );
-
-		add_meta_box( 'fork', 'Fork', array( $this, 'fork_meta_box' ), 'fork', 'side', 'high' );
+		if ( post_type_supports( $post->post_type, $this->parent->post_type_support ) )
+			add_meta_box( 'fork', 'Fork', array( $this, 'post_meta_box' ), $post->post_type, 'side', 'high' );
+		elseif ( Fork::post_type == $post->post_type )
+			add_meta_box( 'fork', 'Fork', array( $this, 'fork_meta_box' ), Fork::post_type, 'side', 'high' );
 
 	}
 
