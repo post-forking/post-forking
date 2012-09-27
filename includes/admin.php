@@ -156,7 +156,7 @@ class Fork_Admin {
 	 */
 	function row_actions( $actions, $post ) {
 
-		$label = ( $this->parent->branches->can_branch ( $post ) ) ? __( 'Create new branch', 'fork' ) : __( 'Fork', 'fork' );
+		$label = ( $this->parent->branches->can_branch ( $post ) ) ? __( 'Create branch', 'fork' ) : __( 'Fork', 'fork' );
 
 		if ( get_post_type( $post ) != 'fork' )
 			$actions[] = '<a href="' . admin_url( "?fork={$post->ID}" ) . '">' . $label . '</a>';
