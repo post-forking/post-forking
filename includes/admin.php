@@ -156,15 +156,15 @@ class Fork_Admin {
 	 */
 	function row_actions( $actions, $post ) {
 
-		$label = ( $this->parent->branches->can_branch ( $post ) ) ? __( 'Create branch', 'fork' ) : __( 'Fork', 'fork' );
-
-		if ( get_post_type( $post ) != Fork::post_type )
+		if ( post_type_supports( get_post_type( $post ), $this->parent->post_type_support ) ) {
+			$label = ( $this->parent->branches->can_branch ( $post ) ) ? __( 'Create branch', 'fork' ) : __( 'Fork', 'fork' );
 			$actions[] = '<a href="' . admin_url( "?fork={$post->ID}" ) . '">' . $label . '</a>';
+		}
 
-		$parent = $this->parent->revisions->get_previous_revision( $post );
-
-		if ( get_post_type( $post ) == Fork::post_type )
+		if ( Fork::post_type == get_post_type( $post ) ) {
+			$parent = $this->parent->revisions->get_previous_revision( $post );
 			$actions[] = '<a href="' . admin_url( "revision.php?action=diff&left={$parent}&right={$post->ID}" ) . '">' . __( 'Compare', 'fork' ) . '</a>';
+		}
 
 		return $actions;
 
