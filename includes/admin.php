@@ -136,7 +136,7 @@ class Fork_Admin {
 	function enqueue() {
 
 		$post_types = $this->parent->get_post_types( true );
-		$post_types[] = 'fork';
+		$post_types[] = Fork::post_type;
 
 		if ( !in_array( get_current_screen()->post_type, $post_types ) )
 			return;
@@ -158,12 +158,12 @@ class Fork_Admin {
 
 		$label = ( $this->parent->branches->can_branch ( $post ) ) ? __( 'Create branch', 'fork' ) : __( 'Fork', 'fork' );
 
-		if ( get_post_type( $post ) != 'fork' )
+		if ( get_post_type( $post ) != Fork::post_type )
 			$actions[] = '<a href="' . admin_url( "?fork={$post->ID}" ) . '">' . $label . '</a>';
 
 		$parent = $this->parent->revisions->get_previous_revision( $post );
 
-		if ( get_post_type( $post ) == 'fork' )
+		if ( get_post_type( $post ) == Fork::post_type )
 			$actions[] = '<a href="' . admin_url( "revision.php?action=diff&left={$parent}&right={$post->ID}" ) . '">' . __( 'Compare', 'fork' ) . '</a>';
 
 		return $actions;

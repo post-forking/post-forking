@@ -47,6 +47,7 @@ require_once dirname( __FILE__ ) . '/includes/diff.php';
 
 class Fork {
 
+	const post_type = 'fork';
 	public $post_type_support = 'fork'; //key to register when adding post type support
 	public $fields = array( 'post_title', 'post_content' ); //post fields to map from post to fork
 	public $version = '1.0';
@@ -130,7 +131,7 @@ class Fork {
 			'menu_icon'           => plugins_url( '/img/menu-icon.png', __FILE__ ),
 		);
 	
-		register_post_type( 'fork', $args );
+		register_post_type( self::post_type, $args );
 	}
 	
 	/** 
