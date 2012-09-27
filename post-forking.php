@@ -47,7 +47,7 @@ require_once dirname( __FILE__ ) . '/includes/diff.php';
 
 class Fork {
 
-	public $post_type_support = 'fork'; //key to register when registerign post type support
+	public $post_type_support = 'fork'; //key to register when adding post type support
 	public $fields = array( 'post_title', 'post_content' ); //post fields to map from post to fork
 	public $version = '1.0';
 	/**
