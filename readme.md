@@ -1,25 +1,30 @@
 # Post Forking #
 
+Contributors: benbalter, danielbachhuber, jorbin
+Tags: posts, forking, version control, collaboration, forks, revisions, git, journalism, collaborative editing
+Requires at least: 3.4
+Tested up to:  3.5
+Stable tag: 0.1
+License: GPLv3 or Later
+
 WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
 
 ## Description ##
 
 WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation. This can be used, for example, to allow external users (such as visitors to your site) or internal users (such as other authors) with the ability to submit proposed revisions. It can even be used on smaller or single-author sites to enable post authors to edit published posts without their changes appearing immediately. If you're familiar with Git, or other decentralized version control systems, you're already familiar with WordPress post forking.
 
-How might you use it?
----------------------
+### How might you use it? ###
+
 * Allowing users without edit or publish post capabilities to edit and submit changes to content (similar to [GitHub’s pull request system](https://help.github.com/articles/using-pull-requests))
 * Collaborative editing (by resolving two users’ conflicted saves – [Wired’s example](http://www.wired.com/wiredenterprise/2012/02/github-revisited/))
 * Saving draft changes of already-published content
 * Scheduling pending changes to already-published content
 
-How does it work?
------------------
+### How does it work? ###
 
 When a user without the `edit_post` capability attempts to edit a given post, WordPress will automatically create a "fork" or alternate version of the post which they can freely edit. The edit screen will look just like the standard post editing interface that they are used to. When they're done, they simply click "submit for review." At this point, the fork goes into the standard WordPress moderation queue (just like any time an author without the `publish_post` capability submits a post), where an editor can review, and potentially approve the changes for publishing. If the changes can be automatically merged, the original post will be updated, otherwise, the editor will be presented with the ability to resolve the conflicting changes. All this is done using WordPress's built-in custom post type, revision, and diff functionality, so it should look familiar to most WordPress users.
 
-Concepts
---------
+### Concepts ###
 
 WordPress Post Forking introduces many of Git's well-established conventions to the WordPress world, and as a result, uses a unique vocabulary to describe what it does:
 
@@ -29,18 +34,17 @@ WordPress Post Forking introduces many of Git's well-established conventions to 
 * **Merge** - To push a fork's changes back into its parent post
 * **Conflict** - When a post is forked if a given line is changed on the fork, and that same line is subsequently edited on the parent post prior to the merge, the post cannot be automatically merged, and the conflict is presented to the merger to resolve
 
-Why this plugin?
-----------------
+### Why this plugin? ###
 
 * [GitHub for Journalism — What WordPress Post Forking could do to Editorial Workflows
 ](http://ben.balter.com/2012/02/28/github-for-journalism-what-wordpress-post-forking-could-do-to-editorial-workflows/)
 
-Project Status
---------------
+### Project Status ###
+
 This version constitutes an initial release designed to showcase the plugin's core functionality and is intended to be improved upon with additional features and refinements as the project evolves. Please consider [contributing your time](https://github.com/benbalter/post-forking/wiki/How-to-Contribute) to help improve the project.
 
-More Information
----------------
+### More Information ###
+
 For more information, or to contribute to this documentation, please visit the [Post Forking project wiki](https://github.com/benbalter/post-forking/wiki).
 
 [Photo courtesy [babomike](http://www.flickr.com/photos/babomike/5626846346/)]
@@ -93,7 +97,7 @@ Post Forking is an open source project and is supported by the efforts of an ent
 
 ## Roadmap ##
 
-### Future Features (Maybe):
+### Future Features (Maybe): ###
 
 * Front end editing (just click edit, make your change, hit submit)
 * Ability to fork more than just the `post_content` (e.g., taxonomies, post meta)
