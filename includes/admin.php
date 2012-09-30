@@ -144,7 +144,7 @@ class Fork_Admin {
 			return;
 
 		//js
-		$suffix = ( WP_DEBUG ) ? '.dev' : '';
+        $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min'; 
 		wp_enqueue_script( 'post-forking', plugins_url( "/js/admin{$suffix}.js", dirname( __FILE__ ) ), 'jquery', $this->parent->version, true );
 
 		//css

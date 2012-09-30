@@ -1,1 +1,5 @@
-jQuery(document).ready(function(e){e("#branches").change(function(){e(location).attr("href","post.php?post="+e(this).val()+"&action=edit")})});
+jQuery( document ).ready( function( $ ){
+	$( '#branches' ).change( function(){
+		$(location).attr( 'href', 'post.php?post=' + $(this).val() + '&action=edit' );
+	});
+});
