@@ -1,5 +1,12 @@
 # Post Forking #
 
+**Contributors:** benbalter, danielbachhuber, jorbin
+**Tags:** posts, forking, version control, collaboration, forks, revisions, git, journalism, collaborative editing
+**Requires at least:** 3.4
+**Tested up to:**  3.5
+**Stable tag:** 0.1
+**License:** GPLv3 or Later
+
 WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
 
 ## Description ##
@@ -37,11 +44,13 @@ Why this plugin?
 
 Project Status
 --------------
-This version constitutes an initial release designed to showcase the plugins core functionality and is intended to be improved upon with additional features and refinements as the project evolves. Please consider [contributing your time](https://github.com/benbalter/post-forking/wiki/How-to-Contribute) to help improve the project.
+This version constitutes an initial release designed to showcase the plugin's core functionality and is intended to be improved upon with additional features and refinements as the project evolves. Please consider [contributing your time](https://github.com/benbalter/post-forking/wiki/How-to-Contribute) to help improve the project.
 
 More Information
 ---------------
 For more information, or to contribute to this documentation, please visit the [Post Forking project wiki](https://github.com/benbalter/post-forking/wiki).
+
+[Photo courtesy [babomike](http://www.flickr.com/photos/babomike/5626846346/)]
 
 ## Installation ##
 
@@ -54,7 +63,7 @@ For more information, or to contribute to this documentation, please visit the [
 
 ### Manual Install ###
 1. Download the plugin from the link in the top left corner
-2. Unzip the file, and upload the resulting "wp-document-revisions" folder to your "/wp-content/plugins directory" as "/wp-content/plugins/post-forking"
+2. Unzip the file, and upload the resulting "post-forking" folder to your "/wp-content/plugins directory" as "/wp-content/plugins/post-forking"
 3. Log into your WordPress install as an administrator, and navigate to the plugins screen from the left-hand menu
 4. Activate Post Forking
 
@@ -93,11 +102,12 @@ Post Forking is an open source project and is supported by the efforts of an ent
 
 ### Future Features (Maybe):
 
+* Front end editing (just click edit, make your change, hit submit)
 * Ability to fork more than just the `post_content` (e.g., taxonomies, post meta)
-* Appending parent revision history to fork
+* [Appending parent revision history to fork](https://github.com/benbalter/post-forking/issues/15)
 * Spoofing `post_type` so metaboxes, etc. appear
-* Merge into WordPress core?
-* [Known issues](https://github.com/benbalter/post-forking/issues?state=open)
+* [Author pages for fork contributors](https://github.com/benbalter/post-forking/issues/17)
+* [Open Enhancements](https://github.com/benbalter/post-forking/issues?labels=enhancement&page=1&state=open)
 
 ## Under The Hood ##
 
