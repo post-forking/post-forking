@@ -41,3 +41,11 @@ only screen and (min-device-pixel-ratio: 1.5) {
 
 
 /* Fork screen fork meta box */
+
+#fork-info p{
+    padding:10px 10px 18px;
+    border-bottom: 1px solid #DFDFDF;
+}
+#fork-info p .fork-compare{
+    float:right;
+}
