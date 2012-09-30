@@ -143,12 +143,13 @@ class Fork_Admin {
 		if ( !in_array( get_current_screen()->post_type, $post_types ) )
 			return;
 
-		//js
         $suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min'; 
+
+		//js
 		wp_enqueue_script( 'post-forking', plugins_url( "/js/admin{$suffix}.js", dirname( __FILE__ ) ), 'jquery', $this->parent->version, true );
 
 		//css
-		wp_enqueue_style( 'post-forking', plugins_url( '/css/admin.css', dirname( __FILE__ ) ), null, $this->parent->version );
+		wp_enqueue_style( 'post-forking', plugins_url( "/css/admin{$suffix}.css", dirname( __FILE__ ) ), null, $this->parent->version );
 
 	}
 
