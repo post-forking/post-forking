@@ -1,12 +1,5 @@
 # Post Forking #
 
-**Contributors:** benbalter, danielbachhuber, jorbin
-**Tags:** posts, forking, version control, collaboration, forks, revisions, git, journalism, collaborative editing
-**Requires at least:** 3.4
-**Tested up to:**  3.5
-**Stable tag:** 0.1
-**License:** GPLv3 or Later
-
 WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
 
 ## Description ##
