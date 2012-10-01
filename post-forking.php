@@ -375,8 +375,8 @@ class Fork {
  	 * @param int $id the post ID
  	 * @return string the modified post title
  	 */
- 	function title_filter( $title, $id ) {
- 		
+ 	function title_filter( $title, $id = false ) {
+
  		if ( get_post_type( $id ) != 'fork' )
  			return $title;
  			
