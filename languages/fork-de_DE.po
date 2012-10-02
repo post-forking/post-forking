@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Forking 0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/post-forking\n"
-"POT-Creation-Date: 2012-10-02 14:02+0100\n"
-"PO-Revision-Date: 2012-10-02 14:03+0100\n"
+"POT-Creation-Date: 2012-10-02 14:11+0100\n"
+"PO-Revision-Date: 2012-10-02 14:12+0100\n"
 "Last-Translator: Frank Bueltge <frank@bueltge.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -179,6 +179,10 @@ msgstr "Zusammenführen"
 #: templates/options.php:7
 msgid "Fork Options"
 msgstr "Fork Optionen"
+
+#: templates/options.php:12
+msgid "Post Types"
+msgstr "Post Typen"
 
 #: templates/post-meta-box.php:2
 msgid "View Fork"
