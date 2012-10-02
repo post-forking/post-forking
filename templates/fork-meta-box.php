@@ -1,6 +1,6 @@
 <div id="fork-info">
 <p>
-<?php printf( __( 'Forked from <a href="%1$s">%2$s</a>' ), admin_url( "post.php?post={$post->post_parent}&action=edit" ), $this->get_parent_name( $post ) ); ?> <a href="<?php echo admin_url( "revision.php?action=diff&left={$post->post_parent}&right={$post->ID}" ); ?>"><span class="fork-compare button"><?php _e( 'Compare', 'fork' ); ?></span></a>
+<?php printf( __( 'Forked from <a href="%1$s">%2$s</a>', 'fork' ), admin_url( "post.php?post={$post->post_parent}&action=edit" ), $this->get_parent_name( $post ) ); ?> <a href="<?php echo admin_url( "revision.php?action=diff&left={$post->post_parent}&right={$post->ID}" ); ?>"><span class="fork-compare button"><?php _e( 'Compare', 'fork' ); ?></span></a>
 </p>
 <div class="clear"></div>
 </div>
