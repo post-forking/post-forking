@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Forking 0.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/post-forking\n"
-"POT-Creation-Date: 2012-10-02 14:11+0100\n"
-"PO-Revision-Date: 2012-10-02 14:12+0100\n"
+"POT-Creation-Date: 2012-10-02 14:15+0100\n"
+"PO-Revision-Date: 2012-10-02 14:15+0100\n"
 "Last-Translator: Frank Bueltge <frank@bueltge.de>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -19,56 +19,56 @@ msgstr ""
 "X-Poedit-Basepath: c:\\xampp\\htdocs\\wp-plugins\\post-forking\\\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: post-forking.php:102 post-forking.php:113
+#: post-forking.php:104 post-forking.php:115
 msgctxt "fork"
 msgid "Forks"
 msgstr "Forks"
 
-#: post-forking.php:103
+#: post-forking.php:105
 msgctxt "fork"
 msgid "Fork"
 msgstr "Fork"
 
-#: post-forking.php:106
+#: post-forking.php:108
 msgctxt "fork"
 msgid "Edit Fork"
 msgstr "Fork bearbeiten"
 
-#: post-forking.php:107
+#: post-forking.php:109
 msgctxt "fork"
 msgid "New Fork"
 msgstr "Neuer Fork"
 
-#: post-forking.php:108
+#: post-forking.php:110
 msgctxt "fork"
 msgid "View Fork"
 msgstr "Fork ansehen"
 
-#: post-forking.php:109
+#: post-forking.php:111
 msgctxt "fork"
 msgid "Search Forks"
 msgstr "Forks suchen"
 
-#: post-forking.php:110
+#: post-forking.php:112
 msgctxt "fork"
 msgid "No forks found"
 msgstr "Keine Forks gefunden"
 
-#: post-forking.php:111
+#: post-forking.php:113
 msgctxt "fork"
 msgid "No forks found in Trash"
 msgstr "Keine Forks im Papierkorb gefunden "
 
-#: post-forking.php:112
+#: post-forking.php:114
 msgctxt "fork"
 msgid "Parent Fork:"
 msgstr "Eltern-Fork:"
 
-#: post-forking.php:262
+#: post-forking.php:264
 msgid "That post type does not support forking"
 msgstr "Dieser Post-Type unterstützt das Forken nicht"
 
-#: post-forking.php:267
+#: post-forking.php:269
 msgid "You are not authorized to fork that post"
 msgstr "Du bist nicht autorisiert zum Forken dieses Artikels"
 

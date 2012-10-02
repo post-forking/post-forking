@@ -1,12 +1,14 @@
 <?php
-/*
-Plugin Name: Post Forking
-Description: Post forking
-Author: Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin
-Version: 0.1
-Plugin URI: http://postforking.wordpress.com
-License: GPLv3 or Later
-*/
+/**
+ * Plugin Name: Post Forking
+ * Description: Post forking
+ * Author:      Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin
+ * Version:     0.1
+ * Plugin URI:  http://postforking.wordpress.com
+ * License:     GPLv3 or Later
+ * Domain Path: /languages
+ * Text Domain: fork
+ */
 
 /* Post Forking
  *
