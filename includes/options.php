@@ -79,8 +79,8 @@ class Fork_Options {
 	 * Register Settings menu
 	 */
 	function register_menu() {
-		add_submenu_page( 'edit.php?post_type=fork', 'Fork Settings', 'Settings', 'manage_options', 'fork_settings', array( $this, 'options' ) );
-
+		
+		add_submenu_page( 'edit.php?post_type=fork', __( 'Fork Settings', 'fork' ), __( 'Settings', 'fork' ), 'manage_options', 'fork_settings', array( $this, 'options' ) );
 	}
 
 
@@ -90,7 +90,6 @@ class Fork_Options {
 	function register_settings() {
 
 		register_setting( 'fork', 'fork', array( $this, 'sanitize' ) );
-
 	}
 
 
