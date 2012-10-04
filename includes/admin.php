@@ -116,16 +116,16 @@ class Fork_Admin {
 		global $post, $post_ID;
 
 		$messages['fork'] = array(
-			1 => __( 'Fork updated.', 'fork' ),
-			2 => __( 'Custom field updated.', 'fork' ),
-			3 => __( 'Custom field deleted.', 'fork' ),
-			4 => __( 'Fork updated.', 'fork' ),
-			5 => isset($_GET['revision']) ? sprintf( __( 'Fork restored to revision from %s', 'fork' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
-			6 => __( 'Fork published. <a href="%s">Download Fork</a>', 'fork' ),
-			7 => __( 'Fork saved.', 'fork' ),
-			8 => __( 'Fork submitted.', 'fork' ),
-			9 => __( 'Fork scheduled for:', 'fork' ),
-			10 => __( 'Fork draft updated.', 'fork' ),
+			1 => __( 'Fork updated.', 'post-forking' ),
+			2 => __( 'Custom field updated.', 'post-forking' ),
+			3 => __( 'Custom field deleted.', 'post-forking' ),
+			4 => __( 'Fork updated.', 'post-forking' ),
+			5 => isset($_GET['revision']) ? sprintf( __( 'Fork restored to revision from %s', 'post-forking' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			6 => __( 'Fork published. <a href="%s">Download Fork</a>', 'post-forking' ),
+			7 => __( 'Fork saved.', 'post-forking' ),
+			8 => __( 'Fork submitted.', 'post-forking' ),
+			9 => __( 'Fork scheduled for:', 'post-forking' ),
+			10 => __( 'Fork draft updated.', 'post-forking' ),
 		);
 
 		return $messages;
@@ -160,13 +160,13 @@ class Fork_Admin {
 	function row_actions( $actions, $post ) {
 
 		if ( post_type_supports( get_post_type( $post ), $this->parent->post_type_support ) ) {
-			$label = ( $this->parent->branches->can_branch ( $post ) ) ? __( 'Create branch', 'fork' ) : __( 'Fork', 'fork' );
+			$label = ( $this->parent->branches->can_branch ( $post ) ) ? __( 'Create branch', 'post-forking' ) : __( 'Fork', 'post-forking' );
 			$actions[] = '<a href="' . admin_url( "?fork={$post->ID}" ) . '">' . $label . '</a>';
 		}
 
 		if ( Fork::post_type == get_post_type( $post ) ) {
 			$parent = $this->parent->revisions->get_previous_revision( $post );
-			$actions[] = '<a href="' . admin_url( "revision.php?action=diff&left={$parent}&right={$post->ID}" ) . '">' . __( 'Compare', 'fork' ) . '</a>';
+			$actions[] = '<a href="' . admin_url( "revision.php?action=diff&left={$parent}&right={$post->ID}" ) . '">' . __( 'Compare', 'post-forking' ) . '</a>';
 		}
 
 		return $actions;
