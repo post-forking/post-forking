@@ -1,1 +1,1 @@
-(.Mo and .Po files here)
+https://github.com/benbalter/post-forking/wiki/Languages
