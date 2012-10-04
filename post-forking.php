@@ -77,7 +77,7 @@ class Fork {
 	 * Must be done early on init because they need to be in place when register_cpt is called
 	 */
 	function l10n() {
-		load_plugin_textdomain( 'fork', false, plugin_basename( dirname( __FILE__ ) ) . '/languages/' );
+		load_plugin_textdomain( 'post-forking', false, plugin_basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
 	
 	/**
@@ -101,18 +101,18 @@ class Fork {
 	function register_cpt() {
 	
 		$labels = array( 
-			'name'               => _x( 'Forks', 'fork' ),
-			'singular_name'      => _x( 'Fork', 'fork' ),
+			'name'               => _x( 'Forks', 'post-forking' ),
+			'singular_name'      => _x( 'Fork', 'post-forking' ),
 			'add_new'            => false,
 			'add_new_item'       => false,
-			'edit_item'          => _x( 'Edit Fork', 'fork' ),
-			'new_item'           => _x( 'New Fork', 'fork' ),
-			'view_item'          => _x( 'View Fork', 'fork' ),
-			'search_items'       => _x( 'Search Forks', 'fork' ),
-			'not_found'          => _x( 'No forks found', 'fork' ),
-			'not_found_in_trash' => _x( 'No forks found in Trash', 'fork' ),
-			'parent_item_colon'  => _x( 'Parent Fork:', 'fork' ),
-			'menu_name'          => _x( 'Forks', 'fork' ),
+			'edit_item'          => _x( 'Edit Fork', 'post-forking' ),
+			'new_item'           => _x( 'New Fork', 'post-forking' ),
+			'view_item'          => _x( 'View Fork', 'post-forking' ),
+			'search_items'       => _x( 'Search Forks', 'post-forking' ),
+			'not_found'          => _x( 'No forks found', 'post-forking' ),
+			'not_found_in_trash' => _x( 'No forks found in Trash', 'post-forking' ),
+			'parent_item_colon'  => _x( 'Parent Fork:', 'post-forking' ),
+			'menu_name'          => _x( 'Forks', 'post-forking' ),
 		);
 	
 		$args = array( 
@@ -261,12 +261,12 @@ class Fork {
 		
 		//bad post type, enable via forks->options
 		if ( !post_type_supports( $p->post_type, $this->post_type_support ) )
-			wp_die( __( 'That post type does not support forking', 'fork' ) );
+			wp_die( __( 'That post type does not support forking', 'post-forking' ) );
 			
 		//hook into this cap check via map_meta cap
 		// for custom capabilities
 		if ( !user_can( $author, 'fork_posts', $p ) )
-			wp_die( __( 'You are not authorized to fork that post', 'fork' ) );
+			wp_die( __( 'You are not authorized to fork that post', 'post-forking' ) );
 
 		//user already has a fork, just return the existing ID
 		if ( $fork = $this->user_has_fork( $p->ID, $author ) )

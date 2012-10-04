@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Forking\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-04 16:03+0100\n"
-"PO-Revision-Date: 2012-10-04 16:06+0100\n"
+"POT-Creation-Date: 2012-10-04 17:24+0100\n"
+"PO-Revision-Date: 2012-10-04 17:25+0100\n"
 "Last-Translator: FxB <fx@fxbenard.com>\n"
 "Language-Team: FxB <fx@fxbenard.com>\n"
 "Language: fr_FR\n"
@@ -19,47 +19,47 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 
 #: post-forking.php:104 post-forking.php:115
-msgctxt "fork"
+msgctxt "post-forking"
 msgid "Forks"
 msgstr "Forks"
 
 #: post-forking.php:105
-msgctxt "fork"
+msgctxt "post-forking"
 msgid "Fork"
 msgstr "Fork"
 
 #: post-forking.php:108
-msgctxt "fork"
+msgctxt "post-forking"
 msgid "Edit Fork"
 msgstr "Modifier la Fork"
 
 #: post-forking.php:109
-msgctxt "fork"
+msgctxt "post-forking"
 msgid "New Fork"
 msgstr "Nouvelle Fork"
 
 #: post-forking.php:110
-msgctxt "fork"
+msgctxt "post-forking"
 msgid "View Fork"
 msgstr "Voir la Fork"
 
 #: post-forking.php:111
-msgctxt "fork"
+msgctxt "post-forking"
 msgid "Search Forks"
 msgstr "Rechercher Forks"
 
 #: post-forking.php:112
-msgctxt "fork"
+msgctxt "post-forking"
 msgid "No forks found"
 msgstr "Aucune Fork trouvée."
 
 #: post-forking.php:113
-msgctxt "fork"
+msgctxt "post-forking"
 msgid "No forks found in Trash"
 msgstr "Aucune Fork trouvée dans la Corbeille"
 
 #: post-forking.php:114
-msgctxt "fork"
+msgctxt "post-forking"
 msgid "Parent Fork:"
 msgstr "Fork parente :"
 
@@ -187,10 +187,10 @@ msgstr "Types d'article"
 msgid "View Fork"
 msgstr "Voir la Fork"
 
-#~ msgctxt "post-forking"
+#~ msgctxt "fork"
 #~ msgid "Fork"
 #~ msgstr "Fork"
 
-#~ msgctxt "post-forking"
+#~ msgctxt "fork"
 #~ msgid "View Fork"
 #~ msgstr "Voir la Fork"

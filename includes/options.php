@@ -80,7 +80,7 @@ class Fork_Options {
 	 */
 	function register_menu() {
 		
-		add_submenu_page( 'edit.php?post_type=fork', __( 'Fork Settings', 'fork' ), __( 'Settings', 'fork' ), 'manage_options', 'fork_settings', array( $this, 'options' ) );
+		add_submenu_page( 'edit.php?post_type=fork', __( 'Fork Settings', 'post-forking' ), __( 'Settings', 'post-forking' ), 'manage_options', 'fork_settings', array( $this, 'options' ) );
 	}
 
 
