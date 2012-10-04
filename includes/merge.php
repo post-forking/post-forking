@@ -42,10 +42,10 @@ class Fork_Merge {
 			return false;
 
 		if ( !current_user_can( 'publish_forks' ) )
-			wp_die( __( 'You are not authorized to merge forks', 'fork' ) );
+			wp_die( __( 'You are not authorized to merge forks', 'post-forking' ) );
 
 		if ( !current_user_can( 'edit_posts', $fork->post_parent ) )
-			wp_die( __( 'You are not authorized to edit the parent post', 'fork' ) );
+			wp_die( __( 'You are not authorized to edit the parent post', 'post-forking' ) );
 
 		$update = array(
 			'ID' => $fork->post_parent,
@@ -66,7 +66,7 @@ class Fork_Merge {
 	function get_merged( $fork ) {
 
 		$diff = $this->get_diff( $fork );
-		$merged = $diff->mergedOutput( __( 'Fork', 'fork' ), __( 'Current Version', 'fork' ) );
+		$merged = $diff->mergedOutput( __( 'Fork', 'post-forking' ), __( 'Current Version', 'post-forking' ) );
 		return implode( "\n", $merged );
 
 	}
@@ -240,7 +240,7 @@ class Fork_Merge {
 		if ( !is_object( $fork ) )
 			$fork = get_post( $fork );
 
-		$pattern = sprintf( '#\<\<\<\<\<\<\<|\>\>\>\>\>\>\>|&lt;&lt;&lt;&lt;&lt;&lt;&lt;|&gt;&gt;&gt;&gt;&gt;&gt;&gt;#s', __( 'Fork', 'fork' ), __( 'Current Version', 'fork' ) );
+		$pattern = sprintf( '#\<\<\<\<\<\<\<|\>\>\>\>\>\>\>|&lt;&lt;&lt;&lt;&lt;&lt;&lt;|&gt;&gt;&gt;&gt;&gt;&gt;&gt;#s', __( 'Fork', 'post-forking' ), __( 'Current Version', 'post-forking' ) );
 
 		return (bool) preg_match( $pattern, $fork->post_content );
 
