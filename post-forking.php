@@ -265,7 +265,7 @@ class Fork {
 			
 		//hook into this cap check via map_meta cap
 		// for custom capabilities
-		if ( !user_can( $author, 'fork_post', $p ) )
+		if ( !user_can( $author, 'fork_post', $p->ID ) )
 			wp_die( __( 'You are not authorized to fork that post', 'post-forking' ) );
 
 		//user already has a fork, just return the existing ID

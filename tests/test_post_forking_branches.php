@@ -65,6 +65,7 @@ class WP_Test_Post_Forking_Branches extends WP_UnitTestCase {
 		$post = get_post( $this->create_post() );
 		$instance = $this->get_instance();
 		$instance->action_init();
+		$instance->capabilities->add_caps();
 		$other_user = $this->get_core()->create_user( 'author' );
 		$this->assertTrue( $instance->branches->can_branch( $post->ID, $post->post_author ) );
 		$this->assertFalse( $instance->branches->can_branch( $post->ID, $other_user ) );

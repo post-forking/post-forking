@@ -3,6 +3,20 @@
 class WP_Test_Post_Forking_Capabilities extends WP_UnitTestCase {
 
     public $core = null;
+    
+    function __construct() {
+
+		global $wp_roles;
+		global $wp_user_roles;
+        
+        $instance = $this->get_instance();
+		$instance->capabilities->add_caps();
+
+		//force caps to refresh, fixes #32
+		$wp_user_roles = null;
+		$wp_roles = new WP_Roles();
+
+    }
 
     function &get_core() {
 	
@@ -27,6 +41,13 @@ class WP_Test_Post_Forking_Capabilities extends WP_UnitTestCase {
 
 	function create_post() {
 		return $this->get_core()->create_post();
+	}
+	
+	function test_add_caps() {
+    	
+    	global $wp_roles;
+    	$this->assertTrue( array_key_exists( 'edit_forks', $wp_roles->roles['administrator']['capabilities'] ) );
+    	
 	}
 
     function test_fork_post() {
