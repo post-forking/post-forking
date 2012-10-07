@@ -27,7 +27,7 @@ class WP_Test_Post_Forking_Core extends Post_Forking_Test {
  
 		 //out of box, should return post => true, page => false pre 3.5
 		 // and includes attachment => false from 3.5 on
-		 $expected = ( get_bloginfo( 'version' ) < '3.5' ) ? 2 : 3;
+		 $expected = ( '3.4.1' < '3.5' ) ? 2 : 3;
 		 $this->assertCount( 3, $pts );
 		 $this->assertTrue( $pts['post'] );
 		 $this->assertFalse( $pts['page'] );
