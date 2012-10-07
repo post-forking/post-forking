@@ -57,7 +57,7 @@ class Fork_Branches {
 		if ( !$p || !$user )
 			return false;
 
-		if ( !user_can( $user, 'branch_posts', $p ) )
+		if ( !user_can( $user, 'branch_post', $p ) )
 			return false;
 
 		return true;

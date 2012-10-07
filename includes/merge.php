@@ -41,11 +41,8 @@ class Fork_Merge {
 		if ( $this->has_conflict_markup( $fork ) )
 			return false;
 
-		if ( !current_user_can( 'publish_forks' ) )
+		if ( !current_user_can( 'publish_fork', $fork->ID ) )
 			wp_die( __( 'You are not authorized to merge forks', 'post-forking' ) );
-
-		if ( !current_user_can( 'edit_posts', $fork->post_parent ) )
-			wp_die( __( 'You are not authorized to edit the parent post', 'post-forking' ) );
 
 		$update = array(
 			'ID' => $fork->post_parent,

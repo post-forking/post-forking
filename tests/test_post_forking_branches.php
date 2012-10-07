@@ -1,16 +1,28 @@
 <?php
 
+require_once dirname( __FILE__ ) . '/wp_die_handler.php';
+
 class WP_Test_Post_Forking_Branches extends WP_UnitTestCase {
 	
 	public $core = null;
 	
-	
 	function __construct() {
-		
+
+        $this->die_handler = new Post_Forking_Die_Handler();
+
 		//force into admin to allow merge class to load
 		if ( !defined( 'WP_ADMIN' ) )
 			define( 'WP_ADMIN', true );
 	
+	}
+	
+	function assertDied( $null, $msg =  null ) {
+    	
+    	if ( $msg == null )
+    	   $msg = 'Did not properly trip `wp_die()`';
+    	   
+    	$this->assertTrue( $this->die_handler->died(), $msg );
+    	
 	}
 	
 	function &get_core() {
