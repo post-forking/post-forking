@@ -54,6 +54,8 @@ class Fork_Admin {
 		if ( !isset( $_GET['fork'] ) )
 			return;
 
+		check_admin_referer( 'post-forking-fork_' . intval( $_GET['fork'] ) );
+
 		$fork = $this->parent->fork( (int) $_GET['fork'] );
 
 		if ( !$fork )
@@ -72,6 +74,8 @@ class Fork_Admin {
 
 		if ( !isset( $_GET['merge'] ) )
 			return;
+
+		check_admin_referer( 'post-forking-merge_' . intval( $_GET['merge'] ) );
 
 		$this->parent->merge->merge( (int) $_GET['merge'] );
 
@@ -161,7 +165,7 @@ class Fork_Admin {
 
 		if ( post_type_supports( get_post_type( $post ), $this->parent->post_type_support ) ) {
 			$label = ( $this->parent->branches->can_branch ( $post ) ) ? __( 'Create branch', 'post-forking' ) : __( 'Fork', 'post-forking' );
-			$actions[] = '<a href="' . admin_url( "?fork={$post->ID}" ) . '">' . $label . '</a>';
+			$actions[] = '<a href="' . wp_nonce_url( admin_url( "?fork={$post->ID}" ), 'post-forking-fork_' . $post->ID ) . '">' . $label . '</a>';
 		}
 
 		if ( Fork::post_type == get_post_type( $post ) ) {
@@ -182,6 +186,8 @@ class Fork_Admin {
 
 		foreach ( array( 'post', 'author', 'action' ) as $var )
 			$$var = ( isset( $_GET[$var] ) ) ? $_GET[$var] : null;
+
+		check_ajax_referer( 'post-forking-' . $action . '_' . $post );
 
 		if ( $action == 'merge' )
 			$result = $this->parent->merge->merge( $post, $author );
