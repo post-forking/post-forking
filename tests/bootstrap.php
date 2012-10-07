@@ -17,3 +17,5 @@ $GLOBALS['wp_tests_options'] = array(
 );
 
 require getenv( 'WP_TESTS_DIR' ) . '/bootstrap.php';
+require dirname( __FILE__ ) . '/wp_die_handler.php';
+require dirname( __FILE__ ) . '/post_forking_test.php';

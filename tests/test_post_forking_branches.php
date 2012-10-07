@@ -1,8 +1,6 @@
 <?php
 
-require_once dirname( __FILE__ ) . '/wp_die_handler.php';
-
-class WP_Test_Post_Forking_Branches extends WP_UnitTestCase {
+class WP_Test_Post_Forking_Branches extends Post_Forking_Test {
 	
 	public $core = null;
 	
@@ -15,41 +13,7 @@ class WP_Test_Post_Forking_Branches extends WP_UnitTestCase {
 			define( 'WP_ADMIN', true );
 	
 	}
-	
-	function assertDied( $null, $msg =  null ) {
-    	
-    	if ( $msg == null )
-    	   $msg = 'Did not properly trip `wp_die()`';
-    	   
-    	$this->assertTrue( $this->die_handler->died(), $msg );
-    	
-	}
-	
-	function &get_core() {
-	
-		if ( $this->core == null )
-			$this->core = &WP_Test_Post_Forking_Core::$instance;
-	
-		return $this->core;
 		
-	}
-
-	function get_instance() {
-		return $this->get_core()->get_instance();
-	}
-	
-	function create_branch() {
-		return $this->get_core()->create_branch();
-	}
-	
-	function create_fork() {
-		return $this->get_core()->create_fork();
-	}
-
-	function create_post() {
-		return $this->get_core()->create_post();
-	}
-	
 	function test_is_branch() {
 		
 		$instance = $this->get_instance();
@@ -66,7 +30,7 @@ class WP_Test_Post_Forking_Branches extends WP_UnitTestCase {
 		$instance = $this->get_instance();
 		$instance->action_init();
 		$instance->capabilities->add_caps();
-		$other_user = $this->get_core()->create_user( 'author' );
+		$other_user = $this->create_user( 'author' );
 		$this->assertTrue( $instance->branches->can_branch( $post->ID, $post->post_author ) );
 		$this->assertFalse( $instance->branches->can_branch( $post->ID, $other_user ) );
 		
