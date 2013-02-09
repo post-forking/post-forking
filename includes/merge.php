@@ -49,6 +49,10 @@ class Fork_Merge {
 			'post_content' => $this->get_merged( $fork ),
 		);
 
+		// Note: $merge_author = id of user who's doing the merge
+	    $merge_author = wp_get_current_user()->ID;
+    	do_action( 'merge', $fork, $merge_author );
+    	
 		return wp_update_post( $update );
 
 	}
