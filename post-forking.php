@@ -3,7 +3,7 @@
  * Plugin Name: Post Forking
  * Description: Post forking
  * Author:      Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin
- * Version:     0.1
+ * Version:     0.2-alpha
  * Plugin URI:  http://postforking.wordpress.com
  * License:     GPLv3 or Later
  * Domain Path: /languages
@@ -52,7 +52,7 @@ class Fork {
 	const post_type = 'fork';
 	public $post_type_support = 'fork'; //key to register when adding post type support
 	public $fields = array( 'post_title', 'post_content' ); //post fields to map from post to fork
-	public $version = '1.0';
+	public $version = '0.2-alpha';
 	/**
 	 * Register initial hooks with WordPress core
 	 */
