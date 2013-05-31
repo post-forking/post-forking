@@ -10,7 +10,7 @@ class Fork_Capabilities {
 			'edit_forks'             => true,
 			'edit_others_forks'      => true,
 			'edit_private_forks'     => true,
-			'edit_published_forks'   => false,
+			'edit_published_forks'   => true,
 			'read_forks'             => true,
 			'read_private_forks'     => true,
 			'delete_fork'            => true,
@@ -23,7 +23,7 @@ class Fork_Capabilities {
 			'edit_forks'             => true,
 			'edit_others_forks'      => false,
 			'edit_private_forks'     => false,
-			'edit_published_forks'   => false,
+			'edit_published_forks'   => true,
 			'read_forks'             => true,
 			'read_private_forks'     => false,
 			'delete_fork'            => true,
@@ -69,7 +69,6 @@ class Fork_Capabilities {
 
 			}
 		}
-
 	}
 	
 	function map_meta_cap( $caps, $cap, $userID, $args = null ) {
@@ -105,7 +104,7 @@ class Fork_Capabilities {
         	break;
         	
         	case 'publish_fork':
-        	   
+
            	   unset( $caps[ array_search( $cap, $caps ) ] );
   	       	   $caps[] = $cpt->cap->publish_posts;
 
@@ -115,8 +114,9 @@ class Fork_Capabilities {
                 $cap = get_post_type_object( get_post_type( $args[0] ) )->cap->edit_post;
                 
                //if user cannot edit parent post, don't let them publish
-               if ( !user_can( $userID, $cap, $args[0] ) )
+               if ( !user_can( $userID, $cap, $args[0] ) ) {
                    $caps[] = 'do_not_allow';
+               }
 
         	break;
     	

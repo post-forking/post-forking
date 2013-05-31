@@ -24,7 +24,7 @@ class Fork_Merge {
 
 		add_filter( 'wp_insert_post_data', array( $this, 'check_merge_conflict' ), 10, 2 );
 		add_action( 'admin_notices', array( $this, 'conflict_warning' ) );
-		add_action( 'transition_post_status', array( $this, 'intercept_publish' ), 10, 3 );
+		add_action( 'transition_post_status', array( $this, 'intercept_publish' ), 0, 3 );
 
 	}
 
@@ -34,6 +34,7 @@ class Fork_Merge {
 	 * @param int $fork_id the ID of the fork to merge
 	 */
 	function merge( $fork ) {
+		$user = wp_get_current_user();
 
 		if ( !is_object( $fork ) )
 			$fork = get_post( $fork );
@@ -41,8 +42,9 @@ class Fork_Merge {
 		if ( $this->has_conflict_markup( $fork ) )
 			return false;
 
-		if ( !current_user_can( 'publish_fork', $fork->ID ) )
+		if ( !current_user_can( 'publish_fork', $fork->ID ) ) {
 			wp_die( __( 'You are not authorized to merge forks', 'post-forking' ) );
+		}
 
 		$update = array(
 			'ID' => $fork->post_parent,

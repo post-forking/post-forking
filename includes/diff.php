@@ -26,11 +26,13 @@ class Fork_Diff {
 	 */
 	function spoof_revision() {
 
-		$post = (int) $_GET['right'];
+		$post = (int) $_GET['revision'];
 		$post = get_post( $post );
 
 		if ( !get_post_type( $post )  == 'fork' )
 			return;
+
+		// die('here');
 
 		$post->post_type = 'revision';
 		$post->post_modified_gmt = get_post( $post->post_parent )->post_modified_gmt;
