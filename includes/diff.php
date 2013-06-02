@@ -80,14 +80,11 @@ class Fork_Diff {
 		if ( !get_post_type( $this->right )  == 'fork' )
 			wp_die( __( 'Invalid type for right side; must be a fork.', 'post-forking' ) );
 		
-		if ( !empty( $_GET['left'] ) ) {
-			$this->left = get_post( intval( $_GET['left'] ) );
-			if ( $this->left->ID != $this->right->post_parent && $this->left->post_parent != $this->right->post_parent ) {
-				wp_die( __( 'Invalid type for left side; must be a parent or sibling of fork.', 'post-forking' ) );
-			}
-		} else {
-			$this->left = get_post( $this->right->post_parent );
-		}
+
+		$this->left = get_post( $this->right->post_parent );
+		$previous_revision = $this->parent->revisions->get_previous_revision( $this->right->ID );
+		$this->left->post_content = get_post( $previous_revision )->post_content;
+
 		$this->user_can_merge = current_user_can( 'publish_fork', $this->left->ID );
 	}
 
