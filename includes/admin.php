@@ -170,7 +170,7 @@ class Fork_Admin {
 
 		if ( Fork::post_type == get_post_type( $post ) ) {
 			$parent = $this->parent->revisions->get_previous_revision( $post );
-			$actions[] = '<a href="' . admin_url( "revision.php?action=diff&revision={$post->ID}" ) . '">' . __( 'Compare', 'post-forking' ) . '</a>';
+			$actions[] = '<a href="' . admin_url( "revision.php?page=fork-diff&right={$post->ID}" ) . '">' . __( 'Compare', 'post-forking' ) . '</a>';
 		}
 
 		return $actions;
