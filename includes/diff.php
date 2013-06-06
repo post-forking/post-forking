@@ -80,12 +80,31 @@ class Fork_Diff {
 		if ( !get_post_type( $this->right )  == 'fork' )
 			wp_die( __( 'Invalid type for right side; must be a fork.', 'post-forking' ) );
 		
-
 		$this->left = get_post( $this->right->post_parent );
-		$previous_revision = $this->parent->revisions->get_previous_revision( $this->right->ID );
-		$this->left->post_content = get_post( $previous_revision )->post_content;
+		// if the post is conflicted, use the raw text because post_content has conflict markup
+		if ( $raw = get_post_meta( $this->right->ID, 'fork-conflict-raw', True ) ) {
+			if ( strlen( $raw ) > 0 ) {
+				$this->right->post_content = $raw;
+			}
+		}
 
 		$this->user_can_merge = current_user_can( 'publish_fork', $this->left->ID );
+
+		if ( !empty( $_POST ) ) {
+			$update = array(
+				'ID' => $this->left->ID,
+				'post_content' => wp_kses_post( $_POST['post_content'] )
+			);
+			wp_update_post( $update );
+			
+			$fork_update = array(
+				'ID' => $this->right->ID,
+				'post_status' => 'merged',
+			);
+			wp_update_post( $fork_update );
+
+			wp_safe_redirect( admin_url( "post.php?action=edit&post={$this->left->ID}&message=6" ) );
+		}
 	}
 
 }

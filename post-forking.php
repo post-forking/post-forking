@@ -134,6 +134,15 @@ class Fork {
 		);
 	
 		register_post_type( self::post_type, $args );
+
+		$status_args = array(
+			'label' => _x( 'Merged', 'post-forking' ),
+			'public' => true,
+			'exclude_from_search' => true,
+			'label_count' => _n_noop( 'Merged <span class="count">(%s)</span>', 'Merged <span class="count">(%s)</span>' ),
+		);
+
+		register_post_status( 'merged', $status_args );
 	}
 	
 	/** 

@@ -81,7 +81,14 @@ class Fork_Capabilities {
   	         return $caps;
             
   	     switch ( $cap ) {
-        	    	
+
+  	     	// prevent editing of 'merged' posts.
+  	     	case 'edit_post':
+  	     		if ( empty( $args ) ) break;
+  	     		if ( 'fork' == get_post_type( $args[0] ) && 'merged' == get_post_status( $args[0] ) )
+  	     			$caps[] = 'do_not_allow';
+        	break;
+
         	case 'branch_post':
         	
         	   unset( $caps[ array_search( $cap, $caps ) ] );

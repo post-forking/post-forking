@@ -55,7 +55,7 @@ class Post_Forking_Test extends WP_UnitTestCase {
 	 function create_fork( $branch = false, $revision = true  ) {
 	 
 	 	$fork = $this->get_instance();
-	 	$post = $this->create_post(); 
+	 	$post = $this->create_post();
 	 	
 	 	//make a revision to make finding parent revisions easier
 	 	if ( $revision )

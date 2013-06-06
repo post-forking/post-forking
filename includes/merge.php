@@ -39,8 +39,12 @@ class Fork_Merge {
 		if ( !is_object( $fork ) )
 			$fork = get_post( $fork );
 
-		if ( $this->has_conflict_markup( $fork ) )
+		$fork_content_pre_merge = $fork->post_content;
+
+		if ( $this->has_conflict_markup( $fork ) ) {
+			update_post_meta( $fork->ID, 'fork-conflict-raw', $fork_content_pre_merge );
 			return false;
+		}
 
 		if ( !current_user_can( 'publish_fork', $fork->ID ) ) {
 			wp_die( __( 'You are not authorized to merge forks', 'post-forking' ) );
@@ -50,6 +54,9 @@ class Fork_Merge {
 			'ID' => $fork->post_parent,
 			'post_content' => $this->get_merged( $fork ),
 		);
+
+		// reload $fork to check for conflict markup, and save the original in postmeta if so
+		$fork = get_post( $fork->ID );
 
 		return wp_update_post( $update );
 
@@ -101,7 +108,7 @@ class Fork_Merge {
 
 		if ( !is_object( $fork ) )
 			$fork = get_post( $fork );
-			
+		
 		$fork_id = $fork->ID;
 
 		//grab the three elments
@@ -110,7 +117,10 @@ class Fork_Merge {
 		
 		//normalize whitespace and convert string -> array
 		foreach ( array( 'fork', 'parent', 'current' ) as $string ) {
-			$$string = get_post( $$string )->post_content;
+			if ( is_object( $$string ) )
+				$$string = $$string->post_content;
+			else
+				$$string = get_post( $$string )->post_content;
 			$$string = normalize_whitespace( $$string );
 			$$string = explode( "\n", $$string );
 		}
@@ -220,6 +230,12 @@ class Fork_Merge {
 			return;
 
 		$post = $this->merge( $post->ID );
+		$fork_update = array(
+			'ID' => $post->ID,
+			'post_status' => 'merged',
+		);
+		wp_update_post( $fork_update );
+
 		wp_safe_redirect( admin_url( "post.php?action=edit&post={$post}&message=6" ) );
 		exit();
 
