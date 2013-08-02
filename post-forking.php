@@ -388,7 +388,7 @@ class Fork {
  	}
  	
  	/**
- 	 * WHen post is deleted, delete posts
+ 	 * When post is deleted, delete posts
  	 * @param int $post_id the parent post
  	 */
  	function delete_post( $post_id ) {
