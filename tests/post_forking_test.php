@@ -16,7 +16,7 @@ class Post_Forking_Test extends WP_UnitTestCase {
     }
     
     function get_instance() {
-		 global $fork;		 
+		 global $fork;	 
 		 return $fork;	 
 	 }
 	 
@@ -55,7 +55,7 @@ class Post_Forking_Test extends WP_UnitTestCase {
 	 function create_fork( $branch = false, $revision = true  ) {
 	 
 	 	$fork = $this->get_instance();
-	 	$post = $this->create_post(); 
+	 	$post = $this->create_post();
 	 	
 	 	//make a revision to make finding parent revisions easier
 	 	if ( $revision )
@@ -76,7 +76,7 @@ class Post_Forking_Test extends WP_UnitTestCase {
 		 return $this->create_fork( true );
 	 }
 
-	 	function create_conflict( $fork ) {
+ 	function create_conflict( $fork ) {
 		
 		//assumes a standard post of 1,2,3,4 and an unedited fork
 		

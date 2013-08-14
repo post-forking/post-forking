@@ -1,9 +1,28 @@
 <?php
 /**
- * Class to modify rendering of text-diffs on revision.php page
+ * Class to provide diff/interactive merge tool.
+ * Uses mergely.js for visual diff/merge.
  * @todo the table of revisions
  */
 class Fork_Diff {
+
+	/**
+	 * @var WP_Post
+	 * Left post
+	 */
+	public $left;
+
+	/**
+	 * @var WP_Post
+	 * Right post
+	 */
+	public $right;
+
+	/**
+	 * @var boolean
+	 * Can the current user use mergely as a merge tool, or just to view diff?
+	 */
+	public $user_can_merge;
 
 	/**
 	 * Hook into WordPress API on init
@@ -11,165 +30,85 @@ class Fork_Diff {
 	function __construct( &$parent ) {
 
 		$this->parent = &$parent;
-		add_action( 'load-revision.php', array( $this, 'spoof_revision' ) );
-
+		add_action( 'admin_menu', array( $this, 'register_diff_page' ) );
+		add_action( 'admin_init', array( $this, 'diff_admin_init' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_mergely' ) );
 	}
-
 
 	/**
-	 * /wp-admin/revision.php checks that the thing we're comparing is a "revision"
-	 * When comparing a fork to a post, prime the object cache with a modified version of the fork
-	 * so that revision.php grabs the post from cache, it thinks it's a revision
-	 *
-	 * Note: this only fires on revision.php, per the hook
-	 *
+	 * Add a submenu callback on revision.php (doens't appear in sidebar menu)
 	 */
-	function spoof_revision() {
-
-		$post = (int) $_GET['right'];
-		$post = get_post( $post );
-
-		if ( !get_post_type( $post )  == 'fork' )
-			return;
-
-		$post->post_type = 'revision';
-		$post->post_modified_gmt = get_post( $post->post_parent )->post_modified_gmt;
-
-		wp_cache_set( $post->ID, $post, 'posts' );
-		wp_cache_set( 'spoofed_revision', $post, 'fork' );
-		add_action( 'shutdown', array( $this, 'unspoof_revision' ) );
-
+	function register_diff_page() {
+		add_submenu_page(
+			'revision.php',
+			__( 'Compare a Fork to its parent', 'post-forking' ),
+			'',
+			'edit_forks',
+			'fork-diff',
+			array( $this, 'render_diff_page' )
+		);
 	}
-
 
 	/**
-	 * If we spoofed a revision on the start of revision.php, unspoof the revision, in case
-	 * the site has persistent cache, unspoof the post prior to shutdown, so that the cache is
-	 * acurate on subsequent page loads.
-	 *
-	 * Note: this only fires when spoof_revision() was fired on a page
-	 *
+	 * Add mergely.js scripts and styles
 	 */
-	function unspoof_revision() {
-
-		$post = wp_cache_get( 'spoofed_revision', 'fork' );
-
-		if ( !$post || !is_object( $post ) )
-			return;
-
-		$post->post_type = 'fork';
-
-		wp_cache_set( $post->ID, $post, 'posts' );
-		wp_cache_delete( 'spoofed_revision', 'fork' ); //in case we have a persistent cache
-
+	function enqueue_mergely() {
+		if ( isset( $_GET['page'] ) && 'fork-diff' == $_GET['page'] ) {
+			wp_enqueue_script( 'codemirror', plugins_url( "/js/mergely-3.3.1/lib/codemirror.min.js", dirname( __FILE__ ) ), 'jquery', $this->parent->version, true );
+			wp_enqueue_script( 'mergely', plugins_url( "/js/mergely-3.3.1/lib/mergely.min.js", dirname( __FILE__ ) ), 'codemirror', $this->parent->version, true );
+			wp_enqueue_style( 'codemirror_style', plugins_url( "/js/mergely-3.3.1/lib/codemirror.css", dirname( __FILE__ ) ), Null, $this->parent->version, 'all' );
+			wp_enqueue_style( 'mergely_style', plugins_url( "/js/mergely-3.3.1/lib/mergely.css", dirname( __FILE__ ) ), Null, $this->parent->version, 'all' );
+		}
 	}
 
+	/**
+	 * Render the template for the diff page
+	 */
+	function render_diff_page() {
+		$this->parent->template( 'diff' );
+	}
+
+	/**
+	 * Load up the left and right posts and perform some validation
+	 */
+	function diff_admin_init() {
+		if ( !isset( $_GET['right'] ) || !isset( $_GET['page'] ) || 'fork-diff' != $_GET['page'] ) {
+			return;
+		}
+		$fork_id = (int) $_GET['right'];
+		$this->right = get_post( $fork_id );
+		if ( !get_post_type( $this->right )  == 'fork' )
+			wp_die( __( 'Invalid type for right side; must be a fork.', 'post-forking' ) );
+		
+		$this->left = get_post( $this->right->post_parent );
+		// if the post is conflicted, use the raw text because post_content has conflict markup
+		if ( $raw = get_post_meta( $this->right->ID, 'fork-conflict-raw', True ) ) {
+			if ( strlen( $raw ) > 0 ) {
+				$this->right->post_content = $raw;
+			}
+		}
+
+		$this->user_can_merge = current_user_can( 'publish_fork', $this->left->ID );
+
+		// Did the user save the fork?
+		if ( $this->user_can_merge && !empty( $_POST ) && isset( $_POST['post_content'] ) ) {
+			if ( !wp_verify_nonce( $_POST['diff_merge_nonce'], 'manually_merge_diff') ) {
+				wp_die( __('Failed to save' ) );
+			}
+			$update = array(
+				'ID' => $this->left->ID,
+				'post_content' => wp_kses_post( $_POST['post_content'] )
+			);
+			wp_update_post( $update );
+			
+			$fork_update = array(
+				'ID' => $this->right->ID,
+				'post_status' => 'merged',
+			);
+			wp_update_post( $fork_update );
+
+			wp_safe_redirect( admin_url( "post.php?action=edit&post={$this->left->ID}&message=6" ) );
+		}
+	}
 
 }
-
-
-/**
- * We really don't want to get in the business of rewriting WP_Text_Diff_Renderer_table
- * It's hugely complex, well thought out, and works well.
- * Problem is however, it can only render two way diffs
- * What we're doing here is running our normaly three-way diff, then passing that to
- * renderer as a two way diff. We get better results, without the heavy lift.
- *
- * The process here is to replace the function wp_text_diff with our own function
- * essentially writing a filter into core that doesn't exist.
- * Our version of wp_text_diff checks to see if we're comparing a fork,
- * and if so, does the three way merge
- * otherwise, we're running wp_text_diff essentially unchanged.
- * We could do this as one function (and just look for $_GET, but passing
- * as an arg is a bit cleaner of a solution in terms of hooking into other plugins, etc.
- *
- * Note, unless we're on revision.php and action is diff, we're running core's version
- */
-if ( !function_exists( 'wp_text_diff' ) ) :
-
-	//verify page
-	if ( stripos( $_SERVER['PHP_SELF'], 'revision.php' ) === false )
-		return;
-
-	//verify action
-	if ( !isset( $_GET['action'] ) || $_GET['action'] != 'diff' )
-		return;
-
-	/**
-	 * Replace function with check for post_type, pass an arg if so
-	 */
-	function wp_text_diff( $left, $right, $args = array() ) {
-
-		//not a fork, transparently run a two-way post diff
-		if ( !isset( $_GET['right'] ) || get_post_type( $_GET['right'] != 'fork' ) )
-			return _wp_text_diff( $left, $right, $args );
-
-		$args['fork'] = isset( $_GET['right'] ) ? $_GET['right'] : false;
-
-		return _wp_text_Diff( $left, $right, $args );
-
-	}
-
-
-/**
- * Normal wp_text_diff with three lines added as indicated
- * @access private
- * @version 3.4
- */
-function _wp_text_diff( $left_string, $right_string, $args = null ) {
-
-	//fork edit: added parent arg
-	$defaults = array( 'title' => '', 'title_left' => '', 'title_right' => '', 'fork' => false );
-	$args = wp_parse_args( $args, $defaults );
-
-	if ( !class_exists( 'WP_Text_Diff_Renderer_Table' ) )
-		require ABSPATH . WPINC . '/wp-diff.php';
-
-	//begin fork edit
-	global $fork;
-	if ( $args['fork'] ) {
-		global $fork;
-		$parent = $fork->revisions->get_previous_revision( $args['fork'] );
-		$left_lines = get_post( $parent )->post_content;
-	}
-
-	//end edit
-
-	$left_string  = normalize_whitespace($left_string);
-	$right_string = normalize_whitespace($right_string);
-
-	$left_lines  = explode("\n", $left_string);
-	$right_lines = explode("\n", $right_string);
-
-	$text_diff = new Text_Diff($left_lines, $right_lines);
-
-	$renderer  = new WP_Text_Diff_Renderer_Table();
-	$diff = $renderer->render( $text_diff );
-
-	if ( !$diff )
-		return '';
-
-	$r  = "<table class='diff'>\n";
-	$r .= "<col class='ltype' /><col class='content' /><col class='ltype' /><col class='content' />";
-
-	if ( $args['title'] || $args['title_left'] || $args['title_right'] )
-		$r .= "<thead>";
-	if ( $args['title'] )
-		$r .= "<tr class='diff-title'><th colspan='4'>$args[title]</th></tr>\n";
-	if ( $args['title_left'] || $args['title_right'] ) {
-		$r .= "<tr class='diff-sub-title'>\n";
-		$r .= "\t<td></td><th>$args[title_left]</th>\n";
-		$r .= "\t<td></td><th>$args[title_right]</th>\n";
-		$r .= "</tr>\n";
-	}
-	if ( $args['title'] || $args['title_left'] || $args['title_right'] )
-		$r .= "</thead>\n";
-
-	$r .= "<tbody>\n$diff\n</tbody>\n";
-	$r .= "</table>";
-
-	return $r;
-}
-
-
-endif;
