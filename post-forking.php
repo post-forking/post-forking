@@ -114,7 +114,7 @@ class Fork {
 			'parent_item_colon'  => _x( 'Parent Fork:', 'post-forking' ),
 			'menu_name'          => _x( 'Forks', 'post-forking' ),
 		);
-	
+
 		$args = array( 
 			'labels'              => $labels,
 			'hierarchical'        => true,
@@ -129,11 +129,20 @@ class Fork {
 			'can_export'          => true,
 			'rewrite'             => true,
 			'map_meta_cap'        => true, 
-			'capability_type'     => 'fork',
+			'capability_type'     => array( 'fork', 'forks' ),
 			'menu_icon'           => plugins_url( '/img/menu-icon.png', __FILE__ ),
 		);
 	
 		register_post_type( self::post_type, $args );
+
+		$status_args = array(
+			'label' => _x( 'Merged', 'post-forking' ),
+			'public' => true,
+			'exclude_from_search' => true,
+			'label_count' => _n_noop( 'Merged <span class="count">(%s)</span>', 'Merged <span class="count">(%s)</span>' ),
+		);
+
+		register_post_status( 'merged', $status_args );
 	}
 	
 	/** 
@@ -171,7 +180,7 @@ class Fork {
 		if ( $filter )
 			$post_types = array_keys( array_filter( $post_types ) );
 			
-		$post_type = apply_filters( 'fork_post_types', $post_types, $filter );
+		$post_types = apply_filters( 'fork_post_types', $post_types, $filter );
 
 		return  $post_types;
 		
@@ -405,4 +414,3 @@ class Fork {
 }
 
 $fork = new Fork();
-
