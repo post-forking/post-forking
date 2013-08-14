@@ -53,7 +53,7 @@ class Fork_Diff {
 	 * Add mergely.js scripts and styles
 	 */
 	function enqueue_mergely() {
-		if ( 'fork-diff' == $_GET['page'] ) {
+		if ( isset( $_GET['page'] ) && 'fork-diff' == $_GET['page'] ) {
 			wp_enqueue_script( 'codemirror', plugins_url( "/js/mergely-3.3.1/lib/codemirror.min.js", dirname( __FILE__ ) ), 'jquery', $this->parent->version, true );
 			wp_enqueue_script( 'mergely', plugins_url( "/js/mergely-3.3.1/lib/mergely.min.js", dirname( __FILE__ ) ), 'codemirror', $this->parent->version, true );
 			wp_enqueue_style( 'codemirror_style', plugins_url( "/js/mergely-3.3.1/lib/codemirror.css", dirname( __FILE__ ) ), Null, $this->parent->version, 'all' );
@@ -72,7 +72,7 @@ class Fork_Diff {
 	 * Load up the left and right posts and perform some validation
 	 */
 	function diff_admin_init() {
-		if ( 'fork-diff' != $_GET['page'] ) {
+		if ( !isset( $_GET['right'] ) || !isset( $_GET['page'] ) || 'fork-diff' != $_GET['page'] ) {
 			return;
 		}
 		$fork_id = (int) $_GET['right'];
@@ -90,7 +90,11 @@ class Fork_Diff {
 
 		$this->user_can_merge = current_user_can( 'publish_fork', $this->left->ID );
 
-		if ( !empty( $_POST ) ) {
+		// Did the user save the fork?
+		if ( $this->user_can_merge && !empty( $_POST ) && isset( $_POST['post_content'] ) ) {
+			if ( !wp_verify_nonce( $_POST['diff_merge_nonce'], 'manually_merge_diff') ) {
+				wp_die( __('Failed to save' ) );
+			}
 			$update = array(
 				'ID' => $this->left->ID,
 				'post_content' => wp_kses_post( $_POST['post_content'] )

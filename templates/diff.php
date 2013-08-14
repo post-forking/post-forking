@@ -39,6 +39,7 @@ $( document ).ready( function() {
 		<div style="clear: left;">
 			<form id="mergetool" method="POST">
 				<input type="hidden" name="post_content" id="manual-post-content" value="" />
+				<?php wp_nonce_field( 'manually_merge_diff', 'diff_merge_nonce' ); ?>
 				<?php submit_button( __( 'Manually Merge Fork' ) ); ?>
 			</form>
 			<p><?php _e( 'Clicking "Manually Merge Fork" will save your changes above to the original post and mark the fork as merged.' ); ?></p>
