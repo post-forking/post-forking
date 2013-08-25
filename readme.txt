@@ -7,7 +7,7 @@ Tested up to:  3.5
 Stable tag: 0.1
 License: GPLv3 or Later
 
-WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
+WordPress Post Forking allows users to fork or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
 
 == Description ==
 
@@ -64,6 +64,10 @@ For more information, or to contribute to this documentation, please visit the [
 3. Log into your WordPress install as an administrator, and navigate to the plugins screen from the left-hand menu
 4. Activate Post Forking
 
+= Building =
+
+To compile javascript / stylesheets, simple run `script/build` from the projet's root directory.
+
 == Frequently Asked Questions ==
 
 Please see (and feel free to contribute to) the [Frequently Asked Questions Wiki](https://github.com/benbalter/post-forking/wiki/Frequently-Asked-Questions).
@@ -110,7 +114,7 @@ Post Forking is an open source project and is supported by the efforts of an ent
 
 ** **Warning: geek content!** **
 
-Forking a post creates a copy of the most recent version of the post as a "fork" custom post type. Certain fields (e.g., `post_content`, `post_title`) are copied over to the new fork. The plugin also stores the revision ID for the revision prior to when the fork was created (see [`includes/revisions.php`](https://github.com/benbalter/post-forking/blob/master/includes/revisions.php#L2) for more information as to why we store the previous revision). 
+Forking a post creates a copy of the most recent version of the post as a "fork" custom post type. Certain fields (e.g., `post_content`, `post_title`) are copied over to the new fork. The plugin also stores the revision ID for the revision prior to when the fork was created (see [`includes/revisions.php`](https://github.com/benbalter/post-forking/blob/master/includes/revisions.php#L2) for more information as to why we store the previous revision).
 
 The fork post type has its own capabilities, allowing a user without the ability to edit or publish on the parent post to edit a fork. Once changes have been made, assuming the user does not have the `publish_fork` capability, the user would submit the fork for review (similar to submitting a Pull Request in GitHub parlance) using the normal WordPress moderation system.
 

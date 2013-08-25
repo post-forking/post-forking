@@ -1,0 +1,13 @@
+#!/bin/sh
+
+script/bootstrap
+
+#check for nodenv, otherwise fall back to direct execution
+exec="nodenv exec"
+type -p nodenv &>/dev/null || exec=""
+
+echo "Minifying CSS \n"
+$exec cleancss css/admin.css > css/admin.min.css
+echo "CSS Minified.  Now minifiying JS \n"
+$exec uglifyjs js/admin.js > js/admin.min.js
+echo "All Done.  Have a great day \n"
