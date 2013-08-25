@@ -7,7 +7,7 @@ Tested up to:  3.6
 Stable tag: 0.1
 License: GPLv3 or Later
 
-WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
+WordPress Post Forking allows users to fork or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
 
 == Description ==
 
@@ -63,6 +63,10 @@ For more information, or to contribute to this documentation, please visit the [
 2. Unzip the file, and upload the resulting "post-forking" folder to your "/wp-content/plugins directory" as "/wp-content/plugins/post-forking"
 3. Log into your WordPress install as an administrator, and navigate to the plugins screen from the left-hand menu
 4. Activate Post Forking
+
+= Building =
+
+To compile javascript / stylesheets, simple run `script/build` from the projet's root directory.
 
 == Frequently Asked Questions ==
 
