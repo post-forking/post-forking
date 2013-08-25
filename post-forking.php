@@ -46,6 +46,7 @@ require_once dirname( __FILE__ ) . '/includes/merge.php';
 require_once dirname( __FILE__ ) . '/includes/revisions.php';
 require_once dirname( __FILE__ ) . '/includes/branches.php';
 require_once dirname( __FILE__ ) . '/includes/diff.php';
+require_once dirname( __FILE__ ) . '/includes/preview.php';
 
 class Fork {
 
@@ -61,6 +62,7 @@ class Fork {
 		$this->capabilities = new Fork_Capabilities( $this );
 		$this->options = new Fork_Options( $this );
 		$this->branches = new Fork_Branches( $this );
+		$this->preview = new Fork_Preview( $this );
 
 		add_action( 'init', array( $this, 'register_cpt' ) );
 		add_action( 'init', array( $this, 'action_init' ) );
