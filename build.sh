@@ -6,6 +6,9 @@ type -P uglifyjs  &>/dev/null  && continue  || { echo "Install UglifyJS (https:/
 
 echo "Dependencies met.  Minifying CSS \n"
 cleancss css/admin.css > css/admin.min.css
-echo "CSS Minified.  Now minifiying JS \n"
+echo "CSS Minified. Lets build us some javascript."
+coffee -c js/admin.coffee
+echo "W00t. Now minifiying the JS \n"
 uglifyjs js/admin.js > js/admin.min.js
+rm js/admin.js
 echo "All Done.  Have a great day \n"
