@@ -58,6 +58,10 @@ class Fork_Merge {
 		// reload $fork to check for conflict markup, and save the original in postmeta if so
 		$fork = get_post( $fork->ID );
 
+		// Note: $merge_author = id of user who's doing the merge
+	  $merge_author = wp_get_current_user()->ID;
+    do_action( 'merge', $fork, $merge_author );
+
 		return wp_update_post( $update );
 
 	}
@@ -108,13 +112,13 @@ class Fork_Merge {
 
 		if ( !is_object( $fork ) )
 			$fork = get_post( $fork );
-		
+
 		$fork_id = $fork->ID;
 
 		//grab the three elments
 		$parent = $this->parent->revisions->get_parent_revision( $fork );
 		$current = $fork->post_parent;
-		
+
 		//normalize whitespace and convert string -> array
 		foreach ( array( 'fork', 'parent', 'current' ) as $string ) {
 			if ( is_object( $$string ) )
@@ -182,13 +186,13 @@ class Fork_Merge {
 
 	function conflict_warning() {
 		global $post;
-		
+
 		if ( get_current_screen()->post_type != 'fork' )
 			return;
-			
+
 		if ( get_current_screen()->base != 'post' )
 			return;
-						
+
 		if ( !$post )
 			return;
 
@@ -246,7 +250,7 @@ class Fork_Merge {
 	 * Check if the fork has conflict markup
 	 */
 	function has_conflict_markup( $fork ) {
-	
+
 		//postarr is being passed on publish
 		//convert to object for consistency
 		if ( is_array( $fork ) )
