@@ -12,9 +12,10 @@
  */
  
 require getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php';
-require dirname( __FILE__ ) . '/wp_die_handler.php';
  
 function _manually_load_plugin() {
+
+	require dirname( __FILE__ ) . '/wp_die_handler.php';
 	require dirname( __FILE__ ) . '/../post-forking.php';
 }
 
