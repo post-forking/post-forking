@@ -3,8 +3,8 @@
 Contributors: benbalter, danielbachhuber, jorbin
 Tags: posts, forking, version control, collaboration, forks, revisions, git, journalism, collaborative editing
 Requires at least: 3.4
-Tested up to:  3.5
-Stable tag: 0.1
+Tested up to:  3.6
+Stable tag: 0.2
 License: GPLv3 or Later
 
 WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
@@ -74,6 +74,23 @@ Coming soon...
 
 == Changelog ==
 
+= 0.2 =
+
+* WP 3.6 compatibility (props @alleyinteractive, @netaustin)
+* "View fork" preview should try to use template redirect intelligently (props @goldenapples)
+* Documentation fixes (props @yurivictor)
+* Better diffing (props @neuaustin)
+* Better tests
+* Added merge API hook (props @pablovallejo)
+* Minor security fix (props @joncave)
+* Better i18n (props @boddhi, @bueltge)
+* Added Dutch translation (props @bjornw)
+* Added French translation (props @fxbenard)
+* Added German translation (props @bueltge)
+* Make `post_id` an optional argument on `title_filter` to prevent errors in P2 theme (props @japh)
+* Added build file to minify JS and CSS
+* Improved UI
+
 = 0.1 =
 * Initial release
 
@@ -110,7 +127,7 @@ Post Forking is an open source project and is supported by the efforts of an ent
 
 ** **Warning: geek content!** **
 
-Forking a post creates a copy of the most recent version of the post as a "fork" custom post type. Certain fields (e.g., `post_content`, `post_title`) are copied over to the new fork. The plugin also stores the revision ID for the revision prior to when the fork was created (see [`includes/revisions.php`](https://github.com/benbalter/post-forking/blob/master/includes/revisions.php#L2) for more information as to why we store the previous revision). 
+Forking a post creates a copy of the most recent version of the post as a "fork" custom post type. Certain fields (e.g., `post_content`, `post_title`) are copied over to the new fork. The plugin also stores the revision ID for the revision prior to when the fork was created (see [`includes/revisions.php`](https://github.com/benbalter/post-forking/blob/master/includes/revisions.php#L2) for more information as to why we store the previous revision).
 
 The fork post type has its own capabilities, allowing a user without the ability to edit or publish on the parent post to edit a fork. Once changes have been made, assuming the user does not have the `publish_fork` capability, the user would submit the fork for review (similar to submitting a Pull Request in GitHub parlance) using the normal WordPress moderation system.
 
