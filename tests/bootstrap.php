@@ -13,7 +13,6 @@
  
 require getenv( 'WP_TESTS_DIR' ) . '/includes/functions.php';
 require dirname( __FILE__ ) . '/wp_die_handler.php';
-require dirname( __FILE__ ) . '/post_forking_test.php';
  
 function _manually_load_plugin() {
 	require dirname( __FILE__ ) . '/../post-forking.php';
@@ -22,3 +21,4 @@ function _manually_load_plugin() {
 tests_add_filter( 'muplugins_loaded', '_manually_load_plugin' );
 
 require getenv( 'WP_TESTS_DIR' ) . '/includes/bootstrap.php';
+require dirname( __FILE__ ) . '/post_forking_test.php';
