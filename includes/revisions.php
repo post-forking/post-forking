@@ -93,6 +93,7 @@ class Fork_Revisions {
 		if ( !$p )
 			return false;
 
+
 		if ( $p->post_type != 'fork' )
 			return _doing_it_wrong( 'get_previous_revision', 'Function only applies to forks, not posts', null );
 
@@ -176,7 +177,7 @@ class Fork_Revisions {
 		$indicies = array_keys( $revisions );
 
 		//index of our actual parent revision
-		$actual = array_search( $previous, $indicies ) + 1;
+		$actual = array_search( $previous, $indicies );
 
 		//our revision is the latest revision, so we actually want to look at the post itself
 		if ( !isset( $indicies[ $actual ] ) )
