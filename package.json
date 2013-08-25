@@ -1,0 +1,45 @@
+{
+  "name": "post-forking",
+  "version": "0.0.1",
+  "description": "WordPress Post Forking allows users to fork or create an alternate version of content to foster a more collaborative approach to WordPress content curation.",
+  "main": "index.php",
+  "directories": {
+    "test": "tests"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-cssmin": "~0.6.1",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-watch": "~0.5.1",
+    "matchdep" : "~0.1.2"
+  },
+  "scripts": {
+    "test": "phpunit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/benbalter/post-forking.git"
+  },
+  "keywords": [
+    "posts",
+    "forking",
+    "version",
+    "control",
+    "collaboration",
+    "forks",
+    "revisions",
+    "git",
+    "journalism",
+    "collaborative",
+    "editing"
+  ],
+  "author": "Ben Balter",
+  "license": "MIT",
+  "readmeFilename": "readme.md",
+  "gitHead": "5c678cd69cfc3e7bbfdc02283b037275dc1b31a1",
+  "bugs": {
+    "url": "https://github.com/benbalter/post-forking/issues"
+  }
+}
