@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Post Forking\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-10-04 17:24+0100\n"
-"PO-Revision-Date: 2012-10-04 17:25+0100\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/post-forking\n"
+"POT-Creation-Date: 2013-08-25 18:37:43+00:00\n"
+"PO-Revision-Date: 2013-08-25 22:51+0100\n"
 "Last-Translator: FxB <fx@fxbenard.com>\n"
 "Language-Team: FxB <fx@fxbenard.com>\n"
 "Language: fr_FR\n"
@@ -15,122 +15,75 @@ msgstr ""
 "X-Poedit-Basepath: ../\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Poedit 1.5.3\n"
+"X-Generator: Poedit 1.5.7\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: post-forking.php:104 post-forking.php:115
-msgctxt "post-forking"
-msgid "Forks"
-msgstr "Forks"
-
-#: post-forking.php:105
-msgctxt "post-forking"
-msgid "Fork"
-msgstr "Fork"
-
-#: post-forking.php:108
-msgctxt "post-forking"
-msgid "Edit Fork"
-msgstr "Modifier la Fork"
-
-#: post-forking.php:109
-msgctxt "post-forking"
-msgid "New Fork"
-msgstr "Nouvelle Fork"
-
-#: post-forking.php:110
-msgctxt "post-forking"
-msgid "View Fork"
-msgstr "Voir la Fork"
-
-#: post-forking.php:111
-msgctxt "post-forking"
-msgid "Search Forks"
-msgstr "Rechercher Forks"
-
-#: post-forking.php:112
-msgctxt "post-forking"
-msgid "No forks found"
-msgstr "Aucune Fork trouvée."
-
-#: post-forking.php:113
-msgctxt "post-forking"
-msgid "No forks found in Trash"
-msgstr "Aucune Fork trouvée dans la Corbeille"
-
-#: post-forking.php:114
-msgctxt "post-forking"
-msgid "Parent Fork:"
-msgstr "Fork parente :"
-
-#: post-forking.php:264
-msgid "That post type does not support forking"
-msgstr "Ce type d'article ne supporte pas la ramification"
-
-#: post-forking.php:269
-msgid "You are not authorized to fork that post"
-msgstr "Vous n'êtes pas autorisé à forker cet article"
-
-#: includes/admin.php:119 includes/admin.php:122
+#: includes/admin.php:123 includes/admin.php:126
 msgid "Fork updated."
 msgstr "Fork mise à jour."
 
-#: includes/admin.php:120
+#: includes/admin.php:124
 msgid "Custom field updated."
 msgstr "Champ personnalisé mis à jour."
 
-#: includes/admin.php:121
+#: includes/admin.php:125
 msgid "Custom field deleted."
 msgstr "Champ personnalisé supprimé."
 
-#: includes/admin.php:123
-#, php-format
+#: includes/admin.php:127
 msgid "Fork restored to revision from %s"
 msgstr "Fork restaurée depuis la révision %s"
 
-#: includes/admin.php:124
-#, php-format
+#: includes/admin.php:128
 msgid "Fork published. <a href=\"%s\">Download Fork</a>"
 msgstr "Fork publié. <a href=\"%s\">Télécharger la Fork</a>"
 
-#: includes/admin.php:125
+#: includes/admin.php:129
 msgid "Fork saved."
 msgstr "Fork sauvegardée."
 
-#: includes/admin.php:126
+#: includes/admin.php:130
 msgid "Fork submitted."
 msgstr "Fork soumise."
 
-#: includes/admin.php:127
+#: includes/admin.php:131
 msgid "Fork scheduled for:"
 msgstr "Fork programmée pour :"
 
-#: includes/admin.php:128
+#: includes/admin.php:132
 msgid "Fork draft updated."
 msgstr "Brouillon de la Fork mis à jour."
 
-#: includes/admin.php:163
+#: includes/admin.php:167
 msgid "Create branch"
 msgstr "Créer une branche"
 
-#: includes/admin.php:163 includes/merge.php:69 includes/merge.php:243
+#: includes/admin.php:167 includes/merge.php:79 includes/merge.php:262
 #: templates/post-meta-box.php:4
 msgid "Fork"
 msgstr "Fork"
 
-#: includes/admin.php:169 templates/fork-meta-box.php:3
+#: includes/admin.php:173 templates/fork-meta-box.php:3
 msgid "Compare"
 msgstr "Comparer"
 
-#: includes/merge.php:45
+#: includes/diff.php:44
+msgid "Compare a Fork to its parent"
+msgstr "Comparer une Fork à son parent"
+
+#: includes/diff.php:81
+msgid "Invalid type for right side; must be a fork."
+msgstr "Type non valide pour le côté droit; doit être une fork."
+
+#: includes/diff.php:96
+msgid "Failed to save"
+msgstr "Impossible de sauvegarder"
+
+#: includes/merge.php:50
 msgid "You are not authorized to merge forks"
 msgstr "Vous n'êtes pas autorisé à fusionner les forks"
 
-#: includes/merge.php:48
-msgid "You are not authorized to edit the parent post"
-msgstr "Vous n'avez pas l'autorisation de modifier l'article parent"
-
-#: includes/merge.php:69 includes/merge.php:243
+#: includes/merge.php:79 includes/merge.php:262
 msgid "Current Version"
 msgstr "Version actuelle"
 
@@ -142,7 +95,71 @@ msgstr "Réglages de Fork"
 msgid "Settings"
 msgstr "Réglages"
 
-#: templates/author-post-meta-box.php:1
+#: post-forking.php:106 post-forking.php:117
+msgctxt "post-forking"
+msgid "Forks"
+msgstr "Forks"
+
+#: post-forking.php:107
+msgctxt "post-forking"
+msgid "Fork"
+msgstr "Fork"
+
+#: post-forking.php:110
+msgctxt "post-forking"
+msgid "Edit Fork"
+msgstr "Mofifier la Fork"
+
+#: post-forking.php:111
+msgctxt "post-forking"
+msgid "New Fork"
+msgstr "Nouvelle Fork"
+
+#: post-forking.php:112
+msgctxt "post-forking"
+msgid "View Fork"
+msgstr "Voir la Fork"
+
+#: post-forking.php:113
+msgctxt "post-forking"
+msgid "Search Forks"
+msgstr "Rechercher Forks"
+
+#: post-forking.php:114
+msgctxt "post-forking"
+msgid "No forks found"
+msgstr "Aucune Fork trouvée."
+
+#: post-forking.php:115
+msgctxt "post-forking"
+msgid "No forks found in Trash"
+msgstr "Aucune Fork trouvée dans la Corbeille"
+
+#: post-forking.php:116
+msgctxt "post-forking"
+msgid "Parent Fork:"
+msgstr "Fork parente :"
+
+#: post-forking.php:141
+msgctxt "post-forking"
+msgid "Merged"
+msgstr "Fusionner"
+
+#: post-forking.php:144
+msgid "Merged <span class=\"count\">(%s)</span>"
+msgid_plural "Merged <span class=\"count\">(%s)</span>"
+msgstr[0] "Merged <span class=\"count\">(%s)</span>"
+msgstr[1] "Fusionnés <span class=\"count\">(%s)</span>"
+
+#: post-forking.php:275
+msgid "That post type does not support forking"
+msgstr "Ce type d'article ne supporte pas la ramification"
+
+#: post-forking.php:280
+msgid "You are not authorized to fork that post"
+msgstr "Vous n'êtes pas autorisé à forker cet article"
+
+#: templates/author-post-meta-box.php:2
 msgid "Create New Branch"
 msgstr "Créer une nouvelle Branche"
 
@@ -154,18 +171,35 @@ msgstr "Branche :"
 msgid "Original"
 msgstr "Originale"
 
-#: templates/conflict-warning.php:1
+#: templates/conflict-warning.php:5
 msgid ""
 "This fork cannot be merged with its parent post. Please resolve the conflict "
-"below before attempting to publish again."
+"below before attempting to publish again, or use the <a href=\"%s"
+"\">interactive merge tool.</a>"
 msgstr ""
-"Cette fork ne peut pas être fusionné avec son article parent. S'il vous "
-"plaît résoudre le conflit ci-dessous avant de tenter de publier à nouveau."
+"Cette fork ne peut pas être fusionnée avec son article parent. S'il vous "
+"plaît résoudre le conflit ci-dessous avant de tenter de publier à nouveau, "
+"ou utiliser l'<a href=\"%s\">outil interactif de fusionnage.</a>"
 
-#: templates/fork-meta-box.php:3
-#, php-format
+#: templates/diff.php:31
+msgid "Compare Fork:"
+msgstr "Comparer la Fork :"
+
+#: templates/diff.php:32 templates/fork-meta-box.php:3
 msgid "Forked from <a href=\"%1$s\">%2$s</a>"
 msgstr "Forké de <a href=\"%1$s\">%2$s</a>"
+
+#: templates/diff.php:43
+msgid "Manually Merge Fork"
+msgstr "Fusionner manuellement la Fork"
+
+#: templates/diff.php:45
+msgid ""
+"Clicking \"Manually Merge Fork\" will save your changes above to the "
+"original post and mark the fork as merged."
+msgstr ""
+"Cliquer \"Fusionner manuellement la Fork\" sauvegarderas vos changements "
+"avec l'article original et marqueras la Fork comme fusionnée."
 
 #: templates/fork-meta-box.php:9
 msgid "Save Fork"
@@ -187,6 +221,22 @@ msgstr "Types d'article"
 msgid "View Fork"
 msgstr "Voir la Fork"
 
+#. Plugin Name of the plugin/theme
+msgid "Post Forking"
+msgstr "Post Forking"
+
+#. Plugin URI of the plugin/theme
+msgid "http://postforking.wordpress.com"
+msgstr "http://postforking.wordpress.com"
+
+#. Description of the plugin/theme
+msgid "Post forking"
+msgstr "Créer une Fork de vos articles"
+
+#. Author of the plugin/theme
+msgid "Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin"
+msgstr "Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin"
+
 #~ msgctxt "fork"
 #~ msgid "Fork"
 #~ msgstr "Fork"
@@ -194,3 +244,6 @@ msgstr "Voir la Fork"
 #~ msgctxt "fork"
 #~ msgid "View Fork"
 #~ msgstr "Voir la Fork"
+
+#~ msgid "You are not authorized to edit the parent post"
+#~ msgstr "Vous n'avez pas l'autorisation de modifier l'article parent"
