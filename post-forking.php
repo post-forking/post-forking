@@ -178,7 +178,7 @@ class Fork {
 	}
 	
 	/**
-	 * Returns an array of post type objects for all registered post types other than fork
+	 * Returns an array of post type objects for all registered post types that support 'revisions' other than fork
 	 * @param return array array of post type objects
 	 */
 	function get_potential_post_types() {
