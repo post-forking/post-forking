@@ -1,6 +1,6 @@
 # Post Forking #
 
-[![Build Status](https://secure.travis-ci.org/benbalter/post-forking.png)](http://travis-ci.org/benbalter/post-forking)
+[![Build Status](https://travis-ci.org/post-forking/post-forking.png)](https://travis-ci.org/post-forking/post-forking)
 
 WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
 
