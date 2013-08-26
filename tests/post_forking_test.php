@@ -17,6 +17,9 @@ class Post_Forking_Test extends WP_UnitTestCase {
     
     function get_instance() {
 		 global $fork;	 
+		 if (is_null($fork) ){
+			$fork = new Fork();
+		 }	
 		 return $fork;	 
 	 }
 	 
