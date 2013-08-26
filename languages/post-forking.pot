@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Forking 0.2-alpha\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/post-forking\n"
-"POT-Creation-Date: 2013-08-25 18:37:43+00:00\n"
+"POT-Creation-Date: 2013-08-26 06:48:27+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -12,52 +12,52 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: includes/admin.php:123 includes/admin.php:126
+#: includes/admin.php:124 includes/admin.php:127
 msgid "Fork updated."
 msgstr ""
 
-#: includes/admin.php:124
+#: includes/admin.php:125
 msgid "Custom field updated."
 msgstr ""
 
-#: includes/admin.php:125
+#: includes/admin.php:126
 msgid "Custom field deleted."
 msgstr ""
 
-#: includes/admin.php:127
+#: includes/admin.php:128
 msgid "Fork restored to revision from %s"
 msgstr ""
 
-#: includes/admin.php:128
+#: includes/admin.php:129
 msgid "Fork published. <a href=\"%s\">Download Fork</a>"
 msgstr ""
 
-#: includes/admin.php:129
+#: includes/admin.php:130
 msgid "Fork saved."
 msgstr ""
 
-#: includes/admin.php:130
+#: includes/admin.php:131
 msgid "Fork submitted."
 msgstr ""
 
-#: includes/admin.php:131
+#: includes/admin.php:132
 msgid "Fork scheduled for:"
 msgstr ""
 
-#: includes/admin.php:132
+#: includes/admin.php:133
 msgid "Fork draft updated."
 msgstr ""
 
-#: includes/admin.php:167
+#: includes/admin.php:168
 msgid "Create branch"
 msgstr ""
 
-#: includes/admin.php:167 includes/merge.php:79 includes/merge.php:262
+#: includes/admin.php:168 includes/merge.php:79 includes/merge.php:262
 #: templates/post-meta-box.php:4
 msgid "Fork"
 msgstr ""
 
-#: includes/admin.php:173 templates/fork-meta-box.php:3
+#: includes/admin.php:174 templates/fork-meta-box.php:3
 msgid "Compare"
 msgstr ""
 
@@ -219,7 +219,10 @@ msgid "http://postforking.wordpress.com"
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Post forking"
+msgid ""
+"WordPress Post Forking allows users to \"fork\" or create an alternate "
+"version of content to foster a more collaborative approach to WordPress "
+"content curation."
 msgstr ""
 
 #. Author of the plugin/theme
