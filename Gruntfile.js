@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		clean: {
-            admin:['css/admin.min.css', 'js/admin.min.js']
+    	admin:['css/admin.min.css', 'js/admin.min.js', 'admin.js']
 		},
 		cssmin: {
 			admin: {
@@ -41,8 +41,8 @@ module.exports = function(grunt) {
 		watch: {
 			all: {
 				files: [
-                    'js/admin.js',
-                    'css/admin.css',
+        	'js/admin.coffee',
+          'css/admin.css',
 				],
 				tasks: ['build'],
 				options: {
