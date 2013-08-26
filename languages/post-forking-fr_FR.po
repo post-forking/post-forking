@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Post Forking\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/post-forking\n"
-"POT-Creation-Date: 2013-08-25 18:37:43+00:00\n"
-"PO-Revision-Date: 2013-08-25 22:51+0100\n"
+"POT-Creation-Date: 2013-08-26 06:48:27+00:00\n"
+"PO-Revision-Date: 2013-08-26 08:53+0100\n"
 "Last-Translator: FxB <fx@fxbenard.com>\n"
 "Language-Team: FxB <fx@fxbenard.com>\n"
 "Language: fr_FR\n"
@@ -18,52 +18,52 @@ msgstr ""
 "X-Generator: Poedit 1.5.7\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: includes/admin.php:123 includes/admin.php:126
+#: includes/admin.php:124 includes/admin.php:127
 msgid "Fork updated."
 msgstr "Fork mise à jour."
 
-#: includes/admin.php:124
+#: includes/admin.php:125
 msgid "Custom field updated."
 msgstr "Champ personnalisé mis à jour."
 
-#: includes/admin.php:125
+#: includes/admin.php:126
 msgid "Custom field deleted."
 msgstr "Champ personnalisé supprimé."
 
-#: includes/admin.php:127
+#: includes/admin.php:128
 msgid "Fork restored to revision from %s"
 msgstr "Fork restaurée depuis la révision %s"
 
-#: includes/admin.php:128
+#: includes/admin.php:129
 msgid "Fork published. <a href=\"%s\">Download Fork</a>"
 msgstr "Fork publié. <a href=\"%s\">Télécharger la Fork</a>"
 
-#: includes/admin.php:129
+#: includes/admin.php:130
 msgid "Fork saved."
 msgstr "Fork sauvegardée."
 
-#: includes/admin.php:130
+#: includes/admin.php:131
 msgid "Fork submitted."
 msgstr "Fork soumise."
 
-#: includes/admin.php:131
+#: includes/admin.php:132
 msgid "Fork scheduled for:"
 msgstr "Fork programmée pour :"
 
-#: includes/admin.php:132
+#: includes/admin.php:133
 msgid "Fork draft updated."
 msgstr "Brouillon de la Fork mis à jour."
 
-#: includes/admin.php:167
+#: includes/admin.php:168
 msgid "Create branch"
 msgstr "Créer une branche"
 
-#: includes/admin.php:167 includes/merge.php:79 includes/merge.php:262
+#: includes/admin.php:168 includes/merge.php:79 includes/merge.php:262
 #: templates/post-meta-box.php:4
 msgid "Fork"
 msgstr "Fork"
 
-#: includes/admin.php:173 templates/fork-meta-box.php:3
+#: includes/admin.php:174 templates/fork-meta-box.php:3
 msgid "Compare"
 msgstr "Comparer"
 
@@ -230,12 +230,21 @@ msgid "http://postforking.wordpress.com"
 msgstr "http://postforking.wordpress.com"
 
 #. Description of the plugin/theme
-msgid "Post forking"
-msgstr "Créer une Fork de vos articles"
+msgid ""
+"WordPress Post Forking allows users to \"fork\" or create an alternate "
+"version of content to foster a more collaborative approach to WordPress "
+"content curation."
+msgstr ""
+"WordPress Post Forking vous permet de \"forker\" ou de créer une version "
+"alternative de votre contenu afin de favoriser une approche plus "
+"collaborative de WordPress."
 
 #. Author of the plugin/theme
 msgid "Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin"
 msgstr "Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin"
+
+#~ msgid "Post forking"
+#~ msgstr "Créer une Fork de vos articles"
 
 #~ msgctxt "fork"
 #~ msgid "Fork"
