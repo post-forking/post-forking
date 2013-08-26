@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Post Forking
- * Description: Post forking
+ * Description: WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
  * Author:      Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin
  * Version:     0.2-alpha
  * Plugin URI:  http://postforking.wordpress.com
