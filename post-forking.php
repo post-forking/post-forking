@@ -185,23 +185,24 @@ class Fork {
 		
 		$post_types = get_post_types( array( 'show_ui' => true ), 'objects' );
 		unset( $post_types['fork'] );
+		foreach($post_types as $post_type) {
+			if (!post_type_supports( $post_type->name, 'revisions')) {
+				unset($post_types[$post_type->name]); 
+			}
+		}
 		return $post_types;
 		
 	}
 	
 	/** 
-	 * Registers post_type_support for forking and revisions with all active post types on load
+	 * Registers post_type_support for forking with all active post types on load
 	 */
 	function add_post_type_support() {
-		
+
 		foreach ( $this->get_post_types() as $post_type => $status )
-			if ( $status == true ) {
+			if ( $status == true )
 				add_post_type_support( $post_type, $this->post_type_support );
-			
-				if ( !post_type_supports( $post_type, 'revisions' )) {
-					add_post_type_support( $post_type, 'revisions' );
-				}	
-			}
+
 	}
 	
 	/**
