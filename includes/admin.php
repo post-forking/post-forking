@@ -62,7 +62,7 @@ class Fork_Admin {
 		if ( !$fork )
 			return;
 
-		wp_redirect( admin_url( "post.php?post=$fork&action=edit" ) );
+		wp_safe_redirect( admin_url( "post.php?post=$fork&action=edit" ) );
 		exit();
 
 	}
