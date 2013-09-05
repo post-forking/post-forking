@@ -235,7 +235,7 @@ class Fork_Merge {
 
 		$post = $this->merge( $post->ID );
 		$fork_update = array(
-			'ID' => $post->ID,
+			'ID' => $post,
 			'post_status' => 'merged',
 		);
 		wp_update_post( $fork_update );
