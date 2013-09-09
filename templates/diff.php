@@ -29,7 +29,7 @@ $( document ).ready( function() {
 
 <div class="wrap">
 	<h2><?php _e( 'Compare Fork:', 'post-forking' ); ?> <?php echo esc_html( $this->diff->right->post_title ); ?></h2>
-	<p><?php printf( __( 'Forked from <a href="%1$s">%2$s</a>', 'post-forking' ), admin_url( "post.php?post={$post->post_parent}&action=edit" ), $this->get_parent_name( $this->diff->right ) ); ?></p>
+	<p><?php printf( __( 'Forked from <a href="%1$s">%2$s</a>', 'post-forking' ), admin_url( "post.php?post={$this->diff->right->post_parent}&action=edit" ), $this->get_parent_name( $this->diff->right ) ); ?></p>
 
 	<div id="mergely-resizer">
 		<div id="compare">
