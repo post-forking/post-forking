@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		clean: {
-            admin:['css/admin.min.css', 'js/admin.min.js']
+    	admin:['css/admin.min.css', 'js/admin.min.js', 'admin.js']
 		},
 		cssmin: {
 			admin: {
@@ -19,6 +19,13 @@ module.exports = function(grunt) {
 					'css/admin.css'
 				]
 			}
+		},
+		coffee: {
+  		compile: {
+    		files: {
+      		'js/admin.js': 'js/admin.coffee'
+    		}
+  		}
 		},
 		uglify: {
 			admin: {
@@ -34,8 +41,8 @@ module.exports = function(grunt) {
 		watch: {
 			all: {
 				files: [
-                    'js/admin.js',
-                    'css/admin.css',
+        	'js/admin.coffee',
+          'css/admin.css',
 				],
 				tasks: ['build'],
 				options: {
@@ -46,12 +53,11 @@ module.exports = function(grunt) {
 			}
 		}
 	});
-    // Load tasks
-    require('matchdep').filterDev('grunt-*').forEach( grunt.loadNpmTasks ); 
-
+  // Load tasks
+  require('matchdep').filterDev('grunt-*').forEach( grunt.loadNpmTasks );
 
 	// Register tasks.
-	grunt.registerTask('build', ['clean:admin', 'cssmin:admin','uglify:admin']);
+	grunt.registerTask('build', ['clean:admin', 'cssmin:admin', 'coffee', 'uglify:admin']);
 
 	// Default task.
 	grunt.registerTask('default', ['build']);
