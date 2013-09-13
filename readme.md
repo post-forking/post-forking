@@ -79,16 +79,19 @@ Coming soon...
 * "View fork" preview should try to use template redirect intelligently (props @goldenapples)
 * Documentation fixes (props @yurivictor)
 * Better diffing (props @neuaustin)
-* Better tests
+* Better tests (props @jorbin)
+* Preserve line breaks on merge (#81)
+* Ability to delete forks (#85)
 * Added merge API hook (props @pablovallejo)
-* Minor security fix (props @joncave)
+* Minor security fixes (props @joncave, @paulgibbs)
 * Better i18n (props @boddhi, @bueltge)
 * Added Dutch translation (props @bjornw)
 * Added French translation (props @fxbenard)
 * Added German translation (props @bueltge)
 * Make `post_id` an optional argument on `title_filter` to prevent errors in P2 theme (props @japh)
-* Added build file to minify JS and CSS
+* Added build file to minify JS and CSS (props @jorbin)
 * Improved UI
+* [Complete changelog](https://github.com/post-forking/post-forking/compare/0.1...master)
 
 ### 0.1 ###
 * Initial release
