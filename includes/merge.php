@@ -119,13 +119,13 @@ class Fork_Merge {
 		$parent = $this->parent->revisions->get_parent_revision( $fork );
 		$current = $fork->post_parent;
 
-		//normalize whitespace and convert string -> array
+		//remove trailing whitespace  and convert string -> array
 		foreach ( array( 'fork', 'parent', 'current' ) as $string ) {
 			if ( is_object( $$string ) )
 				$$string = $$string->post_content;
 			else
 				$$string = get_post( $$string )->post_content;
-			$$string = normalize_whitespace( $$string );
+			$$string = rtrim( $$string );
 			$$string = explode( "\n", $$string );
 		}
 
