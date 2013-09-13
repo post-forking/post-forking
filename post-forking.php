@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: Post Forking
- * Description: WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
- * Author:      Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin
- * Version:     0.2
- * Plugin URI:  http://postforking.wordpress.com
- * License:     GPLv3 or Later
- * Domain Path: /languages
- * Text Domain: fork
+ Plugin Name: Post Forking
+ Description: WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
+ Author:      Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin
+ Version:     0.2
+ Plugin URI:  http://postforking.wordpress.com
+ License:     GPLv3 or Later
+ Domain Path: /languages
+ Text Domain: fork
  */
 
 /* Post Forking
