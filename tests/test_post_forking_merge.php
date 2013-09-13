@@ -36,6 +36,29 @@ class WP_Test_Post_Forking_Merge extends Post_Forking_Test {
 		$this->assertEquals( $post->post_content, $this->fork );
 		
 	}
+	function test_blank_line_merge() {
+		$content =  $this->fork . "\n\nblank\n\nlines";
+
+		$instance = $this->get_instance();
+		$fork = get_post( $this->create_fork() );
+		
+		$fork_arr = array( 'ID' => $fork->ID, 'post_content' => $content );
+		wp_update_post( $fork_arr );
+		
+		//load admin classes and add caps
+		$instance->action_init();
+		$instance->capabilities->add_caps();
+		
+		//merge does a current user check, so set us as the author of the post
+		wp_set_current_user( $fork->post_author );
+		
+		$instance->merge->merge( $fork->ID );
+		$post = get_post( $fork->post_parent );
+		
+		$this->assertEquals( $post->post_content, $content );
+
+
+	}
 	
 	function test_is_conflicted() {
 	
