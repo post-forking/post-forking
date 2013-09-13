@@ -74,7 +74,15 @@ Please see (and feel free to contribute to) the [Frequently Asked Questions Wiki
 
 == Screenshots ==
 
-Coming soon...
+![Create Branch as a shortcut option on the pages lists](http://cl.ly/image/1y3H0P0X2535/Screen%20Shot%202013-09-13%20at%204.21.05%20PM.png)
+
+![Fork Metabox on the edit post screen](http://cl.ly/image/252p230e121Y/Screen%20Shot%202013-09-13%20at%204.21.21%20PM.png)
+
+![Forks in the the admin menu](http://cl.ly/image/2N2X1W1g0r3C/Screen%20Shot%202013-09-13%20at%204.21.33%20PM.png)
+
+![Forks overview page](http://cl.ly/image/1A3K2W0Z2L2m/Screen%20Shot%202013-09-13%20at%204.21.48%20PM.png)
+
+![Fork Edit Screen](http://farm8.staticflickr.com/7404/9738349400_3abc106f54_b.jpg)
 
 == Changelog ==
 
@@ -114,7 +122,7 @@ Please see (and feel free to contribute to) the [Frequently Asked Questions Wiki
 
 Post Forking is an open source project and is supported by the efforts of an entire community. We'd love for you to get involved. Whatever your level of skill or however much time you can give, your contribution is greatly appreciated.
 
-* **Everyone** - Help expand [the project's documentation wiki](https://github.com/benbalter/post-forking/wiki/) and answer questions in the support forums to make it easier for other users to get started, or join the discussion on the [P2 (Blog)](http://postforking.wordpress.org) to help shape the project's future.
+* **Everyone** - Help expand [the project's documentation wiki](https://github.com/benbalter/post-forking/wiki/) and answer questions in the support forums to make it easier for other users to get started, or join the discussion on the [P2 (Blog)](http://postforking.wordpress.com) to help shape the project's future.
 * **Users** - Download the [latest development version](https://github.com/benbalter/post-forking/tree/develop) of the plugin, and [submit bug/feature requests](https://github.com/benbalter/post-forking/issues).
 * **Non-English Speakers** - [Contribute a translation](http://translations.benbalter.com/) using the GlotPress web interface - no technical knowledge required ([how to](http://translations.benbalter.com/projects/how-to-translate)).
 * **Technical Folks** - [Fork the development version](https://github.com/benbalter/post-forking/tree/develop) and submit a pull request, especially for any [known issues](https://github.com/benbalter/post-forking/issues). [This tutorial](https://help.github.com/articles/set-up-git) may be helpful if you're new to git.
