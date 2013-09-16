@@ -112,13 +112,16 @@ class Post_Forking_Test extends WP_UnitTestCase {
 	}
 
 	
-	function assertDied( $null, $msg =  null ) {
+	function assertDied( $null, $msg =  null , $reset = true ) {
     	
     	if ( $msg == null )
     	   $msg = 'Did not properly trip `wp_die()`';
     	   
     	$this->assertTrue( $this->die_handler->died(), $msg );
-    	
+
+		// Afer we test, reset for the next time unless we specificaly say otherwise
+		if ($reset)
+			$this->die_handler->reset();
 	}
 	
 	function test_test() {
