@@ -5,6 +5,8 @@
 
 class Fork_Capabilities {
 
+	public $cap_version = 1;
+
 	public $defaults = array(
 		'administrator' => array(
 			'edit_forks'             => true,
@@ -77,6 +79,13 @@ class Fork_Capabilities {
 	 * Adds plugin-specific caps to all roles so that 3rd party plugins can manage them
 	 */
 	function add_caps() {
+		$version = get_option('post_forking_cap_version');
+
+		// Bail Early if we have already set the caps and aren't updating them
+		if ($version !== false && $this->cap_version <= (int) $version)
+			return;
+		
+		add_option('post_forking_cap_version' , $this->cap_version, '', 'yes');
 
 		global $wp_roles;
 		if ( ! isset( $wp_roles ) )
