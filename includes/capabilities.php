@@ -100,8 +100,12 @@ class Fork_Capabilities {
 			foreach ( $caps as $cap=>$grant ) {
 
 				//check to see if the user already has this capability, if so, don't re-add as that would override grant
-				if ( !isset( $wp_roles->roles[$role]['capabilities'][$cap] ) )
+				if ( !isset( $wp_roles->roles[$role]['capabilities'][$cap] ) ) {
 					$wp_roles->add_cap( $role, $cap, $grant );
+				} else {
+					$wp_roles->remove_cap( $role, $cap );
+					$wp_roles->add_cap( $role, $cap, $grant );
+				}
 
 			}
 		}
