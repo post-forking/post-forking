@@ -114,7 +114,7 @@ class Fork_Capabilities {
 	function map_meta_cap( $caps, $cap, $userID, $args = null ) {
   	
   	     $parent = $this->parent;
-  	     $cpt = get_post_type_object( $parent::post_type );
+  	     $cpt = get_post_type_object( $parent->get_post_type() );
 
   	     //pre init, CPT not yet registered
   	     if ( !$cpt )
