@@ -82,6 +82,10 @@ class Fork {
 		load_plugin_textdomain( 'post-forking', false, plugin_basename( dirname( __FILE__ ) ) . '/languages/' );
 	}
 
+	function get_post_type(){
+		return self::post_type;
+	}
+
 	/**
 	 * Pseudo-lazy loading of back-end functionality
 	 */
