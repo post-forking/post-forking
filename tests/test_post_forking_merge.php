@@ -52,17 +52,26 @@ class WP_Test_Post_Forking_Merge extends Post_Forking_Test {
 
 	}
 
+	/**
+	 * @group merge
+	 */
 	
 	function test_merge() {
 		$admin = $this->create_user();  
 		$this->merge_test_with_authors( $admin , $admin);
 	}
+	/**
+	 * @group merge
+	 */
 	
 	function test_admin_merging_author_post () {
 		$admin = $this->create_user();  
 		$author = $this->create_user('author');
 		$this->merge_test_with_authors( $author , $admin);
 	}
+	/**
+	 * @group merge
+	 */
 
 	function test_author_merging_admin_post () {
 		$this->die_handler = new Post_Forking_Die_Handler();
@@ -70,6 +79,9 @@ class WP_Test_Post_Forking_Merge extends Post_Forking_Test {
 		$author = $this->create_user('author');
 		$this->merge_test_with_authors(  $admin , $author , false, 'You are not authorized to merge forks' );
 	}
+	/**
+	 * @group merge
+	 */
 
 	function test_one_author_merging_another_authors_post() {
 		$this->die_handler = new Post_Forking_Die_Handler();
@@ -77,19 +89,30 @@ class WP_Test_Post_Forking_Merge extends Post_Forking_Test {
 		$author2 = $this->create_user('author');
 		$this->merge_test_with_authors(  $author1 , $author2 , false, 'You are not authorized to merge forks' );
 	}
+	/**
+	 * @group merge
+	 */
 
 	function test_editor_merging_authors_post() {
 		$author = $this->create_user('author');
 		$editor = $this->create_user('editor');
-		$this->merge_test_with_authors(  $author , $editor);
+		$this->merge_test_with_authors( $author , $editor);
 	}
+
+	/**
+	 * @group merge
+	 */
 
 	function test_author_merging_subscriber_fork_of_authors_post() {
 		$author = $this->create_user('author');
-		$subscriber = $this->create_user('subscriber');
+		$author2 = $this->create_user('author');
 
+		$this->merge_test_with_authors( $author2, $author, $author );
 	}
 
+	/**
+	 * @group merge
+	 */
 	function test_blank_line_merge() {
 		$content =  $this->fork . "\n\nblank\n\nlines";
 
