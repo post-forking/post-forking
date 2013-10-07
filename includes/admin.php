@@ -225,6 +225,10 @@ class Fork_Admin {
 	function remove_add_new_menu_item() {
 
 		global $submenu;
+
+		if ( ! isset( $submenu['edit.php?post_type=fork'] ) )
+			return;
+
 		foreach ( $submenu['edit.php?post_type=fork'] as $ID => $item )
 			if ( $item[0] === false )
 				unset( $submenu['edit.php?post_type=fork'][$ID] );
