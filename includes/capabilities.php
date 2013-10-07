@@ -143,15 +143,16 @@ class Fork_Capabilities {
                     $caps[] = 'do_not_allow';
                             	       
         	break;
+
+			// This should be based on the parent post.  See https://github.com/post-forking/post-forking/issues/96 
         	case 'fork_post':
-        	   
         	   unset( $caps[ array_search( $cap, $caps ) ] );
   	       	   $caps[] = $cpt->cap->edit_posts;
 
         	break;
-        	
-        	case 'publish_fork':
 
+			// This should be based on the parent post.  See https://github.com/post-forking/post-forking/issues/96 
+        	case 'publish_fork':
            	   unset( $caps[ array_search( $cap, $caps ) ] );
   	       	   $caps[] = $cpt->cap->publish_posts;
 
