@@ -23,7 +23,7 @@ class WP_Test_Post_Forking_Merge extends Post_Forking_Test {
 			$post_author = $fork_author;
 
 
-		$fork = get_post( $this->create_fork( $post_author ) );
+		$fork = get_post( $this->create_fork( false, true, $post_author, $fork_author ) );
 		
 		$fork_arr = array( 'ID' => $fork->ID, 'post_content' => $this->fork , 'post_author' => $fork_author  );
 		wp_update_post( $fork_arr );
