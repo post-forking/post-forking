@@ -41,6 +41,7 @@ Text Domain: fork
 
 require_once dirname( __FILE__ ) . '/includes/capabilities.php';
 require_once dirname( __FILE__ ) . '/includes/options.php';
+require_once dirname( __FILE__ ) . '/includes/options-help.php';
 require_once dirname( __FILE__ ) . '/includes/admin.php';
 require_once dirname( __FILE__ ) . '/includes/merge.php';
 require_once dirname( __FILE__ ) . '/includes/revisions.php';
@@ -61,6 +62,7 @@ class Fork {
 
 		$this->capabilities = new Fork_Capabilities( $this );
 		$this->options = new Fork_Options( $this );
+		$this->options_help = new Fork_Options_Help( $this );
 		$this->branches = new Fork_Branches( $this );
 		$this->preview = new Fork_Preview( $this );
 
