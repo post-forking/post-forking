@@ -3,9 +3,9 @@
 Plugin Name: Post Forking
 Description: WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
 Author:      Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin
-Version:     0.3-alpha
+Version:     0.2.1
 Plugin URI:  http://postforking.wordpress.com
-License:     GPLv3 or Later
+License:     GPLv2 or Later
 Domain Path: /languages
 Text Domain: fork
  */
@@ -21,7 +21,7 @@ Text Domain: fork
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
+ * the Free Software Foundation, either version 2 of the License, or
  * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
@@ -33,7 +33,7 @@ Text Domain: fork
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  *
  * @copyright 2012-2013
- * @license GPL v3
+ * @license GPL v2
  * @version 0.2
  * @package post_forking
  * @author Benjamin J. Balter <ben@balter.com>
@@ -80,6 +80,10 @@ class Fork {
 	 */
 	function l10n() {
 		load_plugin_textdomain( 'post-forking', false, plugin_basename( dirname( __FILE__ ) ) . '/languages/' );
+	}
+
+	function get_post_type(){
+		return self::post_type;
 	}
 
 	/**
