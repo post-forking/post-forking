@@ -62,6 +62,11 @@ class Fork_Options_Help {
 			) );
 			
 		}
+		
+		// add additional informations in sidebar of help
+		$screen->set_help_sidebar(
+			$this->get_content( 'sidebar' )
+		);
 	}
 	
 	/**
