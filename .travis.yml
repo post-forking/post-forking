@@ -6,8 +6,10 @@ language: php
 
 # Versions of PHP to test against
 php:
+  - 5.2
   - 5.3
   - 5.4
+  - 5.5
 
 # Specify versions of WordPress to test against
 # WP_VERSION = WordPress version number (use "master" for SVN trunk)
@@ -25,4 +27,9 @@ before_script:
     - export WP_TESTS_DIR=/tmp/wordpress-tests/
     - bash bin/install-wp-tests.sh wordpress_test root '' localhost $WP_VERSION 
 
-script: phpunit
+after_script:
+    - phpenv local 5.4
+    - php vendor/bin/coveralls -v
+    - phpenv local --unset
+
+script: phpunit --coverage-clover clover.xml
