@@ -24,20 +24,6 @@ class Fork_Options_Help {
 
 		$this->parent = &$parent;
 		
-		// define the tabs on the settings page
-		$this->tabs = array(
-			'overview' => array(
-				'id'      => 'fork_settings_help_overview',
-				'title'   => __( 'Overview', 'post-forking' ),
-				'content' => $this->get_content()
-			),
-			'post-types' => array(
-				'id'    => 'fork_settings_help_post_types',
-				'title' => __( 'Post Types', 'post-forking' ),
-				'content' => $this->get_content( 'post-types' )
-			)
-		);
-		
 		add_filter( 'contextual_help', array( $this, 'show' ), 10, 3 );
 	}
 	
@@ -52,6 +38,20 @@ class Fork_Options_Help {
 		// check for the right page
 		if ( $this->current_screen !== $screen_id )
 			return;
+		
+		// define the tabs on the settings page
+		$this->tabs = array(
+			'overview' => array(
+				'id'      => 'fork_settings_help_overview',
+				'title'   => __( 'Overview', 'post-forking' ),
+				'content' => $this->get_content()
+			),
+			'post-types' => array(
+				'id'      => 'fork_settings_help_post_types',
+				'title'   => __( 'Post Types', 'post-forking' ),
+				'content' => $this->get_content( 'post-types' )
+			)
+		);
 		
 		foreach ( $this->tabs as $id => $data ) {
 			
