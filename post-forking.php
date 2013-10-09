@@ -7,7 +7,7 @@ Version:     0.2.1
 Plugin URI:  http://postforking.wordpress.com
 License:     GPLv2 or Later
 Domain Path: /languages
-Text Domain: fork
+Text Domain: post-forking
  */
 
 /* Post Forking
