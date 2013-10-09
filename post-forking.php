@@ -147,7 +147,11 @@ class Fork {
 			'label' => _x( 'Merged', 'post-forking' ),
 			'public' => true,
 			'exclude_from_search' => true,
-			'label_count' => _n_noop( 'Merged <span class="count">(%s)</span>', 'Merged <span class="count">(%s)</span>' ),
+			'label_count' => _n_noop( 
+				'Merged <span class="count">(%s)</span>',
+				'Merged <span class="count">(%s)</span>',
+				'post-forking'
+			),
 		);
 
 		register_post_status( 'merged', $status_args );
