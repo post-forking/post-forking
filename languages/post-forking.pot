@@ -1,230 +1,363 @@
-# Copyright (C) 2013 Post Forking
-# This file is distributed under the same license as the Post Forking package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Post Forking 0.2-alpha\n"
+"Project-Id-Version: Post Forking v0.2.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/post-forking\n"
 "POT-Creation-Date: 2013-08-26 06:48:27+00:00\n"
+"PO-Revision-Date: 2013-10-09 20:29:41+0000\n"
+"Last-Translator: Frank Bueltge <frank@bueltge.de>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2013-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-Language: \n"
+"X-Poedit-Country: \n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;__ngettext:1,2;_n:1,2;__ngettext_noop:1,2;_n_noop:1,2;_c,_nc:4c,1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-Bookmarks: \n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Textdomain-Support: yes"
 
-#: includes/admin.php:124 includes/admin.php:127
+#: includes/admin.php:124
+#: includes/admin.php:127
+#@ post-forking
 msgid "Fork updated."
 msgstr ""
 
 #: includes/admin.php:125
+#@ post-forking
 msgid "Custom field updated."
 msgstr ""
 
 #: includes/admin.php:126
+#@ post-forking
 msgid "Custom field deleted."
 msgstr ""
 
 #: includes/admin.php:128
+#, php-format
+#@ post-forking
 msgid "Fork restored to revision from %s"
 msgstr ""
 
 #: includes/admin.php:129
+#, php-format
+#@ post-forking
 msgid "Fork published. <a href=\"%s\">Download Fork</a>"
 msgstr ""
 
 #: includes/admin.php:130
+#@ post-forking
 msgid "Fork saved."
 msgstr ""
 
 #: includes/admin.php:131
+#@ post-forking
 msgid "Fork submitted."
 msgstr ""
 
 #: includes/admin.php:132
+#@ post-forking
 msgid "Fork scheduled for:"
 msgstr ""
 
 #: includes/admin.php:133
+#@ post-forking
 msgid "Fork draft updated."
 msgstr ""
 
 #: includes/admin.php:168
+#@ post-forking
 msgid "Create branch"
 msgstr ""
 
-#: includes/admin.php:168 includes/merge.php:79 includes/merge.php:262
+#: includes/admin.php:168
+#: includes/merge.php:79
+#: includes/merge.php:262
 #: templates/post-meta-box.php:4
+#@ post-forking
 msgid "Fork"
 msgstr ""
 
-#: includes/admin.php:174 templates/fork-meta-box.php:3
+#: includes/admin.php:174
+#: templates/fork-meta-box.php:3
+#@ post-forking
 msgid "Compare"
 msgstr ""
 
 #: includes/diff.php:44
+#@ post-forking
 msgid "Compare a Fork to its parent"
 msgstr ""
 
 #: includes/diff.php:81
+#@ post-forking
 msgid "Invalid type for right side; must be a fork."
 msgstr ""
 
 #: includes/diff.php:96
+#@ default
 msgid "Failed to save"
 msgstr ""
 
 #: includes/merge.php:50
+#@ post-forking
 msgid "You are not authorized to merge forks"
 msgstr ""
 
-#: includes/merge.php:79 includes/merge.php:262
+#: includes/merge.php:79
+#: includes/merge.php:262
+#@ post-forking
 msgid "Current Version"
 msgstr ""
 
 #: includes/options.php:83
+#@ post-forking
 msgid "Fork Settings"
 msgstr ""
 
 #: includes/options.php:83
+#@ post-forking
 msgid "Settings"
 msgstr ""
 
-#: post-forking.php:106 post-forking.php:117
+#: post-forking.php:112
+#: post-forking.php:123
+#@ default
 msgctxt "post-forking"
 msgid "Forks"
 msgstr ""
 
-#: post-forking.php:107
+#: post-forking.php:113
+#@ default
 msgctxt "post-forking"
 msgid "Fork"
 msgstr ""
 
-#: post-forking.php:110
+#: post-forking.php:116
+#@ default
 msgctxt "post-forking"
 msgid "Edit Fork"
 msgstr ""
 
-#: post-forking.php:111
+#: post-forking.php:117
+#@ default
 msgctxt "post-forking"
 msgid "New Fork"
 msgstr ""
 
-#: post-forking.php:112
+#: post-forking.php:118
+#@ default
 msgctxt "post-forking"
 msgid "View Fork"
 msgstr ""
 
-#: post-forking.php:113
+#: post-forking.php:119
+#@ default
 msgctxt "post-forking"
 msgid "Search Forks"
 msgstr ""
 
-#: post-forking.php:114
+#: post-forking.php:120
+#@ default
 msgctxt "post-forking"
 msgid "No forks found"
 msgstr ""
 
-#: post-forking.php:115
+#: post-forking.php:121
+#@ default
 msgctxt "post-forking"
 msgid "No forks found in Trash"
 msgstr ""
 
-#: post-forking.php:116
+#: post-forking.php:122
+#@ default
 msgctxt "post-forking"
 msgid "Parent Fork:"
 msgstr ""
 
-#: post-forking.php:141
+#: post-forking.php:147
+#@ default
 msgctxt "post-forking"
 msgid "Merged"
 msgstr ""
 
-#: post-forking.php:144
+#: post-forking.php:151
+#, php-format
+#@ post-forking
 msgid "Merged <span class=\"count\">(%s)</span>"
 msgid_plural "Merged <span class=\"count\">(%s)</span>"
-msgstr[0] ""
-msgstr[1] ""
+msgstr[0] "Zusammengeführt <span class=\"count\">(%s)</span>"
+msgstr[1] "Zusammengeführt <span class=\"count\">(%s)</span>"
 
-#: post-forking.php:275
+#: post-forking.php:285
+#@ post-forking
 msgid "That post type does not support forking"
 msgstr ""
 
-#: post-forking.php:280
+#: post-forking.php:290
+#@ post-forking
 msgid "You are not authorized to fork that post"
 msgstr ""
 
 #: templates/author-post-meta-box.php:2
+#@ post-forking
 msgid "Create New Branch"
 msgstr ""
 
 #: templates/branches-dropdown.php:2
+#@ post-forking
 msgid "Branch:"
 msgstr ""
 
 #: templates/branches-dropdown.php:3
+#@ original
 msgid "Original"
 msgstr ""
 
 #: templates/conflict-warning.php:5
-msgid ""
-"This fork cannot be merged with its parent post. Please resolve the conflict "
-"below before attempting to publish again, or use the <a href=\"%s"
-"\">interactive merge tool.</a>"
+#, php-format
+#@ post-forking
+msgid "This fork cannot be merged with its parent post. Please resolve the conflict below before attempting to publish again, or use the <a href=\"%s\">interactive merge tool.</a>"
 msgstr ""
 
 #: templates/diff.php:31
+#@ post-forking
 msgid "Compare Fork:"
 msgstr ""
 
-#: templates/diff.php:32 templates/fork-meta-box.php:3
+#: templates/diff.php:32
+#: templates/fork-meta-box.php:3
+#, php-format
+#@ post-forking
 msgid "Forked from <a href=\"%1$s\">%2$s</a>"
 msgstr ""
 
 #: templates/diff.php:43
+#@ post-forking
 msgid "Manually Merge Fork"
 msgstr ""
 
 #: templates/diff.php:45
-msgid ""
-"Clicking \"Manually Merge Fork\" will save your changes above to the "
-"original post and mark the fork as merged."
+#@ post-forking
+msgid "Clicking \"Manually Merge Fork\" will save your changes above to the original post and mark the fork as merged."
 msgstr ""
 
 #: templates/fork-meta-box.php:9
+#@ post-forking
 msgid "Save Fork"
 msgstr ""
 
 #: templates/fork-meta-box.php:15
+#@ post-forking
 msgid "Merge"
 msgstr ""
 
-#: templates/options.php:7
+#: templates/options.php:8
+#@ post-forking
 msgid "Fork Options"
 msgstr ""
 
-#: templates/options.php:12
+#: includes/options-help.php:36
+#: templates/options.php:13
+#@ post-forking
 msgid "Post Types"
 msgstr ""
 
 #: templates/post-meta-box.php:2
+#@ post-forking
 msgid "View Fork"
 msgstr ""
 
-#. Plugin Name of the plugin/theme
+#. translators: plugin header field 'Name'
+#: post-forking.php:0
+#@ post-forking
 msgid "Post Forking"
 msgstr ""
 
-#. Plugin URI of the plugin/theme
+#. translators: plugin header field 'PluginURI'
+#: post-forking.php:0
+#@ post-forking
 msgid "http://postforking.wordpress.com"
 msgstr ""
 
-#. Description of the plugin/theme
-msgid ""
-"WordPress Post Forking allows users to \"fork\" or create an alternate "
-"version of content to foster a more collaborative approach to WordPress "
-"content curation."
+#. translators: plugin header field 'Description'
+#: post-forking.php:0
+#@ post-forking
+msgid "WordPress Post Forking allows users to \"fork\" or create an alternate version of content to foster a more collaborative approach to WordPress content curation."
 msgstr ""
 
-#. Author of the plugin/theme
+#. translators: plugin header field 'Author'
+#: post-forking.php:0
+#@ post-forking
 msgid "Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin"
 msgstr ""
+
+#: includes/options-help.php:31
+#@ post-forking
+msgid "Overview"
+msgstr ""
+
+#. translators: plugin header field 'Version'
+#: post-forking.php:0
+#@ post-forking
+msgid "0.2.1"
+msgstr ""
+
+#: templates/options-help-post-types.php:9
+#@ post-forking
+msgid "First Content on Contextual help - Post Types"
+msgstr ""
+
+#: templates/options-help-sidebar.php:9
+#@ post-forking
+msgid "For more information:"
+msgstr ""
+
+#: templates/options-help-sidebar.php:11
+#@ post-forking
+msgid "<a href=\"https://github.com/post-forking/post-forking\">Project repository</a>"
+msgstr ""
+
+#: templates/options-help-sidebar.php:12
+#@ post-forking
+msgid "<a href=\"https://github.com/post-forking/post-forking/wiki\">Post Forking Wiki</a>"
+msgstr ""
+
+#: templates/options-help.php:9
+#@ post-forking
+msgid "WordPress Post Forking introduces many of Git's well-established conventions to the WordPress world, and as a result, uses a unique vocabulary to describe what it does:"
+msgstr ""
+
+#: templates/options-help.php:11
+#, php-format
+#@ post-forking
+msgid "%sPost%s - Any WordPress post that uses the post_content field, including posts, pages, and custom post types"
+msgstr ""
+
+#: templates/options-help.php:12
+#, php-format
+#@ post-forking
+msgid "%sFork%s - Clone of a post intended for editing without disturbing the parent post"
+msgstr ""
+
+#: templates/options-help.php:13
+#, php-format
+#@ post-forking
+msgid "%sBranch%s - Parallel versions of the same parent post, owned by the post author"
+msgstr ""
+
+#: templates/options-help.php:14
+#, php-format
+#@ post-forking
+msgid "%sMerge%s - To push a fork's changes back into its parent post"
+msgstr ""
+
+#: templates/options-help.php:15
+#, php-format
+#@ post-forking
+msgid "%sConflict%s - When a post is forked if a given line is changed on the fork, and that same line is subsequently edited on the parent post prior to the merge, the post cannot be automatically merged, and the conflict is presented to the merger to resolve"
+msgstr ""
+
