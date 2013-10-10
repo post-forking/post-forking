@@ -7,7 +7,7 @@ Version:     0.2.1
 Plugin URI:  http://postforking.wordpress.com
 License:     GPLv2 or Later
 Domain Path: /languages
-Text Domain: fork
+Text Domain: post-forking
  */
 
 /* Post Forking
@@ -41,6 +41,7 @@ Text Domain: fork
 
 require_once dirname( __FILE__ ) . '/includes/capabilities.php';
 require_once dirname( __FILE__ ) . '/includes/options.php';
+require_once dirname( __FILE__ ) . '/includes/options-help.php';
 require_once dirname( __FILE__ ) . '/includes/admin.php';
 require_once dirname( __FILE__ ) . '/includes/merge.php';
 require_once dirname( __FILE__ ) . '/includes/revisions.php';
@@ -61,6 +62,7 @@ class Fork {
 
 		$this->capabilities = new Fork_Capabilities( $this );
 		$this->options = new Fork_Options( $this );
+		$this->options_help = new Fork_Options_Help( $this );
 		$this->branches = new Fork_Branches( $this );
 		$this->preview = new Fork_Preview( $this );
 
@@ -145,7 +147,11 @@ class Fork {
 			'label' => _x( 'Merged', 'post-forking' ),
 			'public' => true,
 			'exclude_from_search' => true,
-			'label_count' => _n_noop( 'Merged <span class="count">(%s)</span>', 'Merged <span class="count">(%s)</span>' ),
+			'label_count' => _n_noop( 
+				'Merged <span class="count">(%s)</span>',
+				'Merged <span class="count">(%s)</span>',
+				'post-forking'
+			),
 		);
 
 		register_post_status( 'merged', $status_args );

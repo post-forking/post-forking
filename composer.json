@@ -1,0 +1,25 @@
+{
+	"name": "post-forking/post-forking",
+	"description": "WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.",
+	"license": "GPL 2+",
+	"version": "0.2.1",
+	"type": "wordpress-plugin",
+	"authors": [
+		{
+			"name": "Benjamin J. Balter",
+			"role": "Developer"
+		},
+		{
+			"name": "Daniel Bachhuber",
+			"role": "Developer"
+		},
+		{
+			"name": "Aaron Jorbin",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"php": ">5.2.4",
+		"composer/installers": "~1.0"
+	}
+}
