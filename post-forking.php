@@ -193,13 +193,18 @@ class Fork {
 	}
 
 	/**
-	 * Returns an array of post type objects for all registered post types other than fork
+	 * Returns an array of post type objects for all registered post types that support 'revisions' other than fork
 	 * @param return array array of post type objects
 	 */
 	function get_potential_post_types() {
 
 		$post_types = get_post_types( array( 'show_ui' => true ), 'objects' );
 		unset( $post_types['fork'] );
+		foreach($post_types as $post_type) {
+			if (!post_type_supports( $post_type->name, 'revisions')) {
+				unset($post_types[$post_type->name]); 
+			}
+		}
 		return $post_types;
 
 	}
