@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Post Forking package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Post Forking 0.2-alpha\n"
-"Report-Msgid-Bugs-To: http://wordpress.org/tag/post-forking\n"
-"POT-Creation-Date: 2013-08-26 06:48:27+00:00\n"
+"Project-Id-Version: Post Forking 0.2.1\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/support/plugin/post-forking\n"
+"POT-Creation-Date: 2013-10-09 21:40:33+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -89,67 +89,67 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: post-forking.php:106 post-forking.php:117
+#: post-forking.php:110 post-forking.php:121
 msgctxt "post-forking"
 msgid "Forks"
 msgstr ""
 
-#: post-forking.php:107
+#: post-forking.php:111
 msgctxt "post-forking"
 msgid "Fork"
 msgstr ""
 
-#: post-forking.php:110
+#: post-forking.php:114
 msgctxt "post-forking"
 msgid "Edit Fork"
 msgstr ""
 
-#: post-forking.php:111
+#: post-forking.php:115
 msgctxt "post-forking"
 msgid "New Fork"
 msgstr ""
 
-#: post-forking.php:112
+#: post-forking.php:116
 msgctxt "post-forking"
 msgid "View Fork"
 msgstr ""
 
-#: post-forking.php:113
+#: post-forking.php:117
 msgctxt "post-forking"
 msgid "Search Forks"
 msgstr ""
 
-#: post-forking.php:114
+#: post-forking.php:118
 msgctxt "post-forking"
 msgid "No forks found"
 msgstr ""
 
-#: post-forking.php:115
+#: post-forking.php:119
 msgctxt "post-forking"
 msgid "No forks found in Trash"
 msgstr ""
 
-#: post-forking.php:116
+#: post-forking.php:120
 msgctxt "post-forking"
 msgid "Parent Fork:"
 msgstr ""
 
-#: post-forking.php:141
+#: post-forking.php:145
 msgctxt "post-forking"
 msgid "Merged"
 msgstr ""
 
-#: post-forking.php:144
+#: post-forking.php:148
 msgid "Merged <span class=\"count\">(%s)</span>"
 msgid_plural "Merged <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: post-forking.php:275
+#: post-forking.php:279
 msgid "That post type does not support forking"
 msgstr ""
 
-#: post-forking.php:280
+#: post-forking.php:284
 msgid "You are not authorized to fork that post"
 msgstr ""
 
