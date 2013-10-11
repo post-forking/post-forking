@@ -1,3 +1,4 @@
 .DS_Store
+logs/
 tests/wordpress-tests/
 node_modules
