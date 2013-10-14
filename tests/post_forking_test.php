@@ -44,7 +44,7 @@ class Post_Forking_Test extends WP_UnitTestCase {
 		 
 		 $user = array(
 		 	'role' => $role,
-		 	'user_login' => ( $user_login ) ? $user_login : rand_str(),
+		 	'user_login' => ( $user_login ) ? $user_login : $role .'-'. rand_str(),
 		 	'user_pass' => ( $pass ) ? $pass: rand_str(),
 		 	'user_email' => ( $email ) ? $email : rand_str() . '@example.com',
 		 );
