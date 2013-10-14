@@ -10,6 +10,7 @@ class Fork_Capabilities {
 	public $defaults = array(
 		'administrator' => array(
 			'edit_forks'             => true,
+			'edit_fork'              => true,
 			'edit_others_forks'      => true,
 			'edit_private_forks'     => true,
 			'edit_published_forks'   => true,
@@ -23,7 +24,7 @@ class Fork_Capabilities {
 		),
 		'editor' => array(
 			'edit_forks'             => true,
-			'edit_fork'             => true,
+			'edit_fork'              => true,
 			'edit_others_forks'      => true,
 			'edit_private_forks'     => true,
 			'edit_published_forks'   => true,
@@ -125,12 +126,13 @@ class Fork_Capabilities {
   	     	// prevent editing of 'merged' posts.
   	     	case 'edit_post':
   	     		if ( empty( $args ) ) break;
-  	     		if ( 'fork' == get_post_type( $args[0] ) && 'merged' == get_post_status( $args[0] ) )
+  	     		if ( 'fork' == get_post_type( $args[0] ) && in_array( get_post_status( $args[0] ), array('publish', 'merged') ) )
   	     			$caps[] = 'do_not_allow';
         	break;
 
+			// Deprecate this.  Eliminate the concept of Branches.  Only Forks will survive.
         	case 'branch_post':
-        	
+			
         	   unset( $caps[ array_search( $cap, $caps ) ] );
         	   $caps[] = $cpt->cap->edit_posts;
 
@@ -144,6 +146,7 @@ class Fork_Capabilities {
                             	       
         	break;
 
+
 			// This should be based on the parent post.  See https://github.com/post-forking/post-forking/issues/96 
         	case 'fork_post':
         	   unset( $caps[ array_search( $cap, $caps ) ] );
@@ -153,18 +156,24 @@ class Fork_Capabilities {
 
 			// This should be based on the parent post.  See https://github.com/post-forking/post-forking/issues/96 
         	case 'publish_fork':
-           	   unset( $caps[ array_search( $cap, $caps ) ] );
-  	       	   $caps[] = $cpt->cap->publish_posts;
+				unset( $caps[ array_search( $cap, $caps ) ] );
+  	       	   	//$caps[] = $cpt->cap->publish_posts;
 
-               if ( !is_array( $args ) )
-                   break;
+               	if ( !is_array( $args ) )
+                	break;
 
-                $cap = get_post_type_object( get_post_type( $args[0] ) )->cap->edit_post;
+				if ('publish' ===  get_post( $args[0] )->post_status) 
+	               	$edit_parent_cap = get_post_type_object( get_post_type( get_post($args[0])->post_parent ) )->cap->edit_published_posts;
+				else
+	               	$edit_parent_cap = get_post_type_object( get_post_type( get_post($args[0])->post_parent ) )->cap->edit_post;
+				
                 
-               //if user cannot edit parent post, don't let them publish
-               if ( !user_can( $userID, $cap, $args[0] ) ) {
-                   $caps[] = 'do_not_allow';
-               }
+               	//if user cannot edit parent post, don't let them publish
+               	if ( user_can( $userID, $edit_parent_cap, get_post($args[0])->post_parent ) ) {
+					$caps = array();
+               	} else {
+                   	$caps[] = 'do_not_allow';
+			   	}
 
         	break;
     	
