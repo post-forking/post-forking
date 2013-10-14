@@ -103,10 +103,9 @@ class WP_Test_Post_Forking_Merge extends Post_Forking_Test {
 	 * @group merge
 	 */
 
-	function test_author_merging_subscriber_fork_of_authors_post() {
+	function test_author_merging_fork_by_another_author_of_original_authors_post() {
 		$author = $this->create_user('author');
 		$author2 = $this->create_user('author');
-
 		$this->merge_test_with_authors( $author2, $author, $author );
 	}
 
