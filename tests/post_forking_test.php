@@ -44,7 +44,7 @@ class Post_Forking_Test extends WP_UnitTestCase {
 		 
 		 $user = array(
 		 	'role' => $role,
-		 	'user_login' => ( $user_login ) ? $user_login : rand_str(),
+		 	'user_login' => ( $user_login ) ? $user_login : $role .'-'. rand_str(),
 		 	'user_pass' => ( $pass ) ? $pass: rand_str(),
 		 	'user_email' => ( $email ) ? $email : rand_str() . '@example.com',
 		 );
@@ -55,18 +55,20 @@ class Post_Forking_Test extends WP_UnitTestCase {
 		 
 	 }
 	 
-	 function create_fork( $branch = false, $revision = true  ) {
+	 function create_fork( $branch = false, $revision = true, $post_author = null, $fork_author = null  ) {
 	 
 	 	$fork = $this->get_instance();
-	 	$post = $this->create_post();
+	 	$post = $this->create_post( $post_author );
 	 	
 	 	//make a revision to make finding parent revisions easier
 	 	if ( $revision )
 		 	wp_update_post( array( 'ID' => $post, 'post_name' => 'bar' ) );
 			
 	 	$post = get_post( $post ); 
-	
-	 	if ( $branch )
+		
+		if ($fork_author !== null)
+			$author = $fork_author;
+		elseif ( $branch )
 	 		$author = $post->post_author;
 		else
 			$author = $this->create_user();
@@ -112,13 +114,16 @@ class Post_Forking_Test extends WP_UnitTestCase {
 	}
 
 	
-	function assertDied( $null, $msg =  null ) {
+	function assertDied( $null, $msg =  null , $reset = true ) {
     	
     	if ( $msg == null )
     	   $msg = 'Did not properly trip `wp_die()`';
     	   
     	$this->assertTrue( $this->die_handler->died(), $msg );
-    	
+
+		// Afer we test, reset for the next time unless we specificaly say otherwise
+		if ($reset)
+			$this->die_handler->reset();
 	}
 	
 	function test_test() {
