@@ -171,5 +171,11 @@ class WP_Test_Post_Forking_Merge extends Post_Forking_Test {
 		$this->assertTrue( $instance->merge->has_conflict_markup( $fork->ID ) );	
 		
 	}
+
+	function test_merge_draft_does_not_publish_post() {
+		$admin = $this->create_user();  
+		$testPosts = $this->merge_test_with_authors( $admin , $admin);
+		$this->assertEquals( get_post($testPosts['post'])->post_status, 'draft');
+	}
 	
 }
