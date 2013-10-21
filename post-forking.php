@@ -148,7 +148,6 @@ class Fork {
 			'label_count' => _n_noop( 'Merged <span class="count">(%s)</span>', 'Merged <span class="count">(%s)</span>' ),
 		);
 
-		register_post_status( 'merged', $status_args );
 	}
 
 	/**

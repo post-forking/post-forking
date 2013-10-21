@@ -174,9 +174,8 @@ class WP_Test_Post_Forking_Merge extends Post_Forking_Test {
 
 	function test_merge_draft_does_not_publish_post() {
 		$admin = $this->create_user();  
-		$test = $this->merge_test_with_authors( $admin , $admin);
-		$this->assertEquals( get_post($test['post'])->post_status, 'draft');
-
+		$testPosts = $this->merge_test_with_authors( $admin , $admin);
+		$this->assertEquals( get_post($testPosts['post'])->post_status, 'draft');
 	}
 	
 }
