@@ -8,8 +8,8 @@ class Fork_Options {
 
 	public $parent;
 	public $key = 'fork';
-	public $defaults = array( 'post_types' => array( 'post' => true ) );
-	
+	public $defaults = array( 'post_types' => array( 'post' => true ), 'require_approval' => 0 );
+
 	/**
 	 * Hooks
 	 */
@@ -56,9 +56,9 @@ class Fork_Options {
 	function get() {
 
 		$options = get_option( $this->key );
-		$options = shortcode_atts( $this->defaults, $options );	
+		$options = shortcode_atts( $this->defaults, $options );
 		return $options;
-			
+
 	}
 
 
@@ -79,7 +79,7 @@ class Fork_Options {
 	 * Register Settings menu
 	 */
 	function register_menu() {
-		
+
 		add_submenu_page( 'edit.php?post_type=fork', __( 'Fork Settings', 'post-forking' ), __( 'Settings', 'post-forking' ), 'manage_options', 'fork_settings', array( $this, 'options' ) );
 	}
 
@@ -112,6 +112,9 @@ class Fork_Options {
 		foreach ( $input['post_types'] as $post_type => $state ) {
 			$output['post_types'][$post_type] = ( $state == 'on' );
 		}
+
+		if( isset( $input['require_approval'] ) )
+			$output['require_approval'] = $input['require_approval'];
 
 		return $output;
 

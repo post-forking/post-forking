@@ -74,6 +74,31 @@ class Fork {
 
 	}
 
+
+	function install() {
+
+		remove_role( 'fork_approver' );
+		$fork_approver = add_role( 'fork_approver', __( 'Fork Approver' ) );
+
+		$fork_approver->add_cap( 'read', true );
+		$fork_approver->add_cap( 'edit_posts', true );
+		$fork_approver->add_cap( 'edit_others_posts', true );
+
+		$fork_approver->add_cap( 'edit_forks', true );
+		$fork_approver->add_cap( 'edit_others_forks', true );
+		$fork_approver->add_cap( 'edit_private_forks', true );
+		$fork_approver->add_cap( 'edit_published_forks', false );
+		$fork_approver->add_cap( 'read_forks', true );
+		$fork_approver->add_cap( 'read_private_forks', true );
+		$fork_approver->add_cap( 'delete_forks', false );
+		$fork_approver->add_cap( 'delete_others_forks', false );
+		$fork_approver->add_cap( 'delete_private_forks', false );
+		$fork_approver->add_cap( 'delete_published_forks', false );
+		$fork_approver->add_cap( 'publish_forks', false );
+		$fork_approver->add_cap( 'approve_forks', true );
+     }
+
+
 	/**
 	 * Init i18n files
 	 * Must be done early on init because they need to be in place when register_cpt is called
@@ -201,7 +226,7 @@ class Fork {
 		unset( $post_types['fork'] );
 		foreach($post_types as $post_type) {
 			if (!post_type_supports( $post_type->name, 'revisions')) {
-				unset($post_types[$post_type->name]); 
+				unset($post_types[$post_type->name]);
 			}
 		}
 		return $post_types;
@@ -424,3 +449,5 @@ class Fork {
 }
 
 $fork = new Fork();
+
+register_activation_hook( __FILE__, array( 'Fork', 'install' ) );

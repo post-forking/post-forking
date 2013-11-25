@@ -8,6 +8,7 @@ class Fork_Merge {
 
 	public $ttl = 1; //super-short TTL means we cache within page load, but don't ever hit persistant cache
 	public $conflict_meta = '_conflict_marked';
+	public $approval_meta = '_post_fork_approved';
 
 	function __construct( &$parent ) {
 
@@ -22,6 +23,7 @@ class Fork_Merge {
 		if ( !class_exists( 'Text_Diff3' ) )
 			require_once dirname( __FILE__ ) . '/diff3.php';
 
+		add_action( 'save_post', array( $this, 'save_approval' ), 10, 2 );
 		add_filter( 'wp_insert_post_data', array( $this, 'check_merge_conflict' ), 10, 2 );
 		add_action( 'admin_notices', array( $this, 'conflict_warning' ) );
 		add_action( 'transition_post_status', array( $this, 'intercept_publish' ), 0, 3 );
@@ -258,6 +260,43 @@ class Fork_Merge {
 
 		return (bool) preg_match( $pattern, $fork->post_content );
 
+	}
+
+
+	/* Save the meta box's post metadata. */
+	function save_approval( $post_id, $post ) {
+
+		/* Get the post type object. */
+		$post_type = get_post_type_object( $post->post_type );
+
+		//verify post type
+		if ( $post_type->name != 'fork' )
+			return $post;
+
+		/* Check if the current user has permission to edit the post. */
+		if ( !current_user_can( $post_type->cap->edit_post, $post_id ) )
+			return $post_id;
+
+		/* Get the posted data and sanitize it. */
+		$new_meta_value = ( isset( $_POST['_post_fork_approved'] ) ? intval( $_POST['_post_fork_approved'] ) : '' );
+
+		/* Get the meta key. */
+		$meta_key = '_post_fork_approved';
+
+		/* Get the meta value of the custom field key. */
+		$meta_value = get_post_meta( $post_id, $meta_key, true );
+
+		/* If a new meta value was added and there was no previous value, add it. */
+		if ( $new_meta_value && '' == $meta_value )
+			add_post_meta( $post_id, $meta_key, $new_meta_value, true );
+
+		/* If the new meta value does not match the old value, update it. */
+		elseif ( $new_meta_value && $new_meta_value != $meta_value )
+			update_post_meta( $post_id, $meta_key, $new_meta_value );
+
+		/* If there is no new meta value but an old value exists, delete it. */
+		elseif ( '' == $new_meta_value && $meta_value )
+			delete_post_meta( $post_id, $meta_key, $meta_value );
 	}
 
 
