@@ -89,6 +89,7 @@ class Fork_Capabilities {
 
 		$this->parent = &$parent;
 		add_action( 'init', array( $this, 'add_caps' ) );
+		add_action( 'load-post.php', array( $this, 'edit_screen' ) );
 		add_filter( 'map_meta_cap', array( $this, 'map_meta_cap' ), 10, 4 );
 
 	}
@@ -200,5 +201,40 @@ class Fork_Capabilities {
 
 	}
 
+	function edit_screen() {
+
+		if( !isset( $_GET['post'] ) )
+			return;
+
+		$post = get_post( $_GET['post'] );
+
+		// Check if fork is approved
+		$approved = get_post_meta( $post->ID, '_post_fork_approved', true );
+
+		// Check if approvals are required
+		$options = get_option( 'fork' );
+
+		if( $options['require_approval'] = 1 ) {
+
+			if( $approved == 1 ) {
+
+				$scr = get_current_screen();
+				remove_post_type_support( $scr->post_type, 'title' );
+				remove_post_type_support( $scr->post_type, 'editor' );
+				add_action( 'edit_form_after_editor', array( $this, 'render_read_only' ) );
+
+			}
+		}
+	}
+
+	function render_read_only( $post ) {
+
+		echo '<div id="message" class="updated below-h2"><p>'. __( 'You cannot edit this post because it has already been approved. You can <strong>Merge &amp; Publish</strong>.', 'post-forking' ) . '</p></div>';
+		echo '<h1>' . $post->post_title . '</h1>';
+		echo '<div id="content" style="width=99%;">';
+		echo apply_filters('the_content', $post->post_content);
+		echo '</div>';
+
+	}
 
 }
