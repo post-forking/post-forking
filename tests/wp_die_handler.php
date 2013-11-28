@@ -32,8 +32,6 @@ class Post_Forking_Die_Handler {
 
 		$this->is_wp_die = true;
 
-		echo $msg;
-
 	}
 
 

@@ -234,11 +234,6 @@ class Fork_Merge {
 			return;
 
 		$post = $this->merge( $post->ID );
-		$fork_update = array(
-			'ID' => $post,
-			'post_status' => 'merged',
-		);
-		wp_update_post( $fork_update );
 
 		wp_safe_redirect( admin_url( "post.php?action=edit&post={$post}&message=6" ) );
 		exit();

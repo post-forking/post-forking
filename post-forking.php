@@ -3,11 +3,11 @@
 Plugin Name: Post Forking
 Description: WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
 Author:      Benjamin J. Balter, Daniel Bachhuber, Aaron Jorbin
-Version:     0.2.1
+Version:     0.3.0-alpha
 Plugin URI:  http://postforking.wordpress.com
 License:     GPLv2 or Later
 Domain Path: /languages
-Text Domain: fork
+Text Domain: post-forking
  */
 
 /* Post Forking
@@ -148,7 +148,6 @@ class Fork {
 			'label_count' => _n_noop( 'Merged <span class="count">(%s)</span>', 'Merged <span class="count">(%s)</span>' ),
 		);
 
-		register_post_status( 'merged', $status_args );
 	}
 
 	/**
@@ -193,13 +192,18 @@ class Fork {
 	}
 
 	/**
-	 * Returns an array of post type objects for all registered post types other than fork
+	 * Returns an array of post type objects for all registered post types that support 'revisions' other than fork
 	 * @param return array array of post type objects
 	 */
 	function get_potential_post_types() {
 
 		$post_types = get_post_types( array( 'show_ui' => true ), 'objects' );
 		unset( $post_types['fork'] );
+		foreach($post_types as $post_type) {
+			if (!post_type_supports( $post_type->name, 'revisions')) {
+				unset($post_types[$post_type->name]); 
+			}
+		}
 		return $post_types;
 
 	}
