@@ -214,7 +214,7 @@ class Fork_Capabilities {
 		// Check if approvals are required
 		$options = get_option( 'fork' );
 
-		if( $options['require_approval'] = 1 ) {
+		if( $options['require_approval'] == 1 ) {
 
 			if( $approved == 1 ) {
 
