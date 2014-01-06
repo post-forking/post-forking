@@ -7,7 +7,7 @@ module.exports = function(grunt) {
 	// Project configuration.
 	grunt.initConfig({
 		clean: {
-            admin:['css/admin.min.css', 'js/admin.min.js']
+            admin:['css/admin.min.css', 'js/admin.min.js', 'css/icon.min.css']
 		},
 		cssmin: {
 			admin: {
@@ -16,7 +16,8 @@ module.exports = function(grunt) {
 				dest: BUILD_DIR,
 				ext: '.min.css',
 				src: [
-					'css/admin.css'
+					'css/admin.css',
+					'css/icon.css'
 				]
 			}
 		},
@@ -36,6 +37,7 @@ module.exports = function(grunt) {
 				files: [
                     'js/admin.js',
                     'css/admin.css',
+                    'css/icon.css'
 				],
 				tasks: ['build'],
 				options: {
