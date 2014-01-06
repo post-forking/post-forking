@@ -34,7 +34,7 @@ Text Domain: post-forking
  *
  * @copyright 2012-2013
  * @license GPL v2
- * @version 0.2
+ * @version 0.3.0-alpha
  * @package post_forking
  * @author Benjamin J. Balter <ben@balter.com>
  */
@@ -138,6 +138,13 @@ class Fork {
 			'capability_type'     => array( 'fork', 'forks' ),
 		);
 
+		// Remove when support for 3.7 is dropped
+		include( ABSPATH . WPINC . '/version.php' );
+		if ( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
+			$args['menu_icon'] = plugins_url( '/img/menu-icon.png', __FILE__ );
+			
+		}
+
 		register_post_type( self::post_type, $args );
 
 		$status_args = array(
@@ -171,12 +178,8 @@ class Fork {
 					font-family: "post_forking" !important;
 				}';
 
-		} else {
-			$css = '';
-
-
-		}
 		wp_add_inline_style( 'wp-admin', $css );
+		}
 
 	}
 
