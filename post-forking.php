@@ -34,7 +34,7 @@ Text Domain: post-forking
  *
  * @copyright 2012-2013
  * @license GPL v2
- * @version 0.2
+ * @version 0.3.0-alpha
  * @package post_forking
  * @author Benjamin J. Balter <ben@balter.com>
  */
@@ -53,7 +53,7 @@ class Fork {
 	const post_type = 'fork';
 	public $post_type_support = 'fork'; //key to register when adding post type support
 	public $fields = array( 'post_title', 'post_content' ); //post fields to map from post to fork
-	public $version = '0.2';
+	public $version = '0.3';
 	/**
 	 * Register initial hooks with WordPress core
 	 */
@@ -136,8 +136,14 @@ class Fork {
 			'rewrite'             => true,
 			'map_meta_cap'        => true,
 			'capability_type'     => array( 'fork', 'forks' ),
-			'menu_icon'           => plugins_url( '/img/menu-icon.png', __FILE__ ),
 		);
+
+		// Remove when support for 3.7 is dropped
+		include( ABSPATH . WPINC . '/version.php' );
+		if ( version_compare( $wp_version, '3.8-alpha', '<' ) ) {
+			$args['menu_icon'] = plugins_url( '/img/menu-icon.png', __FILE__ );
+			
+		}
 
 		register_post_type( self::post_type, $args );
 
@@ -147,6 +153,33 @@ class Fork {
 			'exclude_from_search' => true,
 			'label_count' => _n_noop( 'Merged <span class="count">(%s)</span>', 'Merged <span class="count">(%s)</span>' ),
 		);
+
+		$this->add_icon_css();
+
+	}
+
+	/**
+	 * Add css for custom post type
+	 */
+	function add_icon_css() {
+		// we only want to add our icon CSS on the admin side
+		if (! is_admin() )
+			return;
+
+		// Make sure we're working off a clean version.
+		include( ABSPATH . WPINC . '/version.php' );
+		if ( version_compare( $wp_version, '3.8-alpha', '>=' ) ) {
+			// Post MP6 World
+        	$suffix = defined('SCRIPT_DEBUG') && SCRIPT_DEBUG ? '' : '.min'; 
+			wp_enqueue_style( 'post-forking', plugins_url( "/css/icon{$suffix}.css",  __FILE__  ), null, $this->version );
+
+			// Gee, I love that I need to use such a long selector and important to make this work
+			$css = '#adminmenu #menu-posts-fork a .wp-menu-image:before{
+					font-family: "post_forking" !important;
+				}';
+
+		wp_add_inline_style( 'wp-admin', $css );
+		}
 
 	}
 
