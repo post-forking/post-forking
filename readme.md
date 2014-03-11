@@ -141,7 +141,7 @@ Forking a post creates a copy of the most recent version of the post as a "fork"
 
 The fork post type has its own capabilities, allowing a user without the ability to edit or publish on the parent post to edit a fork. Once changes have been made, assuming the user does not have the `publish_fork` capability, the user would submit the fork for review (similar to submitting a Pull Request in GitHub parlance) using the normal WordPress moderation system.
 
-Publishing a fork (either by the fork author, if they have the capability, or my an editor) triggers the merge itself. The post content of the fork undergoes a three way merge with the base revision and current version of the parent post.
+Publishing a fork (either by the fork author, if they have the capability, or by an editor) triggers the merge itself. The post content of the fork undergoes a three way merge with the base revision and current version of the parent post.
 
 A fork can have three post statuses:
 
