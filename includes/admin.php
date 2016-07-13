@@ -236,7 +236,9 @@ class Fork_Admin {
 	 */
 	function remove_add_new_list_table( $classes ) {
 		if ( 'edit-fork' == get_current_screen()->id )
-			return $classes .= ' fork-list';
+			$classes .= ' fork-list';
+			
+		return $classes;
 	}
 
 	/**
