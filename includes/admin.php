@@ -235,9 +235,9 @@ class Fork_Admin {
 	 * Add admin body class for the forks list table view
 	 */
 	function remove_add_new_list_table( $classes ) {
-		if ( 'edit-fork' == get_current_screen()->id )
+		if ( 'edit-fork' == get_current_screen()->id ) {
 			$classes .= ' fork-list';
-			
+		}
 		return $classes;
 	}
 
