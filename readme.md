@@ -1,5 +1,7 @@
 # Post Forking #
 
+> **⚠️ DEPRECATED** - This project is no longer actively maintained. For collaborative WordPress content editing, please consider using the WordPress Gutenberg editor's collaboration features or other modern alternatives.
+
 [![Build Status](https://travis-ci.org/post-forking/post-forking.png)](https://travis-ci.org/post-forking/post-forking) [![Coverage Status](https://coveralls.io/repos/post-forking/post-forking/badge.png)](https://coveralls.io/r/post-forking/post-forking)
 
 WordPress Post Forking allows users to "fork" or create an alternate version of content to foster a more collaborative approach to WordPress content curation.
