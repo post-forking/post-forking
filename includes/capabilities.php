@@ -21,6 +21,7 @@ class Fork_Capabilities {
 			'delete_private_forks'   => true,
 			'delete_published_forks' => true,
 			'publish_forks'          => true,
+			'approve_forks'          => true,
 		),
 		'editor' => array(
 			'edit_forks'             => true,
@@ -35,6 +36,7 @@ class Fork_Capabilities {
 			'delete_private_forks'   => true,
 			'delete_published_forks' => true,
 			'publish_forks'          => true,
+			'approve_forks'          => true,
 		),
 		'author' => array(
 			'edit_forks'             => true,
@@ -48,6 +50,7 @@ class Fork_Capabilities {
 			'delete_private_forks'   => true,
 			'delete_published_forks' => true,
 			'publish_forks'          => true,
+			'approve_forks'          => false,
 		),
 		'subscriber' => array(
 			'edit_forks'             => true,
@@ -61,6 +64,21 @@ class Fork_Capabilities {
 			'delete_private_forks'   => false,
 			'delete_published_forks' => false,
 			'publish_forks'          => false,
+			'approve_forks'          => false,
+		),
+		'fork_approver' => array(
+			'edit_forks'             => true,
+			'edit_others_forks'      => false,
+			'edit_private_forks'     => false,
+			'edit_published_forks'   => true,
+			'read_forks'             => true,
+			'read_private_forks'     => false,
+			'delete_forks'           => true,
+			'delete_others_forks'    => false,
+			'delete_private_forks'   => false,
+			'delete_published_forks' => false,
+			'publish_forks'          => false,
+			'approve_forks'          => true,
 		),
 	);
 
@@ -71,10 +89,10 @@ class Fork_Capabilities {
 
 		$this->parent = &$parent;
 		add_action( 'init', array( $this, 'add_caps' ) );
+		add_action( 'load-post.php', array( $this, 'edit_screen' ) );
 		add_filter( 'map_meta_cap', array( $this, 'map_meta_cap' ), 10, 4 );
 
 	}
-
 
 	/**
 	 * Adds plugin-specific caps to all roles so that 3rd party plugins can manage them
@@ -85,7 +103,7 @@ class Fork_Capabilities {
 		// Bail Early if we have already set the caps and aren't updating them
 		if ($version !== false && $this->cap_version <= (int) $version)
 			return;
-		
+
 		add_option('post_forking_cap_version' , $this->cap_version, '', 'yes');
 
 		global $wp_roles;
@@ -111,16 +129,16 @@ class Fork_Capabilities {
 			}
 		}
 	}
-	
+
 	function map_meta_cap( $caps, $cap, $userID, $args = null ) {
-  	
+
   	     $parent = $this->parent;
   	     $cpt = get_post_type_object( $parent->get_post_type() );
 
   	     //pre init, CPT not yet registered
   	     if ( !$cpt )
   	         return $caps;
-            
+
   	     switch ( $cap ) {
 
   	     	// prevent editing of 'merged' posts.
@@ -132,29 +150,29 @@ class Fork_Capabilities {
 
 			// Deprecate this.  Eliminate the concept of Branches.  Only Forks will survive.
         	case 'branch_post':
-			
+
         	   unset( $caps[ array_search( $cap, $caps ) ] );
         	   $caps[] = $cpt->cap->edit_posts;
 
                 //no postID given
                 if ( !is_array( $args ) )
                     break;
-                
-                //only let the post author fork the post                
+
+                //only let the post author fork the post
                 if ( $userID != get_post( $args[0] )->post_author )
                     $caps[] = 'do_not_allow';
-                            	       
+
         	break;
 
 
-			// This should be based on the parent post.  See https://github.com/post-forking/post-forking/issues/96 
+			// This should be based on the parent post.  See https://github.com/post-forking/post-forking/issues/96
         	case 'fork_post':
         	   unset( $caps[ array_search( $cap, $caps ) ] );
   	       	   $caps[] = $cpt->cap->edit_posts;
 
         	break;
 
-			// This should be based on the parent post.  See https://github.com/post-forking/post-forking/issues/96 
+			// This should be based on the parent post.  See https://github.com/post-forking/post-forking/issues/96
         	case 'publish_fork':
 				unset( $caps[ array_search( $cap, $caps ) ] );
   	       	   	//$caps[] = $cpt->cap->publish_posts;
@@ -162,12 +180,12 @@ class Fork_Capabilities {
                	if ( !is_array( $args ) )
                 	break;
 
-				if ('publish' ===  get_post( $args[0] )->post_status) 
+				if ('publish' ===  get_post( $args[0] )->post_status)
 	               	$edit_parent_cap = get_post_type_object( get_post_type( get_post($args[0])->post_parent ) )->cap->edit_published_posts;
 				else
 	               	$edit_parent_cap = get_post_type_object( get_post_type( get_post($args[0])->post_parent ) )->cap->edit_post;
-				
-                
+
+
                	//if user cannot edit parent post, don't let them publish
                	if ( user_can( $userID, $edit_parent_cap, get_post($args[0])->post_parent ) ) {
 					$caps = array();
@@ -176,12 +194,47 @@ class Fork_Capabilities {
 			   	}
 
         	break;
-    	
+
         }
-        
+
         return $caps;
-  	
+
 	}
 
+	function edit_screen() {
+
+		if( !isset( $_GET['post'] ) )
+			return;
+
+		$post = get_post( $_GET['post'] );
+
+		// Check if fork is approved
+		$approved = get_post_meta( $post->ID, '_post_fork_approved', true );
+
+		// Check if approvals are required
+		$options = get_option( 'fork' );
+
+		if( $options['require_approval'] == 1 ) {
+
+			if( $approved == 1 ) {
+
+				$scr = get_current_screen();
+				remove_post_type_support( $scr->post_type, 'title' );
+				remove_post_type_support( $scr->post_type, 'editor' );
+				add_action( 'edit_form_after_editor', array( $this, 'render_read_only' ) );
+
+			}
+		}
+	}
+
+	function render_read_only( $post ) {
+
+		echo '<div id="message" class="updated below-h2"><p>'. __( 'You cannot edit this post because it has already been approved. You can <strong>Merge &amp; Publish</strong>.', 'post-forking' ) . '</p></div>';
+		echo '<h1>' . $post->post_title . '</h1>';
+		echo '<div id="content" style="width=99%;">';
+		echo apply_filters('the_content', $post->post_content);
+		echo '</div>';
+
+	}
 
 }

@@ -8,6 +8,7 @@ class Fork_Merge {
 
 	public $ttl = 1; //super-short TTL means we cache within page load, but don't ever hit persistant cache
 	public $conflict_meta = '_conflict_marked';
+	public $approval_meta = '_post_fork_approved';
 
 	function __construct( &$parent ) {
 
@@ -22,6 +23,7 @@ class Fork_Merge {
 		if ( !class_exists( 'Text_Diff3' ) )
 			require_once dirname( __FILE__ ) . '/diff3.php';
 
+		add_action( 'save_post', array( $this, 'save_approval' ), 10, 2 );
 		add_filter( 'wp_insert_post_data', array( $this, 'check_merge_conflict' ), 10, 2 );
 		add_action( 'admin_notices', array( $this, 'conflict_warning' ) );
 		add_action( 'transition_post_status', array( $this, 'intercept_publish' ), 0, 3 );
@@ -257,6 +259,35 @@ class Fork_Merge {
 		$pattern = sprintf( '#\<\<\<\<\<\<\<|\>\>\>\>\>\>\>|&lt;&lt;&lt;&lt;&lt;&lt;&lt;|&gt;&gt;&gt;&gt;&gt;&gt;&gt;#s', __( 'Fork', 'post-forking' ), __( 'Current Version', 'post-forking' ) );
 
 		return (bool) preg_match( $pattern, $fork->post_content );
+
+	}
+
+
+	/* Save the meta box's post metadata. */
+	function save_approval( $post_id, $post ) {
+
+		//get the post type object
+		$post_type = get_post_type_object( $post->post_type );
+
+		//verify post type
+		if ( $post_type->name != 'fork' )
+			return $post;
+
+		//check if the current user has permission to edit the post
+		if ( !current_user_can( $post_type->cap->edit_post, $post_id ) )
+			return $post_id;
+
+		//get the posted data and sanitize it
+		$new_meta_value = ( isset( $_POST['_post_fork_approved'] ) ? intval( $_POST['_post_fork_approved'] ) : '' );
+
+		//get the meta key
+		$meta_key = '_post_fork_approved';
+
+		//get the meta value of the custom field key
+		$meta_value = get_post_meta( $post_id, $meta_key, true );
+
+		//update the meta value
+		update_post_meta( $post_id, $meta_key, $new_meta_value );
 
 	}
 

@@ -16,6 +16,15 @@
 				<?php } ?>
 				</ul></td>
 			</tr>
+			<tr valign="top">
+				<th scope="row"><?php _e( 'Require approval before publishing', 'post-forking' ); ?></th>
+				<td>
+					<?php $options = get_option( 'fork' ); ?>
+					<label for="fork[require_approval]">
+						<input type="checkbox" name="fork[require_approval]" value="1" <?php if( isset( $options['require_approval'] ) && $options['require_approval'] = 1 ) { echo 'checked="checked"'; } ?>>
+					</label>
+				</td>
+			</tr>
 		</table>
 		<?php submit_button(); ?>
 	</form>
